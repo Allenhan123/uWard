@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBlack">#000000</color>
+    <color name="main_Red">#e888aa</color>
+    <color name="Login_Red">#e175bc</color>
+    <color name="splash_Red">#d37c9b</color>
+    <color name="white">#ffffff</color>
+    <color name="white_1">#f9f9f9</color>
+    <color name="default_gray">#676767</color>
+    <color name="defau_gray">#949393</color>
+    <color name="gray">#0d000000</color>
+    <color name="color_underline">#EEEEEE</color><!--分割线-->
+    <color name="pal_10">#0d000000</color>%5黑
+    <color name="pal_12">#a6000000</color>%65黑
+    <color name="app_primary">#ff5722</color>
+    <color name="color_text">#666666</color><!--普通段落文字信息，引导词等-->
+    <color name="color_login">#daf7fe</color><!--普通段落文字信息，引导词等-->
+    <color name="colorHint">#daf7fe</color><!--普通段落文字信息，引导词等-->
+
+    <!--dialog-->
+    <color name="color_dialog_gray">#ededf3</color>
+    <color name="color_dialog_content">#ed7861</color>
+    <color name="color_dialog_title">#303030</color>
+    <color name="color_dialog_content_prompt">#343434</color>
+    <color name="color_type_info">#79b3e4</color>
+    <color name="color_type_help">#e8bd4b</color>
+    <color name="color_type_wrong">#ed7861</color>
+    <color name="color_type_warning">#e8bd4b</color>
+    <color name="color_type_success">#90b06e</color>
+</resources>

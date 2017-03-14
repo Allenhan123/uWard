@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/main_Red">
+
+        <ImageView
+            android:id="@+id/nav_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/home_text_logo"/>
+        <ImageView
+            android:layout_gravity="end"
+            android:id="@+id/nav_go_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:src="@mipmap/yiyi_logo" />
+    </FrameLayout>
+
+</LinearLayout>
