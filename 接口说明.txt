@@ -1,0 +1,187 @@
+项目接口说明：
+一：第三方接口
+	1:短信验证登录：ShareSDK(http://mob.com)
+	2: 客服小依:(环信客服：http://www.easemob.com)
+	3:首页天气:阿凡达API免费(http://www.avatardata.cn)
+	4:支付(阿里pay和微信支付)
+	5：高德地图(http://lbs.amap.com)
+
+二：服务器接口说明 首页：(总连接地址 url：http://192.xxx.x.xxx:xxxx/)
+	1：注册：http://192.xxx.x.xxx:xxxx/?m=register&user=手机号&password=密码
+		说明:字段user和paaword皆为字符串(string)类型
+		返回JSON串：
+		{"status”:”400","message":"Error"}  //status：400：访问成功 其他：访问失败。		message：Error_phone:账号不存在。Error:密码错误。 success：注册成功  
+
+	2:登录：http://192.xxx.x.xxx:xxxx/?m=login&user=手机号&password=密码
+		返回JSON字符串
+		{"status”:”400","message":"success","result":{"data":[{"id":"67","user_name”:”小花”,”sex”:”女”,”vip_type”:”1”,”isPerfect”:”1”}]}}
+		说明：status：400访问成功，message：success登录成功。data字段说明：id:用户唯一标识，user_name:昵称，isPerfect：是否完善偏好设置1：是 0：否 等等 多留字段后期完善资料会用
+
+
+	3:首页轮播图：http://192.xxx.x.xxx:xxxx/?m=top
+返回JSON字符串
+{
+  "status": 400,
+  "message": “succes",
+  "result": [
+    {
+      "time": "2015-10-21 12:56",
+      "title": “YOU衣柜用户指南”,
+      "description": “点击查看用户指南及会员注册详情。”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+      "url": "http://news.163.com/15/1021/12/B6F0FNPP00014AED.html#f=dlist"
+    },
+    {
+      "time": "2015-10-21 11:35",
+      "title": “大品牌LV入驻成功”,
+      "description": “今日国际知名品牌LV入驻本平台，背着LV买菜不在是梦想”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/20151021105327df31f_550.jpg.119x83.jpg",
+      "url": "http://news.163.com/15/1021/11/B6ERQ2DM00014AED.html#f=dlist"
+    },
+    ......
+  ]
+}
+字段说明time：时间。title：标题。description：描述。picUrl：图片地址，url：点击后跳转的链接。前期需要做一个h5的网页仿其他平台对新手用户做一个引导
+
+
+	4:首页服装分类接口：http://192.xxx.x.xxx:xxxx/?m=top_type
+返回JSON字符串
+{
+  "status": 400,
+  "message": “succes",
+  "result": [
+    {
+      “id”: “1”,
+      "title": “小清新”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+    },
+    {
+      “id”: “2”,
+      "title": “御姐范”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+    },{
+      “id”: “3”,
+      "title": “简约中性”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+    },{
+      “id”: “4”,
+      "title": “时尚休闲”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+    },{
+      “id”: “5”,
+      "title": “嘻哈复古”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+    },{
+      “id”: “6”,
+      "title": “性感女神”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+    }{
+      “id”: “7”,
+      "title": “民族风情”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+    },{
+      “id”: “8”,
+      "title": “原创精品”,
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+    }
+    ......
+  ]
+}
+
+
+	5：具体分类：http://192.xxx.x.xxx:xxxx/?m=top_type&type_id=1（传入风格id获取此类别全部商品）
+返回JSON字符串
+{
+  "status": 400,
+  "message": “succes",
+  "result": [
+    {
+      “goodsId”: “1”,
+      "title": “韩版大衣”,
+      "star": “994”,    //喜欢人数
+	"size": “M,L,XL”,   //现有尺码大小
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+	"goodsUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83"    //商品详情链接
+    },
+    {
+      “goodsId”: “2”,
+      "title": “韩版大衣”,
+      "star": “224”,    //喜欢人数
+	"size": “M,L,XL”,   //现有尺码大小
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+	"goodsUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83"    //商品详情链接
+    }
+    ......
+  ]
+}
+
+
+	6:商品详情：http://192.xxx.x.xxx:xxxx/?m=goods&goodsUrl=1
+返回JSON字符串
+{
+  "status": 400,
+  "message": “succes",
+  "result": [
+    {
+      “goodsId”: “1”,
+      "title": “韩版大衣”,
+      "star": “994”,    //喜欢人数
+	"size": “M,L,XL”,   //现有尺码大小
+      "picUrls": [
+		{“picUrl”:”"http://s.cimg.163.com/cnews/						2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg””},
+		{“picUrl”:”"http://s.cimg.163.com/cnews/						2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg””},
+		{“picUrl”:”"http://s.cimg.163.com/cnews/						2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg””}
+	],
+    },
+    {
+      “goodsId”: “2”,
+      "title": “韩版大衣”,
+      "star": “224”,    //喜欢人数
+	"size": “M,L,XL”,   //现有尺码大小
+      "picUrls": [
+		{“picUrl”:”"http://s.cimg.163.com/cnews/						2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg””},
+		{“picUrl”:”"http://s.cimg.163.com/cnews/						2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg””},
+		{“picUrl”:”"http://s.cimg.163.com/cnews/						2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg””}
+	],
+    }
+    ......
+  ]
+}
+
+加入衣柜及商品详情接口具体待定  等到项目进展到这一块的时候在具体协商定字段
+
+	7：时租区同分类区(具体分类可有：高档礼服，COSPLAY服装，演出服，应聘正装)
+
+
+	8：推荐版块：http://192.xxx.x.xxx:xxxx/?m=recommend&userId=1&isPerfect=1（isPerfect：是否完善信息  是：1  否：0）
+完善信息后的返回JSON字符串
+{
+  "status": 400,
+  "message": “succes",
+  "result": [
+    {
+      “goodsId”: “1”,
+      "title": “韩版大衣”,
+      "star": “994”,    //喜欢人数
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+	"goodsUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83"    //商品详情链接
+    },
+    {
+      “goodsId”: “2”,
+      "title": “韩版大衣”,
+      "star": “224”,    //喜欢人数
+      "picUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83.jpg",
+	"goodsUrl": "http://s.cimg.163.com/cnews/2015/10/21/2015102111454712c3a_550.jpg.119x83"    //商品详情链接
+    }
+    ......
+  ]
+}
+
+右滑或者点击喜欢 加入衣柜：http://192.xxx.x.xxx:xxxx/?m=add&goodsId=1&userId=1
+
+下面单品分类同首页分类。
+
+	9：我的衣柜 获取全部：http://192.xxx.x.xxx:xxxx/?m=getAll&userId=1
+
+	10:个人中心模块等界面逻辑出来后再定接口
+
