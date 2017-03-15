@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+
+
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/color_text_theme" />
+
+        <TextView
+            style="@style/ShowTv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="清纯女系列"
+            android:textColor="@color/color_text_theme" />
+
+</LinearLayout>

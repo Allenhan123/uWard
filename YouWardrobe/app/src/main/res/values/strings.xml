@@ -7,4 +7,10 @@
     <string name="recommend_name">推荐</string>
     <string name="wardrobe_name">衣柜</string>
     <string name="me_name">我的</string>
+
+
+
+    <string name="app_test_long">长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—</string>
+    <string name="app_test_short">短文本测试</string>
+
 </resources>
