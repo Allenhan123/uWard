@@ -22,6 +22,6 @@ public class BaseActivity extends AppCompatActivity {
 //      沉浸式状态栏
         StatusBarUtils.setWindowStatusBarColor(this, R.color.main_Red);
 //        隐藏actionbar
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
     }
 }
