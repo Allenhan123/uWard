@@ -10,8 +10,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.adapter.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.ygxinjian.anhui.youwardrobe.Controller.NetworkImageHolderView;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.View.WardrobeProgress;
+
+import java.util.Arrays;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -60,12 +66,39 @@ public class Fragment_Home extends BaseFragment {
 
 
     private LinearLayout headView;
-
+    private ConvenientBanner mConvenientBanner;
+    private String[] images = {
+            "http://img2.imgtn.bdimg.com/it/u=3093785514,1341050958&fm=21&gp=0.jpg",
+            "http://img2.3lian.com/2014/f2/37/d/40.jpg",
+            "http://img2.3lian.com/2014/f2/37/d/39.jpg",
+            "http://f.hiphotos.baidu.com/image/h%3D200/sign=1478eb74d5a20cf45990f9df460b4b0c/d058ccbf6c81800a5422e5fdb43533fa838b4779.jpg",
+            "http://f.hiphotos.baidu.com/image/pic/item/09fa513d269759ee50f1971ab6fb43166c22dfba.jpg"
+    };
     private void initHeadView() {
         headView = (LinearLayout) View.inflate(getContext(), R.layout.head_view_home, null);
+        mConvenientBanner = (ConvenientBanner) headView.findViewById(R.id.banner);
+        mConvenientBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+            @Override
+            public NetworkImageHolderView createHolder() {
+                return new NetworkImageHolderView();
+            }
+        }, Arrays.asList(images))
+                .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_pager_focused})
+                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+
+        initBanner();
 
     }
 
+    private void initBanner() {
+        mConvenientBanner.startTurning(3000);
+        // 进入Banner
+        mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+            }
+        });
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

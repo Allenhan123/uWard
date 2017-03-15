@@ -66,12 +66,10 @@
             android:src="@mipmap/ic_launcher" />
     </LinearLayout>
 
-    <TextView
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-
-        android:background="@color/app_primary"
-        android:text="Banner" />
-
-
+        android:layout_height="170dp"
+        android:background="@mipmap/banner_loading"
+        />
 </LinearLayout>
