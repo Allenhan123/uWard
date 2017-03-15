@@ -18,7 +18,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.splash_Red);
-        new Handler().postDelayed(new Runnable(){
+        boolean b = new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // 判断之前有没有登陆过
@@ -33,6 +33,6 @@ public class SplashActivity extends BaseActivity {
                 DevUtil.gotoActivity(SplashActivity.this, LoginActivity.class);
                 finish();
             }
-        }, 3000);
+        }, 100);
     }
 }
