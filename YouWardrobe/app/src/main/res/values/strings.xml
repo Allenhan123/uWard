@@ -8,7 +8,10 @@
     <string name="wardrobe_name">衣柜</string>
     <string name="me_name">我的</string>
 
-
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
 
     <string name="app_test_long">长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—</string>
     <string name="app_test_short">短文本测试</string>

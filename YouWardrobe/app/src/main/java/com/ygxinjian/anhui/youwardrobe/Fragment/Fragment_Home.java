@@ -41,14 +41,6 @@ public class Fragment_Home extends BaseFragment {
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_home, null);
-//        wardrobeProgress = new WardrobeProgress(mActivity);
-//        wardrobeProgress.show();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                wardrobeProgress.dismiss();
-//            }
-//        },4000);
         return view;
     }
 

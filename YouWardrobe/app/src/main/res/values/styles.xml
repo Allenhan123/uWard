@@ -45,6 +45,9 @@
     <style name="ShowTv1" >
         <item name="android:textSize">18sp</item><!--标题栏-->
     </style>
+    <style name="ShowTv0" >
+        <item name="android:textSize">22sp</item><!--标题栏-->
+    </style>
 
 
     <style name="color_dialog" parent="android:Theme.Dialog">
