@@ -4,5 +4,68 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/top_title_layout_2"></include>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViews"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="单品推荐"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="单品推荐"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="单品推荐"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="单品推荐"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="单品推荐"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="单品推荐"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="单品推荐"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="单品推荐"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="单品推荐"
+                android:gravity="center"/><TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="单品推荐"
+            android:gravity="center"/>
 
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

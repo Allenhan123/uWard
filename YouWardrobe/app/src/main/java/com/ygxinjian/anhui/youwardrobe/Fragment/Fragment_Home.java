@@ -126,24 +126,24 @@ public class Fragment_Home extends BaseFragment {
                 @Override
                 public void onResponse(String response, int id) {
                 Log.d("Weather",response);
-                    if(response!=null){
-                        Gson gson = new Gson();
-                        weatherModel = gson.fromJson(response,WeatherModel.class);
+                    Gson gson = new Gson();
+                    weatherModel = gson.fromJson(response,WeatherModel.class);
+                    if(weatherModel.getReason().equals("Succes")) {
                         tv_city.setText(MainActivity.city);
                         StringBuffer sb = new StringBuffer();
                         sb.append(weatherModel.getResult().getRealtime().getWeather().getTemperature() + "°");
                         tv_temperature.setText(sb);
                         tv_describe.setText(weatherModel.getResult().getLife().getInfo().getChuanyi().get(1));
                         String info = weatherModel.getResult().getRealtime().getWeather().getInfo();
-                        if(info.contains("晴")){
+                        if (info.contains("晴")) {
                             iv_weather.setImageResource(R.mipmap.weather_fine);
-                        }else if(info.contains("雨")){
+                        } else if (info.contains("雨")) {
                             iv_weather.setImageResource(R.mipmap.weather_fine);
-                        }else if(info.contains("雪")){
+                        } else if (info.contains("雪")) {
                             iv_weather.setImageResource(R.mipmap.weather_snow);
-                        }else if(info.contains("云")){
+                        } else if (info.contains("云")) {
                             iv_weather.setImageResource(R.mipmap.weather_gray);
-                        }else {
+                        } else {
                             iv_weather.setImageResource(R.mipmap.weather_cloud);
                         }
                     }

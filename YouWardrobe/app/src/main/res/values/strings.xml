@@ -14,6 +14,7 @@
     <string name="cancel">取消</string>
 
     <string name="app_test_long">长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—长文本测试—</string>
+    <string name="commend_describe">搭配师每天为您精心搭配，左滑喜欢，右滑删除</string>
     <string name="app_test_short">定位中..</string>
 
 </resources>

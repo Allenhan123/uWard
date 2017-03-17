@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/iv_weather"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/weather_fine" />
     </LinearLayout>
 
     <com.bigkoo.convenientbanner.ConvenientBanner
