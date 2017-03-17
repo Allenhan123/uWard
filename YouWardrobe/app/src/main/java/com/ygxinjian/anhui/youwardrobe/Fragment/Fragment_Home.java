@@ -1,7 +1,9 @@
 package com.ygxinjian.anhui.youwardrobe.Fragment;
 
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +11,30 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.adapter.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.google.gson.Gson;
+import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Controller.NetworkImageHolderView;
+import com.ygxinjian.anhui.youwardrobe.MainActivity;
+import com.ygxinjian.anhui.youwardrobe.Model.WeatherModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.View.WardrobeProgress;
+import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 /**
  * Created by handongqiang on 17/3/13.
@@ -37,6 +50,7 @@ public class Fragment_Home extends BaseFragment {
     @InjectView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
     private WardrobeProgress wardrobeProgress;
+    private WeatherModel weatherModel;
 
     @Override
     public View initView() {
@@ -58,6 +72,11 @@ public class Fragment_Home extends BaseFragment {
 
 
     private LinearLayout headView;
+    private TextView tv_city;
+    private TextView tv_time;
+    private TextView tv_describe;
+    private TextView tv_temperature;
+    private ImageView iv_weather;
     private ConvenientBanner mConvenientBanner;
     private String[] images = {
             "http://img2.imgtn.bdimg.com/it/u=3093785514,1341050958&fm=21&gp=0.jpg",
@@ -68,6 +87,18 @@ public class Fragment_Home extends BaseFragment {
     };
     private void initHeadView() {
         headView = (LinearLayout) View.inflate(getContext(), R.layout.head_view_home, null);
+        tv_city = (TextView) headView.findViewById(R.id.location_city);
+        tv_describe = (TextView) headView.findViewById(R.id.describe_weather);
+        tv_temperature = (TextView) headView.findViewById(R.id.temperature);
+        tv_time = (TextView) headView.findViewById(R.id.day_year);
+        iv_weather = (ImageView) headView.findViewById(R.id.iv_weather);
+
+//        时间
+        SimpleDateFormat   formatter   =   new SimpleDateFormat("yyyy年MM月dd日");
+        Date curDate =  new Date(System.currentTimeMillis());
+        String  time   =   formatter.format(curDate);
+        tv_time.setText(time);
+
         mConvenientBanner = (ConvenientBanner) headView.findViewById(R.id.banner);
         mConvenientBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
@@ -78,8 +109,47 @@ public class Fragment_Home extends BaseFragment {
                 .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_pager_focused})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
 
+        initWeather();
         initBanner();
 
+    }
+
+    private void initWeather() {
+        if(MainActivity.city!=null){
+            Log.e("CITY",MainActivity.city);
+            OkHttpUtils.get().url(Constant.weatherUrl).addParams("cityname", MainActivity.city).build().execute(new StringCallback() {
+
+                @Override
+                public void onError(Call call, Exception e, int id) {
+
+                }
+                @Override
+                public void onResponse(String response, int id) {
+                Log.d("Weather",response);
+                    if(response!=null){
+                        Gson gson = new Gson();
+                        weatherModel = gson.fromJson(response,WeatherModel.class);
+                        tv_city.setText(MainActivity.city);
+                        StringBuffer sb = new StringBuffer();
+                        sb.append(weatherModel.getResult().getRealtime().getWeather().getTemperature() + "°");
+                        tv_temperature.setText(sb);
+                        tv_describe.setText(weatherModel.getResult().getLife().getInfo().getChuanyi().get(1));
+                        String info = weatherModel.getResult().getRealtime().getWeather().getInfo();
+                        if(info.contains("晴")){
+                            iv_weather.setImageResource(R.mipmap.weather_fine);
+                        }else if(info.contains("雨")){
+                            iv_weather.setImageResource(R.mipmap.weather_fine);
+                        }else if(info.contains("雪")){
+                            iv_weather.setImageResource(R.mipmap.weather_snow);
+                        }else if(info.contains("云")){
+                            iv_weather.setImageResource(R.mipmap.weather_gray);
+                        }else {
+                            iv_weather.setImageResource(R.mipmap.weather_cloud);
+                        }
+                    }
+                }
+            });
+        }
     }
 
     private void initBanner() {

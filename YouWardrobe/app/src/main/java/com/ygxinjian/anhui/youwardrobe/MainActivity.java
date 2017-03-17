@@ -117,6 +117,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
     private void initLocation(){
 //        AMapLocationClientOption mOption = new AMapLocationClientOption();
         locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+//        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
         locationOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
         locationOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
         locationOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
@@ -136,6 +137,8 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
         locationClient.setLocationListener(locationListener);
     }
 
+    public static String city;
+
     /**
      * 定位监听
      */
@@ -145,8 +148,12 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
             if (null != loc) {
                 //解析定位结果
                 String result = LocationUtils.getLocationStr(loc);
-                DevUtil.showInfo(MainActivity.this,result);
+//                DevUtil.showInfo(MainActivity.this,result);
                 Log.e("LOCATION",result);
+                Log.e("CITY ",loc.getCity());
+                if(loc.getCity()!=null){
+                    city = loc.getCity();
+                }
             } else {
                 DevUtil.showInfo(MainActivity.this,"定位失败");
             }
