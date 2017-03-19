@@ -10,9 +10,8 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.ygxinjian.anhui.youwardrobe.Activity.BaseActivity;
 import com.ygxinjian.anhui.youwardrobe.Activity.CheckPermissionsActivity;
-import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Home;
+import com.ygxinjian.anhui.youwardrobe.Fragment.HomeFragment;
 import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Me;
 import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Recommend;
 import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Wardrobe;
@@ -23,7 +22,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
 
     private static final String TAG = "MainActivity";
     private BottomNavigationBar mBottomNavigationBar;
-    private Fragment_Home homeFragment;
+    private HomeFragment homeFragment;
     private Fragment_Recommend recommendFragment;
     private Fragment_Wardrobe youyardrobeFragment;
     private Fragment_Me meFragment;
@@ -61,7 +60,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
 
     private void setDefaultFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        homeFragment = new Fragment_Home();
+        homeFragment = new HomeFragment();
         transaction.replace(R.id.ll_content, homeFragment).commit();
     }
     //Tab的点击事件
@@ -71,7 +70,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
         switch (position) {
             case 0:
                 if (homeFragment == null) {
-                    homeFragment = new Fragment_Home();
+                    homeFragment = new HomeFragment();
                 }
                 transaction.replace(R.id.ll_content, homeFragment);
                 break;
@@ -95,7 +94,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
                 break;
             default:
                 if (homeFragment == null) {
-                    homeFragment = new Fragment_Home();
+                    homeFragment = new HomeFragment();
                 }
                 transaction.replace(R.id.ll_content, homeFragment);
                 break;

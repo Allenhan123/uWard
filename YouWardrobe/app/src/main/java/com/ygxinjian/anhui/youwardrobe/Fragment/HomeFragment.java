@@ -20,16 +20,23 @@ import com.google.gson.Gson;
 import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Controller.NetworkImageHolderView;
 import com.ygxinjian.anhui.youwardrobe.MainActivity;
+import com.ygxinjian.anhui.youwardrobe.Model.BannerModel;
+import com.ygxinjian.anhui.youwardrobe.Model.BaseModel;
+import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.Model.WeatherModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.View.WardrobeProgress;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
+import com.ygxinjian.anhui.youwardrobe.utils.TimeUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -40,7 +47,8 @@ import okhttp3.Call;
  * Created by handongqiang on 17/3/13.
  */
 
-public class Fragment_Home extends BaseFragment {
+public class HomeFragment extends BaseFragment {
+    private static final String TAG = HomeFragment.class.getSimpleName();
     @InjectView(R.id.nav_tv_title)
     ImageView navTvTitle;
     @InjectView(R.id.nav_go_back)
@@ -69,7 +77,6 @@ public class Fragment_Home extends BaseFragment {
         return rootView;
     }
 
-
     private LinearLayout headView;
     private TextView tv_city;
     private TextView tv_time;
@@ -77,13 +84,7 @@ public class Fragment_Home extends BaseFragment {
     private TextView tv_temperature;
     private ImageView iv_weather;
     private ConvenientBanner mConvenientBanner;
-    private String[] images = {
-            "http://img2.imgtn.bdimg.com/it/u=3093785514,1341050958&fm=21&gp=0.jpg",
-            "http://img2.3lian.com/2014/f2/37/d/40.jpg",
-            "http://img2.3lian.com/2014/f2/37/d/39.jpg",
-            "http://f.hiphotos.baidu.com/image/h%3D200/sign=1478eb74d5a20cf45990f9df460b4b0c/d058ccbf6c81800a5422e5fdb43533fa838b4779.jpg",
-            "http://f.hiphotos.baidu.com/image/pic/item/09fa513d269759ee50f1971ab6fb43166c22dfba.jpg"
-    };
+
     private void initHeadView() {
         headView = (LinearLayout) View.inflate(getContext(), R.layout.head_view_home, null);
         tv_city = (TextView) headView.findViewById(R.id.location_city);
@@ -92,42 +93,77 @@ public class Fragment_Home extends BaseFragment {
         tv_time = (TextView) headView.findViewById(R.id.day_year);
         iv_weather = (ImageView) headView.findViewById(R.id.iv_weather);
 
-//        时间
-        SimpleDateFormat   formatter   =   new SimpleDateFormat("yyyy年MM月dd日");
-        Date curDate =  new Date(System.currentTimeMillis());
-        String  time   =   formatter.format(curDate);
-        tv_time.setText(time);
+        // 时间
+        tv_time.setText(TimeUtil.longToString(System.currentTimeMillis(), TimeUtil.FORMAT_YEAR_MONTH_DAY));
 
         mConvenientBanner = (ConvenientBanner) headView.findViewById(R.id.banner);
-        mConvenientBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
-            @Override
-            public NetworkImageHolderView createHolder() {
-                return new NetworkImageHolderView();
-            }
-        }, Arrays.asList(images))
-                .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_pager_focused})
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
 
         initWeather();
-        initBanner();
+        getBannerDataFromService();
 
     }
 
+
+    /**
+     * 获取Banner数据
+     */
+
+    private void getBannerDataFromService() {
+        OkHttpUtils.get().url(Constant.bannerUrl).build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        BannerModel bannerModel = BannerModel.getGson().fromJson(response, BannerModel.class);
+
+
+                        List<String> list = new ArrayList<String>();
+                        for (BannerModel.ResultBean.DataBean model : bannerModel.getResult().getData()) {
+                            list.add(model.getImgUrl());
+                        }
+
+                        if (bannerModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+                            mConvenientBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+                                @Override
+                                public NetworkImageHolderView createHolder() {
+                                    return new NetworkImageHolderView();
+                                }
+                            }, list)
+                                    .setPageIndicator(new int[]{R.mipmap.ic_page_indicator, R.mipmap.ic_pager_focused})
+                                    .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL);
+                            initBanner();
+
+                        } else {
+                            DevUtil.showInfo(getContext(), "请求失败");
+
+                        }
+                    }
+                });
+
+
+    }
+
+
     private void initWeather() {
-        if(MainActivity.city!=null){
-            Log.e("CITY",MainActivity.city);
+        if (MainActivity.city != null) {
+            Log.e("CITY", MainActivity.city);
             OkHttpUtils.get().url(Constant.weatherUrl).addParams("cityname", MainActivity.city).build().execute(new StringCallback() {
 
                 @Override
                 public void onError(Call call, Exception e, int id) {
 
                 }
+
                 @Override
                 public void onResponse(String response, int id) {
-                Log.d("Weather",response);
+                    Log.d("Weather", response);
                     Gson gson = new Gson();
-                    weatherModel = gson.fromJson(response,WeatherModel.class);
-                    if(weatherModel.getReason().equals("Succes")) {
+                    weatherModel = gson.fromJson(response, WeatherModel.class);
+                    if (weatherModel.getReason().equals("Succes")) {
                         tv_city.setText(MainActivity.city);
                         StringBuffer sb = new StringBuffer();
                         sb.append(weatherModel.getResult().getRealtime().getWeather().getTemperature() + "°");
@@ -160,6 +196,7 @@ public class Fragment_Home extends BaseFragment {
             }
         });
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -190,9 +227,9 @@ public class Fragment_Home extends BaseFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (position<1){
+            if (position < 1) {
                 convertView = View.inflate(getContext(), R.layout.item_home_type_1, null);
-            }else {
+            } else {
                 convertView = View.inflate(getContext(), R.layout.item_home_type_2, null);
             }
 
