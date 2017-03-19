@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-
-
-    <include layout="@layout/home_item_title" />
-    <include layout="@layout/home_category_item"></include>
-    <include layout="@layout/home_category_item"></include>
-    <include layout="@layout/home_category_item"></include>
-
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="205dp"
@@ -29,7 +20,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_avatar_03" />
+                android:src="@drawable/img_avatar_01" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
@@ -67,7 +58,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_avatar_03" />
+                android:src="@drawable/img_avatar_04" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
@@ -93,6 +84,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 </LinearLayout>

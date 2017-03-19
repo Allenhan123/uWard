@@ -63,7 +63,6 @@ public class Fragment_Home extends BaseFragment {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.inject(this, rootView);
 
-
         initHeadView();
         listView.addHeaderView(headView);
         listView.setAdapter(new MyAdapter());
@@ -176,7 +175,7 @@ public class Fragment_Home extends BaseFragment {
 
         @Override
         public int getCount() {
-            return 5;
+            return 2;
         }
 
         @Override
@@ -191,7 +190,7 @@ public class Fragment_Home extends BaseFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (position<3){
+            if (position<1){
                 convertView = View.inflate(getContext(), R.layout.item_home_type_1, null);
             }else {
                 convertView = View.inflate(getContext(), R.layout.item_home_type_2, null);

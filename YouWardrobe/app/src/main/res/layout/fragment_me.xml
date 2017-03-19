@@ -4,5 +4,69 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/top_title_layout_2"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/main_Red">
+        <com.ygxinjian.anhui.youwardrobe.View.HeadImageView
+            android:layout_width="60dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/iv_user_photo"
+            android:src="@drawable/img_avatar_06"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小依"
+            android:id="@+id/tv_nick"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/iv_user_photo"
+            android:layout_marginLeft="20dp"
+            style="@style/ShowTv1"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/female_icon"
+            android:layout_toRightOf="@+id/tv_nick"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通用户"
+            style="@style/ShowTv1"
+            android:textColor="@color/color_grey_bg"
+            android:layout_below="@+id/tv_nick"
+            android:layout_toRightOf="@id/iv_user_photo"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:drawableLeft="@mipmap/vip_icons"
+            android:drawablePadding="8dp"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+        <include layout="@layout/user_item1"></include>
+        <TextView
+            android:layout_width="0.8dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="#e0e0e0" />
+        <include layout="@layout/user_item2"></include>
+        <TextView
+            android:layout_width="0.8dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="#e0e0e0" />
+        <include layout="@layout/user_item3"></include>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="#f5f5f5"></LinearLayout>
 
 </LinearLayout>

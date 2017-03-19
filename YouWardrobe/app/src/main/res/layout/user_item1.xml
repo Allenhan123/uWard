@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_weight="1"
+    android:layout_height="90dp"
+    android:gravity="center"
+    android:id="@+id/ll_my_course"
+    android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:src="@mipmap/user_hostory"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="穿衣记录"
+            android:clickable="false"
+            android:paddingTop="5dp"
+            android:textColor="#424242"
+            android:textSize="14sp"/>
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#fc0008" />
+</LinearLayout>
