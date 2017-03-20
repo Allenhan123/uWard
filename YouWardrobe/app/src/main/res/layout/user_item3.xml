@@ -20,9 +20,4 @@
             android:paddingTop="5dp"
             android:textColor="#424242"
             android:textSize="14sp"/>
-        <LinearLayout
-            android:layout_width="40dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="12dp"
-            android:background="#016fff" />
 </LinearLayout>
