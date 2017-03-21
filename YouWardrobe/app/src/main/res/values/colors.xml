@@ -31,6 +31,8 @@
     <color name="color_type_warning">#e8bd4b</color>
     <color name="color_type_success">#90b06e</color>
 
+    <color name="crimson">#dc143c</color>
+    <color name="orange">#fd7903</color>
 
 
     <color name="color_text_theme">#e889ab</color>
