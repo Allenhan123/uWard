@@ -21,11 +21,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginRight="5dp"
             android:button="@drawable/check_box_bg"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:gravity="center"
-            android:minHeight="64dp"
+            android:minHeight="54dp"
             android:minWidth="32dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:visibility="visible" />
@@ -37,7 +37,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_avatar_05" />
+            android:src="@drawable/img_avatar_04" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
                 android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="第八号当铺美女一枚"
+                android:text="时尚大衣（欧美）"
                 android:textColor="@color/default_gray"
                 android:textSize="14sp" />
 

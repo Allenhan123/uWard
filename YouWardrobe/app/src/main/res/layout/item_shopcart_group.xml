@@ -20,7 +20,7 @@
             android:button="@drawable/check_box_bg"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:gravity="center"
-            android:minHeight="38dp"
+            android:minHeight="35dp"
             android:minWidth="32dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:visibility="visible" />
