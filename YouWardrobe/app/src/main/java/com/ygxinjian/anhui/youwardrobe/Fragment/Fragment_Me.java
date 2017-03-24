@@ -19,15 +19,6 @@ public class Fragment_Me extends BaseFragment {
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_me, null);
-        wardrobeProgress = new WardrobeProgress(mActivity);
-        wardrobeProgress.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                wardrobeProgress.dismiss();
-            }
-        },2000);
-
         iv_back = (ImageView) view.findViewById(R.id.nav_go_back);
         iv_back.setVisibility(View.GONE);
         tv_title = (TextView) view.findViewById(R.id.nav_tv_title);

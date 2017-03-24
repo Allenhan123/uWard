@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="205dp"
+        android:layout_height="190dp"
         android:orientation="horizontal"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -32,7 +32,7 @@
                 android:src="@drawable/img_avatar_03" />
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="28dp"
                 android:background="@color/main_Red">
                 <TextView
                     style="@style/ShowTv3"
@@ -70,7 +70,7 @@
                 android:src="@drawable/img_avatar_03" />
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="28dp"
                 android:background="@color/main_Red">
                 <TextView
                     style="@style/ShowTv3"
