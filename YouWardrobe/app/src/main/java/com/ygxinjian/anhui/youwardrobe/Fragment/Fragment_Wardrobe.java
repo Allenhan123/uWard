@@ -77,7 +77,6 @@ public class Fragment_Wardrobe extends BaseFragment implements ShopcartExpandabl
     /**
      * 模拟数据<br>
      * 遵循适配器的数据列表填充原则，组元素被放在一个List中，对应的组元素下辖的子元素被放在Map中，<br>
-     * 其键是组元素的Id(通常是一个唯一指定组元素身份的值)
      */
     private void virtualData()
     {
@@ -85,7 +84,7 @@ public class Fragment_Wardrobe extends BaseFragment implements ShopcartExpandabl
         for (int i = 0; i < 6; i++)
         {
 
-            groups.add(new GroupInfo(i + "", "第八号当铺" + (i + 1) + "号店"));
+            groups.add(new GroupInfo(i + "", "风格" + (i + 1) + "店"));
 
             List<ProductInfo> products = new ArrayList<ProductInfo>();
             for (int j = 0; j <= i; j++)

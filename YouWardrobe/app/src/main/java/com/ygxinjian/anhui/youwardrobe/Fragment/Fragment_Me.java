@@ -26,7 +26,7 @@ public class Fragment_Me extends BaseFragment {
             public void run() {
                 wardrobeProgress.dismiss();
             }
-        },4000);
+        },2000);
 
         iv_back = (ImageView) view.findViewById(R.id.nav_go_back);
         iv_back.setVisibility(View.GONE);
