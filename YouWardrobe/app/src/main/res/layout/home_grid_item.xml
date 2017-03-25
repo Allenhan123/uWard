@@ -20,6 +20,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
+                android:id="@+id/iv_home_grid_item"
                 android:src="@drawable/img_avatar_01" />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -27,44 +28,7 @@
                 android:background="@color/main_Red">
                 <TextView
                     style="@style/ShowTv3"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="校园清新"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@mipmap/arrow"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="3dp"
-                    />
-            </RelativeLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_marginLeft="10dp"
-
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.ygxinjian.anhui.youwardrobe.View.RoundImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img_avatar_04" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:background="@color/main_Red">
-                <TextView
-                    style="@style/ShowTv3"
+                    android:id="@+id/tv_home_grid_title"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_width="wrap_content"

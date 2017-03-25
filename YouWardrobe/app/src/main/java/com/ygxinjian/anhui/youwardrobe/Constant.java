@@ -18,6 +18,9 @@ public class Constant {
      * http://115.159.116.34:8089/Interface/i_Interface.aspx?m=carousel&uid=手机号码
      **/
     public static String bannerUrl = Base_Url + "?m=carousel";
+    public static String homeUrl = Base_Url + "?m=home_classify";//首页
+//    单品推荐
+    public static String recommendSingleUrl = Base_Url + "?m=recommend_single";
 
 
 
