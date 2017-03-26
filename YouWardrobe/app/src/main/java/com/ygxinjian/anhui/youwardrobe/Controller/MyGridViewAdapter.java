@@ -23,9 +23,9 @@ public class MyGridViewAdapter extends BaseAdapter {
     /**
      * 每个分组下的每个子项的 GridView 数据集合
      */
-    private List<HomeCategoryModel.ResultBean.DataBean.ImgUrlsBean> itemGridList;
+    private List<HomeCategoryModel.ResultBean.DataBean.ItemsBean> itemGridList;
 
-    public MyGridViewAdapter(Context mContext, List<HomeCategoryModel.ResultBean.DataBean.ImgUrlsBean> itemGridList) {
+    public MyGridViewAdapter(Context mContext, List<HomeCategoryModel.ResultBean.DataBean.ItemsBean> itemGridList) {
         this.mContext = mContext;
         this.itemGridList = itemGridList;
     }

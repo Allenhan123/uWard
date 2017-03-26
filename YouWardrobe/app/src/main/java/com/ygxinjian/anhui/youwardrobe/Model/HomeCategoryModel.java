@@ -6,34 +6,10 @@ import java.util.List;
  * Created by handongqiang on 17/3/24.
  */
 
-public class HomeCategoryModel extends BaseModel {
+public class HomeCategoryModel extends NetResultModel {
 
 
-    /**
-     * code : 400
-     * message : success
-     * result : {"data":[{"ID":1,"Title":"时节时令","Description":"时节时令","ImgUrls":[{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"}]},{"ID":2,"Title":"豆蔻年华","Description":"豆蔻年华","ImgUrls":[{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"}]},{"ID":3,"Title":"简约中性","Description":"简约中性","ImgUrls":[{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"}]},{"ID":4,"Title":"时尚休闲","Description":"时尚休闲","ImgUrls":[{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"}]},{"ID":5,"Title":"都市丽人","Description":"都市丽人","ImgUrls":[{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"}]},{"ID":6,"Title":"文艺复古","Description":"文艺复古","ImgUrls":[{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"}]},{"ID":7,"Title":"民族风情","Description":"民族风情","ImgUrls":[{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"}]},{"ID":8,"Title":"原创设计","Description":"原创设计","ImgUrls":[{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"}]}]}
-     */
-
-    private int code;
-    private String message;
     private ResultBean result;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public ResultBean getResult() {
         return result;
@@ -44,6 +20,14 @@ public class HomeCategoryModel extends BaseModel {
     }
 
     public static class ResultBean {
+        /**
+         * ClassifyID : 1
+         * ClassifyTitle : 时节时令
+         * ClassifyDesc :
+         * ClassifyURL : Interface/i_Interface.aspx?m=home_classify_list&uid=18656009327&classify_id=1
+         * Items : [{"ProdID":"1","ProdTitle":"时节时令","ProdDesc":"时节时令","ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ProdID":"2","ProdTitle":"时节时令","ProdDesc":"时节时令","ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ProdID":"25","ProdTitle":"时节时令","ProdDesc":"时节时令","ImgUrl":" "},{"ProdID":"26","ProdTitle":"时节时令","ProdDesc":"时节时令","ImgUrl":" "}]
+         */
+
         private List<DataBean> data;
 
         public List<DataBean> getData() {
@@ -55,56 +39,88 @@ public class HomeCategoryModel extends BaseModel {
         }
 
         public static class DataBean {
+            private int ClassifyID;
+            private String ClassifyTitle;
+            private String ClassifyDesc;
+            private String ClassifyURL;
             /**
-             * ID : 1
-             * Title : 时节时令
-             * Description : 时节时令
-             * ImgUrls : [{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"},{"ImgUrl":"http://115.159.116.34:8089/Images/1/img1.jpg"}]
+             * ProdID : 1
+             * ProdTitle : 时节时令
+             * ProdDesc : 时节时令
+             * ImgUrl : http://115.159.116.34:8089/Images/1/img1.jpg
              */
 
-            private int ID;
-            private String Title;
-            private String Description;
-            private List<ImgUrlsBean> ImgUrls;
+            private List<ItemsBean> Items;
 
-            public int getID() {
-                return ID;
+            public int getClassifyID() {
+                return ClassifyID;
             }
 
-            public void setID(int ID) {
-                this.ID = ID;
+            public void setClassifyID(int ClassifyID) {
+                this.ClassifyID = ClassifyID;
             }
 
-            public String getTitle() {
-                return Title;
+            public String getClassifyTitle() {
+                return ClassifyTitle;
             }
 
-            public void setTitle(String Title) {
-                this.Title = Title;
+            public void setClassifyTitle(String ClassifyTitle) {
+                this.ClassifyTitle = ClassifyTitle;
             }
 
-            public String getDescription() {
-                return Description;
+            public String getClassifyDesc() {
+                return ClassifyDesc;
             }
 
-            public void setDescription(String Description) {
-                this.Description = Description;
+            public void setClassifyDesc(String ClassifyDesc) {
+                this.ClassifyDesc = ClassifyDesc;
             }
 
-            public List<ImgUrlsBean> getImgUrls() {
-                return ImgUrls;
+            public String getClassifyURL() {
+                return ClassifyURL;
             }
 
-            public void setImgUrls(List<ImgUrlsBean> ImgUrls) {
-                this.ImgUrls = ImgUrls;
+            public void setClassifyURL(String ClassifyURL) {
+                this.ClassifyURL = ClassifyURL;
             }
 
-            public static class ImgUrlsBean {
-                /**
-                 * ImgUrl : http://115.159.116.34:8089/Images/1/img1.jpg
-                 */
+            public List<ItemsBean> getItems() {
+                return Items;
+            }
 
+            public void setItems(List<ItemsBean> Items) {
+                this.Items = Items;
+            }
+
+            public static class ItemsBean {
+                private String ProdID;
+                private String ProdTitle;
+                private String ProdDesc;
                 private String ImgUrl;
+
+                public String getProdID() {
+                    return ProdID;
+                }
+
+                public void setProdID(String ProdID) {
+                    this.ProdID = ProdID;
+                }
+
+                public String getProdTitle() {
+                    return ProdTitle;
+                }
+
+                public void setProdTitle(String ProdTitle) {
+                    this.ProdTitle = ProdTitle;
+                }
+
+                public String getProdDesc() {
+                    return ProdDesc;
+                }
+
+                public void setProdDesc(String ProdDesc) {
+                    this.ProdDesc = ProdDesc;
+                }
 
                 public String getImgUrl() {
                     return ImgUrl;

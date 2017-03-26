@@ -42,7 +42,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import okhttp3.Call;
 
-/**HOME  TEST
+/**
+ * HOME  TEST
  * Created by handongqiang on 17/3/13.
  */
 
@@ -54,17 +55,20 @@ public class Fragment_Home extends BaseFragment {
     ImageView navGoBack;
     @InjectView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
+    @InjectView(R.id.explist_view)
+    ExpandableListView listView;
+
     private WardrobeProgress wardrobeProgress;
     private WeatherModel weatherModel;
-    private ExpandableListView listView;
+
     private HomeCategoryModel homeCategoryModel;
 
     private List<HomeCategoryModel.ResultBean.DataBean> groupList;
-    List<List<HomeCategoryModel.ResultBean.DataBean.ImgUrlsBean>> itemList;
+    List<List<HomeCategoryModel.ResultBean.DataBean.ItemsBean>> itemList;
+
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_homes, null);
-        listView = (ExpandableListView) view.findViewById(R.id.explist_view);
         wardrobeProgress = new WardrobeProgress(mActivity);
         wardrobeProgress.show();
         return view;
@@ -82,41 +86,45 @@ public class Fragment_Home extends BaseFragment {
     }
 
     private void getData() {
-        OkHttpUtils.get().url(Constant.homeUrl).addParams("uid", "18656009327").build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-            }
-            @Override
-            public void onResponse(String response, int id) {
-                wardrobeProgress.dismiss();
-//                Log.d("Result",response);
-                Gson gson = new Gson();
-                homeCategoryModel = gson.fromJson(response,HomeCategoryModel.class);
-                groupList = new ArrayList<>();
-                groupList = homeCategoryModel.getResult().getData();
-                itemList = new ArrayList<List<HomeCategoryModel.ResultBean.DataBean.ImgUrlsBean>>();
-                for(int i= 0;i<groupList.size();i++){
-                    List<HomeCategoryModel.ResultBean.DataBean.ImgUrlsBean> itemGridList = groupList.get(i).getImgUrls();
-                    itemList.add(itemGridList);
-                }
-
-                // 创建适配器
-                HomeExpandableListViewAdapter adapter = new HomeExpandableListViewAdapter(mActivity,
-                        groupList, itemList);
-                listView.setAdapter(adapter);
-                for (int i = 0; i < groupList.size(); i++)
-                {
-                    listView.expandGroup(i);// 初始化时，将ExpandableListView以展开的方式呈现
-                }        // 隐藏分组指示器
-                listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+        OkHttpUtils.get().url(Constant.homeUrl)
+                .addParams("uid", "18656009327")
+                .build()
+                .execute(new StringCallback() {
                     @Override
-                    public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                        DevUtil.showInfo(mActivity, String.valueOf(groupPosition));
-                        return true;
+                    public void onError(Call call, Exception e, int id) {
+                        wardrobeProgress.dismiss();
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        wardrobeProgress.dismiss();
+                        Gson gson = new Gson();
+                        homeCategoryModel = gson.fromJson(response, HomeCategoryModel.class);
+                        Log.d(TAG, "onResponse: " + homeCategoryModel.toString());
+                        groupList = new ArrayList<>();
+                        groupList = homeCategoryModel.getResult().getData();
+                        itemList = new ArrayList<>();
+                        for (int i = 0; i < groupList.size(); i++) {
+                            List<HomeCategoryModel.ResultBean.DataBean.ItemsBean> itemGridList = groupList.get(i).getItems();
+                            itemList.add(itemGridList);
+                        }
+
+                        // 创建适配器
+                        HomeExpandableListViewAdapter adapter = new HomeExpandableListViewAdapter(mActivity,
+                                groupList, itemList);
+                        listView.setAdapter(adapter);
+                        for (int i = 0; i < groupList.size(); i++) {
+                            listView.expandGroup(i);// 初始化时，将ExpandableListView以展开的方式呈现
+                        }        // 隐藏分组指示器
+                        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                            @Override
+                            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                                DevUtil.showInfo(mActivity, String.valueOf(groupPosition));
+                                return true;
+                            }
+                        });
                     }
                 });
-            }
-        });
     }
 
     private LinearLayout headView;

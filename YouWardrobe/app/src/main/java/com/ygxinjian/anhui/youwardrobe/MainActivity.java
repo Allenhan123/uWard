@@ -19,7 +19,7 @@ import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Wardrobe;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.LocationUtils;
 
-public class MainActivity extends CheckPermissionsActivity implements BottomNavigationBar.OnTabSelectedListener{
+public class MainActivity extends CheckPermissionsActivity implements BottomNavigationBar.OnTabSelectedListener {
 
     private static final String TAG = "MainActivity";
     private BottomNavigationBar mBottomNavigationBar;
@@ -64,45 +64,79 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
         homeFragment = new Fragment_Home();
         transaction.replace(R.id.ll_content, homeFragment).commit();
     }
+
     //Tab的点击事件
     @Override
     public void onTabSelected(int position) {
+        showFragment(position);
+    }
+
+    private void showFragment(int position) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        hideFragments();
         switch (position) {
             case 0:
                 if (homeFragment == null) {
                     homeFragment = new Fragment_Home();
+                    transaction.add(R.id.ll_content, homeFragment);
+                } else {
+                    transaction.show(homeFragment);
                 }
-                transaction.replace(R.id.ll_content, homeFragment);
                 break;
             case 1:
                 if (recommendFragment == null) {
                     recommendFragment = new Fragment_Recommend();
+                    transaction.add(R.id.ll_content, recommendFragment);
+                } else {
+                    transaction.show(recommendFragment);
                 }
-                transaction.replace(R.id.ll_content, recommendFragment);
                 break;
             case 2:
                 if (youyardrobeFragment == null) {
                     youyardrobeFragment = new Fragment_Wardrobe();
+                    transaction.add(R.id.ll_content, youyardrobeFragment);
+                } else {
+                    transaction.show(youyardrobeFragment);
                 }
-                transaction.replace(R.id.ll_content, youyardrobeFragment);
                 break;
             case 3:
                 if (meFragment == null) {
                     meFragment = new Fragment_Me();
+                    transaction.add(R.id.ll_content, meFragment);
+                } else {
+                    transaction.show(meFragment);
                 }
-                transaction.replace(R.id.ll_content, meFragment);
                 break;
             default:
                 if (homeFragment == null) {
                     homeFragment = new Fragment_Home();
+                    transaction.add(R.id.ll_content, homeFragment);
+                } else {
+                    transaction.show(homeFragment);
                 }
-                transaction.replace(R.id.ll_content, homeFragment);
                 break;
         }
         transaction.commit();
-
     }
+
+    //隐藏所有碎片视图
+    private void hideFragments() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (homeFragment != null) {
+            transaction.hide(homeFragment);
+        }
+        if (recommendFragment != null) {
+            transaction.hide(recommendFragment);
+        }
+        if (youyardrobeFragment != null) {
+            transaction.hide(youyardrobeFragment);
+        }
+        if (meFragment != null) {
+            transaction.hide(meFragment);
+        }
+        transaction.commitAllowingStateLoss();
+    }
+
 
     @Override
     public void onTabUnselected(int position) {
@@ -114,7 +148,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
 
     }
 
-    private void initLocation(){
+    private void initLocation() {
 //        AMapLocationClientOption mOption = new AMapLocationClientOption();
         locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
 //        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
@@ -149,13 +183,13 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
                 //解析定位结果
                 String result = LocationUtils.getLocationStr(loc);
 //                DevUtil.showInfo(MainActivity.this,result);
-                Log.e("LOCATION",result);
-                Log.e("CITY ",loc.getCity());
-                if(loc.getCity()!=null){
+                Log.e("LOCATION", result);
+                Log.e("CITY ", loc.getCity());
+                if (loc.getCity() != null) {
                     city = loc.getCity();
                 }
             } else {
-                DevUtil.showInfo(MainActivity.this,"定位失败");
+                DevUtil.showInfo(MainActivity.this, "定位失败");
             }
         }
     };
@@ -163,11 +197,10 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
     /**
      * 开始定位
      *
-     * @since 2.8.0
      * @author hongming.wang
-     *
+     * @since 2.8.0
      */
-    private void startLocation(){
+    private void startLocation() {
         // 设置定位参数
         locationClient.setLocationOption(locationOption);
         // 启动定位
@@ -177,11 +210,10 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
     /**
      * 停止定位
      *
-     * @since 2.8.0
      * @author hongming.wang
-     *
+     * @since 2.8.0
      */
-    private void stopLocation(){
+    private void stopLocation() {
         // 停止定位
         locationClient.stopLocation();
     }
@@ -189,11 +221,10 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
     /**
      * 销毁定位
      *
-     * @since 2.8.0
      * @author hongming.wang
-     *
+     * @since 2.8.0
      */
-    private void destroyLocation(){
+    private void destroyLocation() {
         if (null != locationClient) {
             /**
              * 如果AMapLocationClient是在当前Activity实例化的，
@@ -204,6 +235,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
             locationOption = null;
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

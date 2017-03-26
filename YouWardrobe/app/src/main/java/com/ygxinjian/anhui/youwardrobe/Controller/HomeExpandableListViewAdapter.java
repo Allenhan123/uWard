@@ -34,11 +34,11 @@ public class HomeExpandableListViewAdapter extends BaseExpandableListAdapter {
     /**
      * 所有分组的所有子项的 GridView 数据集合
      */
-    private List<List<HomeCategoryModel.ResultBean.DataBean.ImgUrlsBean>> itemList;
+    private List<List<HomeCategoryModel.ResultBean.DataBean.ItemsBean>> itemList;
 
 
     public HomeExpandableListViewAdapter(Context context, List<HomeCategoryModel.ResultBean.DataBean> groupList,
-                                         List<List<HomeCategoryModel.ResultBean.DataBean.ImgUrlsBean>> itemList) {
+                                         List<List<HomeCategoryModel.ResultBean.DataBean.ItemsBean>> itemList) {
         mContext = context;
         this.groupList = groupList;
         this.itemList = itemList;
@@ -89,7 +89,7 @@ public class HomeExpandableListViewAdapter extends BaseExpandableListAdapter {
         TextView tvGroupAll = (TextView) convertView.findViewById(R.id.tv_group_all);
 
         // 设置分组组名
-        tvGroup.setText(groupList.get(groupPosition).getTitle());
+        tvGroup.setText(groupList.get(groupPosition).getClassifyTitle());
         return convertView;
     }
 
