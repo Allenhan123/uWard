@@ -22,6 +22,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.View.MyGridLayoutManager;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -184,7 +185,9 @@ public class Fragment_Recommend extends BaseFragment {
      * 设置RecyclerView属性
      */
     private void initAdapter() {
-        recycleView_single.setLayoutManager(new GridLayoutManager(mActivity, 2));
+        MyGridLayoutManager linearLayoutManager = new MyGridLayoutManager(getContext(),2);
+        linearLayoutManager.setScrollEnabled(false);
+        recycleView_single.setLayoutManager(linearLayoutManager);
         mAdapter.openLoadAnimation();
         recycleView_single.setAdapter(mAdapter);//设置adapter
         //设置item点击事件

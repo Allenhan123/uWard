@@ -20,11 +20,17 @@
                 android:layout_marginBottom="10dp"
                 android:layout_height="400dp"/>
             <include layout="@layout/recyc_head_recommend"></include>
-            <android.support.v7.widget.RecyclerView
-                android:background="@color/white"
-                android:id="@+id/recyclerView_single"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+                <android.support.v7.widget.RecyclerView
+                    android:background="@color/white"
+                    android:id="@+id/recyclerView_single"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
