@@ -4,9 +4,10 @@
     android:layout_height="40dp"
     android:paddingTop="3dp"
     android:paddingBottom="3dp"
-    android:background="@color/white"
     android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/white"
+    >
 
     <TextView
         android:layout_width="3dp"
