@@ -22,6 +22,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.View.MyGridLayoutManager;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -156,12 +157,6 @@ public class Fragment_Recommend extends BaseFragment {
 
         }
     }
-//单品推荐
-//    private void initRecycView_Single(View view) {
-//        recycleView_single = (RecyclerView) view.findViewById(R.id.recyclerView_single);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setLayoutManager(new GridLayoutManager(mActivity, 2));
-//    }
 
     private void initRecycSingleData() {
         OkHttpUtils.get().url(Constant.recommendSingleUrl).addParams("uid", "18656009327").build().execute(new StringCallback() {
@@ -175,6 +170,13 @@ public class Fragment_Recommend extends BaseFragment {
                 recommend_single_model = gson.fromJson(response,RecommendSingleModel.class);
                 data = recommend_single_model.getResult().getData();
                 mAdapter = new RecommendSingleAdapter(mActivity);
+                mAdapter.openLoadAnimation();
+//                View headView = LayoutInflater.from(mActivity).inflate(R.layout.recommend_head_layout,null);
+//                View headView = View.inflate(mActivity,R.layout.recommend_head_layout,null);
+//
+////                initRecycData();
+////                initRecycView(headView);
+//                mAdapter.addHeaderView(headView);
                 initAdapter();
             }
         });
@@ -183,7 +185,9 @@ public class Fragment_Recommend extends BaseFragment {
      * 设置RecyclerView属性
      */
     private void initAdapter() {
-        recycleView_single.setLayoutManager(new GridLayoutManager(mActivity, 2));
+        MyGridLayoutManager linearLayoutManager = new MyGridLayoutManager(getContext(),2);
+        linearLayoutManager.setScrollEnabled(false);
+        recycleView_single.setLayoutManager(linearLayoutManager);
         mAdapter.openLoadAnimation();
         recycleView_single.setAdapter(mAdapter);//设置adapter
         //设置item点击事件
@@ -208,7 +212,7 @@ public class Fragment_Recommend extends BaseFragment {
 
         @Override
         public void convert(BaseViewHolder helper, RecommendSingleModel.ResultBean.DataBean mData) {
-            helper.setText(R.id.tv_recommend_item, mData.getTitle());
+            helper.setText(R.id.tv_recommend_item, mData.getClassifyTitle());
             ImageLoader.getInstance().displayImage(mData.getImgUrl(), (ImageView) helper.getView(R.id.iv_recommend_item));
         }
     }

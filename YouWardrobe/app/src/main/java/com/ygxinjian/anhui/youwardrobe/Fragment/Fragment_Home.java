@@ -1,6 +1,7 @@
 package com.ygxinjian.anhui.youwardrobe.Fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,7 +48,7 @@ import okhttp3.Call;
  * Created by handongqiang on 17/3/13.
  */
 
-public class Fragment_Home extends BaseFragment {
+public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
     private static final String TAG = Fragment_Home.class.getSimpleName();
     @InjectView(R.id.nav_tv_title)
     ImageView navTvTitle;
@@ -78,7 +79,8 @@ public class Fragment_Home extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.inject(this, rootView);
-
+        swipeRefresh.setOnRefreshListener(this);
+        swipeRefresh.setColorSchemeResources(R.color.main_Red,R.color.color_text_theme);
         initHeadView();
         getData();
         listView.addHeaderView(headView);
@@ -150,7 +152,6 @@ public class Fragment_Home extends BaseFragment {
 
         initWeather();
         getBannerDataFromService();
-
     }
 
 
@@ -205,7 +206,7 @@ public class Fragment_Home extends BaseFragment {
 
                 @Override
                 public void onError(Call call, Exception e, int id) {
-
+                    Log.d("Weather", e.toString());
                 }
 
                 @Override
@@ -258,5 +259,15 @@ public class Fragment_Home extends BaseFragment {
 
     }
 
-
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getData();
+                // 加载完数据设置为不刷新状态，将下拉进度收起来
+                swipeRefresh.setRefreshing(false);
+            }
+        }, 1200);
+    }
 }
