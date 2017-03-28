@@ -11,12 +11,32 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+
+    signingConfigs {
+        myConfig {
+            storeFile file("keystore.jks")
+            storePassword "han!123"
+            keyAlias "YouWardrobe"
+            keyPassword "han!123"
         }
     }
+
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.myConfig
+            debuggable true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+            //proguardFile "build/intermediates/exploded/-aar/" + project.PROJECT_DIRECTORY + "/PandaAndroidLib/unspecified/proguard.txt"
+            signingConfig signingConfigs.myConfig
+        }
+    }
+
     //xutils访问网络问题
     useLibrary 'org.apache.http.legacy'
 }
@@ -26,6 +46,8 @@ repositories {
     }
     maven { url "https://jitpack.io" }
 }
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -55,8 +77,6 @@ dependencies {
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
     compile 'com.zhy:okhttputils:2.6.2'
     compile files('libs/android-smart-image-view-1.0.0.jar')
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     compile 'me.yuqirong:cardswipelayout:1.0.0'
 }
