@@ -12,6 +12,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
 
@@ -32,6 +33,10 @@ public class YouWardrobeApplication extends Application {
     private static final int MEMORY_SIZE = 5 * 1024 * 1024;
     private static final int DISK_SIZE = 20 * 1024 * 1024;
     public static Context sContext;
+
+    private static LocalData mLocalData;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,7 +49,7 @@ public class YouWardrobeApplication extends Application {
 
         ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this)
                 .memoryCache(new LruMemoryCache(MEMORY_SIZE))
-                .diskCache(new UnlimitedDiscCache(new File(getCacheDir(),"caches")))
+                .diskCache(new UnlimitedDiscCache(new File(getCacheDir(), "caches")))
                 .diskCacheSize(DISK_SIZE)
                 .defaultDisplayImageOptions(options)
                 .build();
@@ -52,6 +57,7 @@ public class YouWardrobeApplication extends Application {
         ImageLoader.getInstance().init(configuration);
 
         sContext = this.getApplicationContext();
+        mLocalData = new LocalData(getApplicationContext());
 
 //        初始化AppDirConfiguration
 //        try {
@@ -70,13 +76,16 @@ public class YouWardrobeApplication extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
-        Log.d(TAG, "onCreate: "+sHA1(getApplicationContext()));
+        Log.d(TAG, "onCreate: " + sHA1(getApplicationContext()));
     }
 
-    public static Context getAppContext(){
+    public static Context getAppContext() {
         return sContext;
     }
 
+    public static LocalData getmLocalData() {
+        return mLocalData;
+    }
 
     public static String sHA1(Context context) {
         try {
@@ -94,8 +103,8 @@ public class YouWardrobeApplication extends Application {
                 hexString.append(appendString);
                 hexString.append(":");
             }
-            String result= hexString.toString();
-            return result.substring(0, result.length()-1);
+            String result = hexString.toString();
+            return result.substring(0, result.length() - 1);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {

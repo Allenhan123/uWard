@@ -11,6 +11,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ygxinjian.anhui.youwardrobe.Activity.CheckPermissionsActivity;
+import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Home;
 import com.ygxinjian.anhui.youwardrobe.Fragment.HomeFragment;
 import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Me;
@@ -18,10 +19,12 @@ import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Recommend;
 import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Wardrobe;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.LocationUtils;
+import com.ygxinjian.anhui.youwardrobe.utils.TextUtil;
 
 public class MainActivity extends CheckPermissionsActivity implements BottomNavigationBar.OnTabSelectedListener {
-
     private static final String TAG = "MainActivity";
+    public static String city;
+
     private BottomNavigationBar mBottomNavigationBar;
     private Fragment_Home homeFragment;
     private Fragment_Recommend recommendFragment;
@@ -36,6 +39,10 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        city = YouWardrobeApplication.getmLocalData().getString(LocalData.KEY_USE_WEATHER);
+        if (TextUtil.isNull(city)) {
+            city = "合肥";
+        }
         //初始化定位
         initLocation();
 
@@ -171,7 +178,6 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
         locationClient.setLocationListener(locationListener);
     }
 
-    public static String city;
 
     /**
      * 定位监听
@@ -182,11 +188,16 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
             if (null != loc) {
                 //解析定位结果
                 String result = LocationUtils.getLocationStr(loc);
-//                DevUtil.showInfo(MainActivity.this,result);
                 Log.e("LOCATION", result);
                 Log.e("CITY ", loc.getCity());
                 if (loc.getCity() != null) {
-                    city = loc.getCity();
+                    if (!city.equals(loc.getCity())) {
+                        city = loc.getCity();
+                        YouWardrobeApplication.getmLocalData().setString(LocalData.KEY_USE_WEATHER, city);
+                        //// TODO: 2017/3/28
+                        //需要重新刷新天气
+                       
+                    }
                 }
             } else {
                 DevUtil.showInfo(MainActivity.this, "定位失败");
