@@ -3,6 +3,7 @@ package com.ygxinjian.anhui.youwardrobe.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Controller.HomeExpandableListViewAdapter;
 import com.ygxinjian.anhui.youwardrobe.Controller.NetworkImageHolderView;
 import com.ygxinjian.anhui.youwardrobe.Controller.ShopcartExpandableListViewAdapter;
+import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.MainActivity;
 import com.ygxinjian.anhui.youwardrobe.Model.BannerModel;
 import com.ygxinjian.anhui.youwardrobe.Model.HomeCategoryModel;
@@ -30,6 +32,7 @@ import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
 import com.ygxinjian.anhui.youwardrobe.Model.WeatherModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.View.WardrobeProgress;
+import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.TimeUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -48,7 +51,7 @@ import okhttp3.Call;
  * Created by handongqiang on 17/3/13.
  */
 
-public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = Fragment_Home.class.getSimpleName();
     @InjectView(R.id.nav_tv_title)
     ImageView navTvTitle;
@@ -80,7 +83,7 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.inject(this, rootView);
         swipeRefresh.setOnRefreshListener(this);
-        swipeRefresh.setColorSchemeResources(R.color.main_Red,R.color.color_text_theme);
+        swipeRefresh.setColorSchemeResources(R.color.main_Red, R.color.color_text_theme);
         initHeadView();
         getData();
         listView.addHeaderView(headView);
