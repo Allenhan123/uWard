@@ -185,9 +185,9 @@ public class Fragment_Recommend extends BaseFragment {
      * 设置RecyclerView属性
      */
     private void initAdapter() {
-        MyGridLayoutManager linearLayoutManager = new MyGridLayoutManager(getContext(),2);
-        linearLayoutManager.setScrollEnabled(false);
-        recycleView_single.setLayoutManager(linearLayoutManager);
+        MyGridLayoutManager gridLayoutManager = new MyGridLayoutManager(getContext(),2);
+        gridLayoutManager.setScrollEnabled(false);
+        recycleView_single.setLayoutManager(gridLayoutManager);
         mAdapter.openLoadAnimation();
         recycleView_single.setAdapter(mAdapter);//设置adapter
         //设置item点击事件

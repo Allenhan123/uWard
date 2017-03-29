@@ -227,11 +227,11 @@ public class HomeFragment extends BaseFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (position < 1) {
-                convertView = View.inflate(getContext(), R.layout.item_home_type_1, null);
-            } else {
-                convertView = View.inflate(getContext(), R.layout.item_home_type_2, null);
-            }
+//            if (position < 1) {
+//                convertView = View.inflate(getContext(), R.layout.item_home_type_1, null);
+//            } else {
+//                convertView = View.inflate(getContext(), R.layout.item_home_type_2, null);
+//            }
 
             return convertView;
         }
