@@ -21,8 +21,7 @@ android {
             keyPassword "han!123"
         }
     }
-
-
+    
     buildTypes {
         debug {
             minifyEnabled false

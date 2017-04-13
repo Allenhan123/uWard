@@ -25,7 +25,7 @@ import java.util.Map;
  * Created by handongqiang on 17/3/13.
  */
 
-public class Fragment_Wardrobe extends BaseFragment implements ShopcartExpandableListViewAdapter.CheckInterface, ShopcartExpandableListViewAdapter.ModifyCountInterface, View.OnClickListener {
+public class WardrobeFragment extends BaseFragment implements ShopcartExpandableListViewAdapter.CheckInterface, ShopcartExpandableListViewAdapter.ModifyCountInterface, View.OnClickListener {
     private ImageView iv_back;
     private TextView tv_title;
     private ExpandableListView exListView;

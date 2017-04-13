@@ -13,10 +13,9 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ygxinjian.anhui.youwardrobe.Activity.CheckPermissionsActivity;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Home;
-import com.ygxinjian.anhui.youwardrobe.Fragment.HomeFragment;
-import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Me;
-import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Recommend;
-import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Wardrobe;
+import com.ygxinjian.anhui.youwardrobe.Fragment.MeFragment;
+import com.ygxinjian.anhui.youwardrobe.Fragment.RecommendFragment;
+import com.ygxinjian.anhui.youwardrobe.Fragment.WardrobeFragment;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.LocationUtils;
 import com.ygxinjian.anhui.youwardrobe.utils.TextUtil;
@@ -27,9 +26,9 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
 
     private BottomNavigationBar mBottomNavigationBar;
     private Fragment_Home homeFragment;
-    private Fragment_Recommend recommendFragment;
-    private Fragment_Wardrobe youyardrobeFragment;
-    private Fragment_Me meFragment;
+    private RecommendFragment recommendFragment;
+    private WardrobeFragment youyardrobeFragment;
+    private MeFragment meFragment;
 
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = new AMapLocationClientOption();
@@ -92,7 +91,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
                 break;
             case 1:
                 if (recommendFragment == null) {
-                    recommendFragment = new Fragment_Recommend();
+                    recommendFragment = new RecommendFragment();
                     transaction.add(R.id.ll_content, recommendFragment);
                 } else {
                     transaction.show(recommendFragment);
@@ -100,7 +99,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
                 break;
             case 2:
                 if (youyardrobeFragment == null) {
-                    youyardrobeFragment = new Fragment_Wardrobe();
+                    youyardrobeFragment = new WardrobeFragment();
                     transaction.add(R.id.ll_content, youyardrobeFragment);
                 } else {
                     transaction.show(youyardrobeFragment);
@@ -108,7 +107,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
                 break;
             case 3:
                 if (meFragment == null) {
-                    meFragment = new Fragment_Me();
+                    meFragment = new MeFragment();
                     transaction.add(R.id.ll_content, meFragment);
                 } else {
                     transaction.show(meFragment);
