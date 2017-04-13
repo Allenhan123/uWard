@@ -40,7 +40,7 @@ import okhttp3.Call;
  * Created by handongqiang on 17/3/13.
  */
 
-public class Fragment_Recommend extends BaseFragment {
+public class RecommendFragment extends BaseFragment {
     private ImageView iv_back;
     private TextView tv_title;
     private List<Integer> list = new ArrayList<>();

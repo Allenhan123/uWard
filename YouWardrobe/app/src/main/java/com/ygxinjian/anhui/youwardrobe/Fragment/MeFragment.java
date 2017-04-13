@@ -12,7 +12,7 @@ import com.ygxinjian.anhui.youwardrobe.View.WardrobeProgress;
  * Created by handongqiang on 17/3/13.
  */
 
-public class Fragment_Me extends BaseFragment {
+public class MeFragment extends BaseFragment {
     private ImageView iv_back;
     private TextView tv_title;
     private WardrobeProgress wardrobeProgress;
