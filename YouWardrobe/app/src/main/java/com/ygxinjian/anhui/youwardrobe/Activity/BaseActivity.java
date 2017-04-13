@@ -1,5 +1,6 @@
 package com.ygxinjian.anhui.youwardrobe.Activity;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,4 +25,9 @@ public class BaseActivity extends AppCompatActivity {
 //        隐藏actionbar
 //        getSupportActionBar().hide();
     }
+
+    public Context getContext() {
+        return this;
+    }
+
 }

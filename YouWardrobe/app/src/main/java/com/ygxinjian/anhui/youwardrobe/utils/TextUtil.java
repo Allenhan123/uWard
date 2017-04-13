@@ -29,9 +29,17 @@ public class TextUtil {
         return TextUtils.isEmpty(cs.toString().trim());
     }
 
-
+    /**
+     * 以1开头 的11位数字
+     * @param phone
+     * @return
+     */
     public static boolean isPhone(String phone) {
-        String regex = "^((13[0-9])|(13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$";
+//        String regex = "^((13[0-9])|(13[0-9])|(15[^4,\\D])|(18[0-9]))\\d{8}$";
+//        Pattern p = Pattern.compile(regex);
+//        Matcher m = p.matcher(phone);
+
+        String regex = "^(1)\\d{10}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(phone);
         return m.matches();
