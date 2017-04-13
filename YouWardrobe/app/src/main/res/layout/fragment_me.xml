@@ -4,85 +4,92 @@
     android:layout_height="match_parent"
     android:background="#efeff4"
     android:orientation="vertical">
+
     <include layout="@layout/top_title_layout_2"></include>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/main_Red">
+
         <com.ygxinjian.anhui.youwardrobe.View.HeadImageView
+            android:id="@+id/iv_user_photo"
             android:layout_width="60dp"
             android:layout_height="70dp"
-            android:scaleType="centerCrop"
             android:layout_marginLeft="30dp"
-            android:id="@+id/iv_user_photo"
-            android:src="@drawable/img_avatar_06"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_avatar_06" />
+
         <TextView
+            android:id="@+id/tv_nick"
+            style="@style/ShowTv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="小依"
-            android:id="@+id/tv_nick"
-            android:textColor="@color/white"
-            android:layout_toRightOf="@+id/iv_user_photo"
             android:layout_marginLeft="20dp"
-            style="@style/ShowTv1"/>
+            android:layout_toRightOf="@+id/iv_user_photo"
+            android:text="小依"
+            android:textColor="@color/white" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/female_icon"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/tv_nick"
-            android:layout_marginLeft="10dp"/>
+            android:src="@mipmap/female_icon" />
+
         <TextView
+            style="@style/ShowTv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="普通用户"
-            style="@style/ShowTv1"
-            android:textColor="@color/color_grey_bg"
             android:layout_below="@+id/tv_nick"
-            android:layout_toRightOf="@id/iv_user_photo"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/iv_user_photo"
             android:drawableLeft="@mipmap/vip_icons"
-            android:drawablePadding="8dp"/>
+            android:drawablePadding="8dp"
+            android:text="普通用户"
+            android:textColor="@color/color_grey_bg" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/photot_icon"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/photot_icon" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:orientation="horizontal">
+
         <include layout="@layout/user_item1"></include>
+
         <TextView
             android:layout_width="0.8dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:background="#e0e0e0" />
+
         <include layout="@layout/user_item2"></include>
+
         <TextView
             android:layout_width="0.8dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:background="#e0e0e0" />
+
         <include layout="@layout/user_item3"></include>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_user_information"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@drawable/btn_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        style="@style/My_Item_container"
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:layout_width="30dp"
@@ -90,34 +97,18 @@
             android:src="@mipmap/ic_my_3" />
 
         <TextView
-            style="@style/ShowTv3"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            style="@style/My_Item_Text"
             android:text="个人信息" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/arrow_right" />
+        <include layout="@layout/view_enter_arrow" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_new_user"
-        android:layout_marginTop="0.5dp"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@drawable/btn_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        style="@style/My_Item_container"
+        android:layout_marginTop="0.5dp">
 
         <ImageView
             android:layout_width="30dp"
@@ -125,34 +116,17 @@
             android:src="@mipmap/icon_my_4" />
 
         <TextView
-            style="@style/ShowTv3"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            style="@style/My_Item_Text"
             android:text="用户指南" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/arrow_right" />
+        <include layout="@layout/view_enter_arrow" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_user_share"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@drawable/btn_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        style="@style/My_Item_container"
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:layout_width="30dp"
@@ -161,34 +135,18 @@
             android:src="@mipmap/icon_my_6" />
 
         <TextView
-            style="@style/ShowTv3"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            style="@style/My_Item_Text"
             android:text="分享好友" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/arrow_right" />
+        <include layout="@layout/view_enter_arrow" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_about_our"
         android:layout_marginTop="0.5dp"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@drawable/btn_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        style="@style/My_Item_container">
 
         <ImageView
             android:layout_width="30dp"
@@ -197,34 +155,18 @@
             android:src="@mipmap/icon_my_2" />
 
         <TextView
-            style="@style/ShowTv3"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            style="@style/My_Item_Text"
             android:text="关于我们" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/arrow_right" />
+        <include layout="@layout/view_enter_arrow" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_user_exit"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@drawable/btn_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        style="@style/My_Item_container"
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:layout_width="30dp"
@@ -232,22 +174,10 @@
             android:src="@mipmap/icon_my_7" />
 
         <TextView
-            style="@style/ShowTv3"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            style="@style/My_Item_Text"
             android:text="安全退出" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/arrow_right" />
+        <include layout="@layout/view_enter_arrow" />
 
     </LinearLayout>
 

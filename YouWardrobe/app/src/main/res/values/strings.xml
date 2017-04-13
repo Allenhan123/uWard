@@ -20,4 +20,15 @@
     <string name="commend_describe">搭配师每天为您精心搭配，左滑喜欢，右滑删除</string>
     <string name="app_test_short">定位中..</string>
 
+
+
+
+    <string name="register_title">注册</string>
+
+
+    <string name="tip_user_name_null">请输入用户名！</string>
+    <string name="tip_psw_null">请输入密码！</string>
+    <string name="tip_net_error">请检查网络！</string>
+    <string name="tip_phone_error">请输入正确手机号！</string>
+
 </resources>

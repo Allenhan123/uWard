@@ -40,7 +40,7 @@ public class WardrobeProgress {
     }
 
 
-    private class ProgressHUDDialog extends Dialog {
+    public class ProgressHUDDialog extends Dialog {
         private ImageView iv0,iv1;
 
         public ProgressHUDDialog(Context context) {

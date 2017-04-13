@@ -30,7 +30,7 @@
             android:textColor="@color/white" />
         <ImageView
             android:layout_gravity="end"
-            android:id="@+id/nav_go_back"
+            android:id="@+id/nav_right"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:paddingBottom="10dp"

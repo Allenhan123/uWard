@@ -9,6 +9,8 @@ import android.content.SharedPreferences.Editor;
  */
 public class LocalData {
     public static String KEY_USE_WEATHER = "weather";
+    public static String KEY_USE_INFO = "user_info";
+    public static String KEY_USE_ID = "user_id";
 
 
     private SharedPreferences mPreference;
