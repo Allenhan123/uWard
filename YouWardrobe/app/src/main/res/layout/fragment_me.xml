@@ -51,9 +51,9 @@
             android:textColor="@color/color_grey_bg" />
 
         <ImageView
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_marginRight="15dp"
             android:layout_marginTop="8dp"
             android:src="@mipmap/photot_icon" />

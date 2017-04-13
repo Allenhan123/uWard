@@ -21,8 +21,6 @@
     <string name="app_test_short">定位中..</string>
 
 
-
-
     <string name="register_title">注册</string>
 
 
@@ -30,5 +28,33 @@
     <string name="tip_psw_null">请输入密码！</string>
     <string name="tip_net_error">请检查网络！</string>
     <string name="tip_phone_error">请输入正确手机号！</string>
+
+
+
+
+
+
+    <!--个人信息 列表的title-->
+    <!--CardType=证件类型& CardNo=证件编码& Sex=性别& Birthday=生日&Size=尺码&
+    Height=身高& Weight=体重& Bust=胸围& Waistline=腰围& Hipline=臀围& ShoulderWidth=肩宽-->
+    <string name="user_info_photo">头像</string>
+    <string name="user_info_phone">手机号码</string>
+    <string name="user_info_card_type">证件类型</string>
+    <string name="user_info_card_no">证件编码</string>
+    <string name="user_info_sex">性别</string>
+    <string name="user_info_birthday">生日</string>
+
+    <string name="user_info_figure">身材</string>
+    <string name="user_info_size">尺码</string>
+    <string name="user_info_height">身高</string>
+    <string name="user_info_weight">体重</string>
+    <string name="user_info_bust">胸围</string>
+    <string name="user_info_waistline">腰围</string>
+    <string name="user_info_hipline">臀围</string>
+    <string name="user_info_shoulderwidth">肩宽</string>
+
+    <string name="user_message_title">个人信息</string>
+    <string name="dialog_photo_carema">拍照</string>
+    <string name="dialog_photo_album">从手机相册选择</string>
 
 </resources>

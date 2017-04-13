@@ -1,28 +1,51 @@
 package com.ygxinjian.anhui.youwardrobe.Fragment;
 
-import android.os.Handler;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.ygxinjian.anhui.youwardrobe.Activity.UserMessageActivity;
 import com.ygxinjian.anhui.youwardrobe.R;
-import com.ygxinjian.anhui.youwardrobe.View.WardrobeProgress;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by handongqiang on 17/3/13.
  */
 
 public class MeFragment extends BaseFragment {
-    private ImageView iv_back;
-    private TextView tv_title;
-    private WardrobeProgress wardrobeProgress;
+
+
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_me, null);
-        iv_back = (ImageView) view.findViewById(R.id.nav_go_back);
-        iv_back.setVisibility(View.GONE);
-        tv_title = (TextView) view.findViewById(R.id.nav_tv_title);
-        tv_title.setText("");
         return view;
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.inject(this, rootView);
+
+
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
+    }
+
+    @OnClick(R.id.ll_user_information)
+    public void openUserMessage() {
+        Intent intent = new Intent(getContext(), UserMessageActivity.class);
+        startActivity(intent);
+    }
+
 }

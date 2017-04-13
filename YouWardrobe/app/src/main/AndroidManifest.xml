@@ -56,6 +56,16 @@
         <activity
             android:name=".Activity.FindPswActivity"
             android:screenOrientation="portrait" />
+
+        <!--个人信息-->
+        <activity
+            android:name=".Activity.UserMessageActivity"
+            android:screenOrientation="portrait" />
+
+        <!--编辑个人信息-->
+        <activity
+            android:name=".Activity.UserMessageEditActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
