@@ -10,8 +10,8 @@
         android:layout_height="100dp"
         android:background="@color/main_Red">
         <com.ygxinjian.anhui.youwardrobe.View.HeadImageView
-            android:layout_width="60dp"
-            android:layout_height="70dp"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
             android:scaleType="centerCrop"
             android:layout_marginLeft="30dp"
             android:id="@+id/iv_user_photo"
@@ -28,28 +28,23 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/female_icon"
+            android:src="@drawable/user_edit_icon"
             android:layout_toRightOf="@+id/tv_nick"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="15dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="普通用户"
-            style="@style/ShowTv1"
+            style="@style/ShowTv3"
+            android:padding="5dp"
+            android:background="@drawable/xian_bg_icon"
             android:textColor="@color/color_grey_bg"
             android:layout_below="@+id/tv_nick"
             android:layout_toRightOf="@id/iv_user_photo"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
-            android:drawableLeft="@mipmap/vip_icons"
+            android:layout_marginTop="13dp"
             android:drawablePadding="8dp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/photot_icon"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="8dp"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -237,7 +232,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="安全退出" />
+            android:text="系统设置" />
 
         <Space
             android:layout_width="wrap_content"
