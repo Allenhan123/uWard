@@ -13,15 +13,9 @@
         android:background="@color/main_Red">
 
         <com.ygxinjian.anhui.youwardrobe.View.HeadImageView
-<<<<<<< HEAD
-            android:layout_width="70dp"
-            android:layout_height="80dp"
-            android:scaleType="centerCrop"
-=======
             android:id="@+id/iv_user_photo"
             android:layout_width="60dp"
             android:layout_height="70dp"
->>>>>>> 54f579c44027eb32cfca8d8b6f5c0c0d29bf8d83
             android:layout_marginLeft="30dp"
             android:scaleType="centerCrop"
             android:src="@drawable/img_avatar_06" />
@@ -39,38 +33,21 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
-            android:src="@drawable/user_edit_icon"
-            android:layout_toRightOf="@+id/tv_nick"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="15dp"/>
-=======
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/tv_nick"
-            android:src="@mipmap/female_icon" />
+            android:layout_marginTop="5dp"
+            android:src="@drawable/user_edit_icon" />
 
->>>>>>> 54f579c44027eb32cfca8d8b6f5c0c0d29bf8d83
         <TextView
-            style="@style/ShowTv1"
+            style="@style/ShowTv4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
-            android:text="普通用户"
-            style="@style/ShowTv3"
-            android:padding="5dp"
-            android:background="@drawable/xian_bg_icon"
-            android:textColor="@color/color_grey_bg"
-=======
->>>>>>> 54f579c44027eb32cfca8d8b6f5c0c0d29bf8d83
             android:layout_below="@+id/tv_nick"
             android:layout_marginLeft="20dp"
-<<<<<<< HEAD
-            android:layout_marginTop="13dp"
-            android:drawablePadding="8dp"/>
-=======
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/iv_user_photo"
-            android:drawableLeft="@mipmap/vip_icons"
+            android:background="@drawable/xian_bg_icon"
+            android:padding="5dp"
             android:drawablePadding="8dp"
             android:text="普通用户"
             android:textColor="@color/color_grey_bg" />
@@ -82,7 +59,6 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="8dp"
             android:src="@mipmap/photot_icon" />
->>>>>>> 54f579c44027eb32cfca8d8b6f5c0c0d29bf8d83
     </RelativeLayout>
 
     <LinearLayout
@@ -200,17 +176,8 @@
             android:src="@mipmap/icon_my_7" />
 
         <TextView
-<<<<<<< HEAD
-            style="@style/ShowTv3"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="系统设置" />
-=======
             style="@style/My_Item_Text"
             android:text="安全退出" />
->>>>>>> 54f579c44027eb32cfca8d8b6f5c0c0d29bf8d83
 
         <include layout="@layout/view_enter_arrow" />
 

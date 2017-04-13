@@ -78,46 +78,47 @@ public class LoginActivity extends BaseActivity {
     private void loginToService() {
         String userName = etUsername.getText().toString();
         String userPsw = etPassword.getText().toString();
+        DevUtil.gotoActivity(getContext(), MainActivity.class);
 
-        if (TextUtil.isNull(userName)) {
-            DevUtil.showInfo(this, getString(R.string.tip_user_name_null));
-            return;
-        }
-        if (TextUtil.isNull(userPsw)) {
-            DevUtil.showInfo(this, getString(R.string.tip_psw_null));
-            return;
-        }
-
-        final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
-        dialog.show();
-        OkHttpUtils.post()
-                .url(Constant.login)
-                .addParams("uid", userName)
-                .addParams("pwd", userPsw)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        dialog.dismiss();
-                        DevUtil.showInfo(getContext(), getString(R.string.tip_net_error));
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        dialog.dismiss();
-//                        Log.d(TAG, "onResponse: " + response.toString());
-                        LogInNetModel netModel = BaseModel.getGson().fromJson(response.toString(), LogInNetModel.class);
-                        if (netModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
-                            YouWardrobeApplication.getmLocalData().setString(LocalData.KEY_USE_INFO, netModel.getResult().toString());
-                            YouWardrobeApplication.getmLocalData().setString(LocalData.KEY_USE_ID, netModel.getResult().getName());
-
-                            DevUtil.gotoActivity(getContext(), MainActivity.class);
-                            finish();
-                        } else {
-                            DevUtil.showInfo(getContext(), netModel.getMessage());
-                        }
-
-                    }
-                });
+//        if (TextUtil.isNull(userName)) {
+//            DevUtil.showInfo(this, getString(R.string.tip_user_name_null));
+//            return;
+//        }
+//        if (TextUtil.isNull(userPsw)) {
+//            DevUtil.showInfo(this, getString(R.string.tip_psw_null));
+//            return;
+//        }
+//
+//        final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
+//        dialog.show();
+//        OkHttpUtils.post()
+//                .url(Constant.login)
+//                .addParams("uid", userName)
+//                .addParams("pwd", userPsw)
+//                .build()
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onError(Call call, Exception e, int id) {
+//                        dialog.dismiss();
+//                        DevUtil.showInfo(getContext(), getString(R.string.tip_net_error));
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String response, int id) {
+//                        dialog.dismiss();
+////                        Log.d(TAG, "onResponse: " + response.toString());
+//                        LogInNetModel netModel = BaseModel.getGson().fromJson(response.toString(), LogInNetModel.class);
+//                        if (netModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+//                            YouWardrobeApplication.getmLocalData().setString(LocalData.KEY_USE_INFO, netModel.getResult().toString());
+//                            YouWardrobeApplication.getmLocalData().setString(LocalData.KEY_USE_ID, netModel.getResult().getName());
+//
+//                            DevUtil.gotoActivity(getContext(), MainActivity.class);
+//                            finish();
+//                        } else {
+//                            DevUtil.showInfo(getContext(), netModel.getMessage());
+//                        }
+//
+//                    }
+//                });
     }
 }

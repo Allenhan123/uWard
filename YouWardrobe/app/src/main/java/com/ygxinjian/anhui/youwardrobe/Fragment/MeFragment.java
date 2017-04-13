@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ygxinjian.anhui.youwardrobe.Activity.UserMessageActivity;
 import com.ygxinjian.anhui.youwardrobe.R;
@@ -19,11 +20,15 @@ import butterknife.OnClick;
  */
 
 public class MeFragment extends BaseFragment {
-
-
+    private ImageView navGoBack;
+    private TextView navTvTitle;
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_me, null);
+        navGoBack = (ImageView) view.findViewById(R.id.nav_go_back);
+        navTvTitle = (TextView) view.findViewById(R.id.nav_tv_title);
+        navGoBack.setVisibility(View.GONE);
+        navTvTitle.setText("");
         return view;
     }
 
