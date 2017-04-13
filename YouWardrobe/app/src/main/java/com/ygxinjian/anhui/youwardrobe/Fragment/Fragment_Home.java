@@ -268,6 +268,7 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
             @Override
             public void run() {
                 getData();
+                initWeather();
                 // 加载完数据设置为不刷新状态，将下拉进度收起来
                 swipeRefresh.setRefreshing(false);
             }

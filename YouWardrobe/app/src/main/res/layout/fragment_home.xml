@@ -18,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
-            tools:listitem="@layout/item_home_type_1" />
+            android:dividerHeight="0dp" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
