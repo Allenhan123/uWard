@@ -69,7 +69,7 @@ public class YouWardrobeApplication extends Application {
 //        }
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new LoggerInterceptor("TAG"))
+                .addInterceptor(new LoggerInterceptor("TAG",true))
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 //其他配置
@@ -83,7 +83,7 @@ public class YouWardrobeApplication extends Application {
         return sContext;
     }
 
-    public static LocalData getmLocalData() {
+    public static LocalData getLocalData() {
         return mLocalData;
     }
 

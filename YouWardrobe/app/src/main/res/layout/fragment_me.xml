@@ -13,7 +13,7 @@
         android:id="@+id/rl_userMessage"
         android:background="@color/main_Red">
 
-        <com.ygxinjian.anhui.youwardrobe.View.HeadImageView
+        <ImageView
             android:id="@+id/iv_user_photo"
             android:layout_width="60dp"
             android:layout_height="70dp"

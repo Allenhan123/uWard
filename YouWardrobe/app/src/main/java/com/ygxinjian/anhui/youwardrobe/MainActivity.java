@@ -38,7 +38,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        city = YouWardrobeApplication.getmLocalData().getString(LocalData.KEY_USE_WEATHER);
+        city = YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_WEATHER);
         if (TextUtil.isNull(city)) {
             city = "合肥";
         }
@@ -192,7 +192,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
                 if (loc.getCity() != null) {
                     if (!city.equals(loc.getCity())) {
                         city = loc.getCity();
-                        YouWardrobeApplication.getmLocalData().setString(LocalData.KEY_USE_WEATHER, city);
+                        YouWardrobeApplication.getLocalData().setString(LocalData.KEY_USE_WEATHER, city);
                         //// TODO: 2017/3/28
                         //需要重新刷新天气
                        

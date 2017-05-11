@@ -3,9 +3,13 @@ package com.ygxinjian.anhui.youwardrobe.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
+import com.ygxinjian.anhui.youwardrobe.MainActivity;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.StatusBarUtils;
+import com.ygxinjian.anhui.youwardrobe.utils.TextUtil;
 
 
 /**
@@ -18,7 +22,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         StatusBarUtils.setWindowStatusBarColor(this,R.color.splash_Red);
-        boolean b = new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // 判断之前有没有登陆过
@@ -30,7 +34,11 @@ public class SplashActivity extends BaseActivity {
 //                } else {
 //                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 //                }
-                DevUtil.gotoActivity(SplashActivity.this, LoginActivity.class);
+                if (TextUtil.isNull(YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_ID))){
+                    DevUtil.gotoActivity(SplashActivity.this, LoginActivity.class);
+                }else {
+                    DevUtil.gotoActivity(SplashActivity.this, MainActivity.class);
+                }
                 finish();
             }
         }, 100);
