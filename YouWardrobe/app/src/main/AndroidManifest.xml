@@ -71,6 +71,24 @@
             android:name=".Activity.UserMessageEditActivity"
             android:screenOrientation="portrait" />
 
+        <!--穿衣记录-->
+        <activity
+            android:name=".Activity.DressHistoryActivity"
+            android:screenOrientation="portrait" />
+
+        <!--风格设置-->
+        <activity
+            android:name=".Activity.UserStyleActivity"
+            android:screenOrientation="portrait" />
+
+        <!--收货地址-->
+        <activity
+            android:name=".Activity.GetAdressActivity"
+            android:screenOrientation="portrait" />
+        <!--身材信息-->
+        <activity
+            android:name=".Activity.FigureActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.mob.tools.MobUIShell"

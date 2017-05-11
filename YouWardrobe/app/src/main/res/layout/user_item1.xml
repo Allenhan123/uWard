@@ -4,7 +4,7 @@
     android:layout_weight="1"
     android:layout_height="90dp"
     android:gravity="center"
-    android:id="@+id/ll_my_course"
+    android:id="@+id/ll_dress_history"
     android:orientation="vertical">
 
         <ImageView

@@ -5,8 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/top_title_layout_2" />
-
+    <include layout="@layout/top_title_layout_3" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,7 +38,6 @@
                     android:src="@mipmap/ic_launcher" />
 
                 <include layout="@layout/view_enter_arrow" />
-
             </LinearLayout>
 
             <TextView
@@ -47,70 +45,7 @@
                 android:layout_height="10dp"
                 android:background="@color/color_underline" />
 
-            <LinearLayout
-                android:id="@+id/item_phone"
-                style="@style/My_Item_container">
 
-                <TextView
-                    style="@style/My_Item_Text"
-                    android:layout_weight="0"
-                    android:text="@string/user_info_phone" />
-
-                <TextView
-                    android:id="@+id/tv_phone"
-                    style="@style/My_Item_Text_tip"
-                    android:text=" " />
-
-                <include layout="@layout/view_enter_arrow" />
-
-            </LinearLayout>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/color_underline" />
-
-            <LinearLayout
-                android:id="@+id/item_card_type"
-                style="@style/My_Item_container">
-
-                <TextView
-                    style="@style/My_Item_Text"
-                    android:layout_weight="0"
-                    android:text="@string/user_info_card_type" />
-
-                <TextView
-                    style="@style/My_Item_Text_tip"
-                    android:text=" " />
-
-                <include layout="@layout/view_enter_arrow" />
-
-            </LinearLayout>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/color_underline" />
-
-            <LinearLayout
-                android:id="@+id/item_card_no"
-                style="@style/My_Item_container">
-
-                <TextView
-                    style="@style/My_Item_Text"
-                    android:layout_weight="0"
-                    android:text="@string/user_info_card_no" />
-
-                <TextView
-                    android:id="@+id/tv_card_no"
-                    style="@style/My_Item_Text_tip"
-                    android:text=" " />
-
-                <include layout="@layout/view_enter_arrow" />
-
-            </LinearLayout>
 
 
             <TextView
@@ -127,13 +62,22 @@
                     android:layout_weight="0"
                     android:text="@string/user_info_sex" />
 
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
                 <TextView
                     android:id="@+id/tv_sex"
-                    style="@style/My_Item_Text_tip"
-                    android:text=" " />
+                    style="@style/ShowTv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="right"
+                    android:hint="请选择"
+                    android:textColor="@color/default_gray" />
 
                 <include layout="@layout/view_enter_arrow" />
-
             </LinearLayout>
 
 
@@ -151,10 +95,20 @@
                     android:layout_weight="0"
                     android:text="@string/user_info_birthday" />
 
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
                 <TextView
-                    android:id="@+id/tv_birthday"
-                    style="@style/My_Item_Text_tip"
-                    android:text=" " />
+                    android:id="@+id/tv_bir"
+                    style="@style/ShowTv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:gravity="right"
+                    android:hint="请选择"
+                    android:textColor="@color/default_gray" />
 
                 <include layout="@layout/view_enter_arrow" />
 
@@ -163,7 +117,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="10dp"
                 android:background="@color/color_underline" />
 
             <LinearLayout 
@@ -180,18 +134,56 @@
                     android:text=" " />
 
                 <include layout="@layout/view_enter_arrow" />
-
             </LinearLayout>
-
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/color_underline" />
 
+            <LinearLayout
+                android:id="@+id/get_adress"
+                style="@style/My_Item_container">
 
+                <TextView
+                    style="@style/My_Item_Text"
+                    android:layout_weight="0"
+                    android:text="@string/user_get_adress" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/My_Item_Text_tip"
+                    android:text=" " />
+
+                <include layout="@layout/view_enter_arrow" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_underline" />
+
+            <LinearLayout
+                android:id="@+id/item_back_adress"
+                style="@style/My_Item_container">
+
+                <TextView
+                    style="@style/My_Item_Text"
+                    android:layout_weight="0"
+                    android:text="@string/user_back_adress" />
+
+                <TextView
+                    style="@style/My_Item_Text_tip"
+                    android:text=" " />
+
+                <include layout="@layout/view_enter_arrow" />
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_underline" />
         </LinearLayout>
     </ScrollView>
-
-
 </LinearLayout>

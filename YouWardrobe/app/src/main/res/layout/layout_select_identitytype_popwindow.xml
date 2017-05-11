@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        android:id="@+id/tv_select_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_underline"
+        android:text="性别选择"
+        android:textColor="@color/default_gray"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_inschool"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="帅哥"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_underline"></View>
+
+    <TextView
+        android:id="@+id/tv_graduate"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="美女"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_underline"></View>
+
+</LinearLayout>

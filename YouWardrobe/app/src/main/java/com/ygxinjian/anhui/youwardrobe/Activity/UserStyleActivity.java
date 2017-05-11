@@ -2,36 +2,38 @@ package com.ygxinjian.anhui.youwardrobe.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
-import com.ygxinjian.anhui.youwardrobe.Model.BaseModel;
-import com.ygxinjian.anhui.youwardrobe.Model.UserModel;
 import com.ygxinjian.anhui.youwardrobe.R;
-import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
- * Created by ${Ua} on 2017/4/13.
+ * Created by handongqiang on 17/5/10.
  */
 
-public class UserMessageEditActivity extends BaseActivity {
+public class UserStyleActivity extends BaseActivity {
+
+    @InjectView(R.id.nav_go_back)
+    ImageView navGoBack;
     @InjectView(R.id.nav_tv_title)
     TextView navTvTitle;
-    @InjectView(R.id.et_content)
-    EditText etContent;
-
+    @InjectView(R.id.nav_right)
+    TextView navRight;
+    @InjectView(R.id.recyclerView_user_style)
+    RecyclerView recyclerViewUserStyle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_message_edit);
+        setContentView(R.layout.activity_user_style);
         ButterKnife.inject(this);
+        navTvTitle.setText(R.string.user_user_style_title);
     }
 
     @OnClick({R.id.nav_go_back, R.id.nav_right})
@@ -40,14 +42,13 @@ public class UserMessageEditActivity extends BaseActivity {
             case R.id.nav_go_back:
                 finish();
                 break;
-            case R.id.nav_right://保存
+            case R.id.nav_right:
+                save();
                 break;
         }
     }
 
+    private void save() {
 
-
-
-
-
+    }
 }

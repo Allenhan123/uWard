@@ -50,7 +50,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private Button btn_register;
 
     private static String appKey = "1cf9ebeba5b32";
-
     // 填写从短信SDK应用后台注册得到的APPSECRET
     private static String appSecret = "50e162b039f0e82c4046d91582283802";
     private String number;

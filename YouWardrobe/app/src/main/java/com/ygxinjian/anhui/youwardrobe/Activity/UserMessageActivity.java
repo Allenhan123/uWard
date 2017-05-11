@@ -1,17 +1,27 @@
 package com.ygxinjian.anhui.youwardrobe.Activity;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Controller.ImageOptionUtils;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
@@ -19,10 +29,13 @@ import com.ygxinjian.anhui.youwardrobe.Model.BaseModel;
 import com.ygxinjian.anhui.youwardrobe.Model.UserModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
+import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.weigt.SelectPhotoDialog;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -33,30 +46,37 @@ import butterknife.OnClick;
  * Created by ${Ua} on 2017/4/13.
  */
 
-public class UserMessageActivity extends BaseActivity {
+public class UserMessageActivity extends BaseActivity implements OnDateSetListener {
     private static final String TAG = UserMessageEditActivity.class.getSimpleName();
     public static final int REQUEST_CAMERA = 1;
     public static final int REQUEST_ALBUM = 2;
     public static final int REQUEST_CROP = 3;
-
+    final int SEX_SELECT = 4;
     @InjectView(R.id.nav_tv_title)
     TextView navTvTitle;
     @InjectView(R.id.nav_right)
-    ImageView navRight;
+    TextView navRight;
     @InjectView(R.id.iv_user_photo)
     ImageView ivUserPhoto;
-    @InjectView(R.id.tv_phone)
-    TextView tvPhone;
-    @InjectView(R.id.tv_card_no)
-    TextView tvCardNo;
     @InjectView(R.id.tv_sex)
     TextView tvSex;
-    @InjectView(R.id.tv_birthday)
-    TextView tvBirthday;
 
 
     public static final String IMAGE_UNSPECIFIED = "image/*";
+    @InjectView(R.id.item_birthday)
+    LinearLayout itemBirthday;
+    @InjectView(R.id.item_figure)
+    LinearLayout itemFigure;
+    @InjectView(R.id.tv_bir)
+    TextView tvBir;
+    @InjectView(R.id.get_adress)
+    LinearLayout getAdress;
+    @InjectView(R.id.item_back_adress)
+    LinearLayout itemBackAdress;
     private File mImageFile;
+    TimePickerDialog mDialogYearMonthDay;
+    long sixtyYears = 60L * 365 * 1000 * 60 * 60 * 24L;
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,20 +84,29 @@ public class UserMessageActivity extends BaseActivity {
         setContentView(R.layout.activity_user_message);
         ButterKnife.inject(this);
         navTvTitle.setText(R.string.user_message_title);
-        navRight.setVisibility(View.GONE);
 
-        //// TODO: 2017/4/13  缺少获取用户信息的接口
+        mDialogYearMonthDay = new TimePickerDialog.Builder()
+                .setType(Type.YEAR_MONTH_DAY)
+                .setMaxMillseconds(System.currentTimeMillis())
+                .setMinMillseconds(System.currentTimeMillis() - sixtyYears)
+                .setTitleStringId("请选择出生日期")
+                .setCallBack(this)
+                .build();
+        //http://115.159.116.34:8089/Interface/i_Interface.aspx?m=getmember&uid=手机号
         getUserInfo();
     }
 
+
     @OnClick({R.id.nav_go_back, R.id.item_photo
-            , R.id.item_phone, R.id.item_card_type
-            , R.id.item_card_no, R.id.item_sex
+            , R.id.item_sex,R.id.get_adress, R.id.item_back_adress
             , R.id.item_birthday, R.id.item_figure})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.nav_go_back:
                 finish();
+                break;
+            case R.id.nav_right:
+                save();
                 break;
             case R.id.item_photo: //选择头像
                 final SelectPhotoDialog dialog = new SelectPhotoDialog(getContext());
@@ -95,21 +124,84 @@ public class UserMessageActivity extends BaseActivity {
                     }
                 });
                 break;
-            case R.id.item_phone:
-                Intent intent = new Intent(getContext(), UserMessageEditActivity.class);
-                startActivity(intent);
+
+
+            // 身材信息
+            case R.id.item_figure:
+                DevUtil.gotoActivity(getContext(),FigureActivity.class);
                 break;
-            case R.id.item_card_type:
+//            收货地址
+            case R.id.get_adress:
+                DevUtil.gotoActivity(getContext(),GetAdressActivity.class);
                 break;
-            case R.id.item_card_no:
+
+            // 寄回地址  弹窗显示固定地址
+            case R.id.item_back_adress:
+
                 break;
             case R.id.item_sex:
+                if (sexSelectPop != null && sexSelectPop.isShowing()) {
+                    sexSelectPop.dismiss();
+                    sexSelectPop = null;
+                } else {
+                    selectSex(SEX_SELECT);
+                }
                 break;
             case R.id.item_birthday:
+                mDialogYearMonthDay.show(getSupportFragmentManager(), "选择出生日期");
                 break;
-            case R.id.item_figure:
-                break;
+
         }
+    }
+
+    //性别选择
+    private PopupWindow sexSelectPop;
+
+    private void selectSex(int type) {
+        if (type == SEX_SELECT) {
+            View customView = LayoutInflater.from(this).inflate(R.layout.layout_select_identitytype_popwindow, null);
+            customView.findViewById(R.id.tv_inschool).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tvSex.setText("帅哥");
+                    sexSelectPop.dismiss();
+                }
+            });
+            customView.findViewById(R.id.tv_graduate).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tvSex.setText("美女");
+                    sexSelectPop.dismiss();
+                }
+            });
+            sexSelectPop = new PopupWindow(customView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
+            customView.setOnTouchListener(new View.OnTouchListener() {
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    // TODO Auto-generated method stub
+                    if (sexSelectPop != null && sexSelectPop.isShowing()) {
+                        sexSelectPop.dismiss();
+                        sexSelectPop = null;
+                    }
+
+                    return false;
+                }
+            });
+        }
+        sexSelectPop.update();
+        sexSelectPop.setTouchable(true);
+        sexSelectPop.setFocusable(true);
+        ColorDrawable dw = new ColorDrawable(0xa0000000);
+        sexSelectPop.setBackgroundDrawable(dw);
+        sexSelectPop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        sexSelectPop.setAnimationStyle(R.style.popupwindow_anim_style);
+        sexSelectPop.showAtLocation(navTvTitle, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    private void save() {
+
     }
 
 
@@ -198,10 +290,24 @@ public class UserMessageActivity extends BaseActivity {
 //                String path = parseFilePath(ss);
 //                updatePhoto(mImageFile.getAbsolutePath());
 
-                ImageLoader.getInstance().displayImage("file://"+mImageFile.getAbsolutePath(),ivUserPhoto, ImageOptionUtils.getUserCircleOptions());
+                ImageLoader.getInstance().displayImage("file://" + mImageFile.getAbsolutePath(), ivUserPhoto, ImageOptionUtils.getUserCircleOptions());
                 ivUserPhoto.setImageURI(ss);
                 break;
         }
     }
+
+    //显示生日
+    @Override
+    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
+
+        String text = getDateToString(millseconds);
+        tvBir.setText(text);
+    }
+
+    public String getDateToString(long time) {
+        Date d = new Date(time);
+        return sf.format(d);
+    }
+
 
 }

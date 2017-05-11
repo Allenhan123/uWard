@@ -44,7 +44,9 @@
     <string name="user_info_sex">性别</string>
     <string name="user_info_birthday">生日</string>
 
-    <string name="user_info_figure">身材</string>
+    <string name="user_info_figure">身材信息</string>
+    <string name="user_get_adress">收货地址</string>
+    <string name="user_back_adress">寄回地址</string>
     <string name="user_info_size">尺码</string>
     <string name="user_info_height">身高</string>
     <string name="user_info_weight">体重</string>
@@ -54,6 +56,9 @@
     <string name="user_info_shoulderwidth">肩宽</string>
 
     <string name="user_message_title">个人信息</string>
+    <string name="user_dress_history_title">穿衣记录</string>
+    <string name="user_user_style_title">风格选择</string>
+    <string name="clear_dress_history_title">清空</string>
     <string name="dialog_photo_carema">拍照</string>
     <string name="dialog_photo_album">从手机相册选择</string>
 

@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:id="@+id/rl_userMessage"
         android:background="@color/main_Red">
 
         <com.ygxinjian.anhui.youwardrobe.View.HeadImageView
