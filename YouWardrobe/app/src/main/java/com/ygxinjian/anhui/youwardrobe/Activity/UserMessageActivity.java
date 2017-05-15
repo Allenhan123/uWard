@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -137,7 +138,12 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
 
             // 寄回地址  弹窗显示固定地址
             case R.id.item_back_adress:
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("寄回地址");
+                builder.setMessage("安徽省合肥市xxxxxx");
+//                builder.setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", null);
+                builder.show();
                 break;
             case R.id.item_sex:
                 if (sexSelectPop != null && sexSelectPop.isShowing()) {

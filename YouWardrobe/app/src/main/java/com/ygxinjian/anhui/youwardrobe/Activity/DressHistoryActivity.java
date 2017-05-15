@@ -19,6 +19,8 @@ import butterknife.OnClick;
 
 public class DressHistoryActivity extends BaseActivity {
 
+//    item 布局为activity_adress_history_item
+
     @InjectView(R.id.nav_go_back)
     ImageView navGoBack;
     @InjectView(R.id.nav_tv_title)
@@ -35,8 +37,6 @@ public class DressHistoryActivity extends BaseActivity {
         ButterKnife.inject(this);
         navTvTitle.setText(R.string.user_dress_history_title);
         navRight.setText(R.string.clear_dress_history_title);
-
-
     }
 
     @OnClick({R.id.nav_go_back, R.id.nav_right})
@@ -46,12 +46,12 @@ public class DressHistoryActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.nav_right:
-                claerHistory();
+                clearHistory();
                 break;
         }
     }
 
-    private void claerHistory() {
+    private void clearHistory() {
 
     }
 }
