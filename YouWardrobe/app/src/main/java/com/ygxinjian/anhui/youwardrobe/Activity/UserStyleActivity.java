@@ -19,6 +19,7 @@ import butterknife.OnClick;
  */
 
 public class UserStyleActivity extends BaseActivity {
+//    item布局为acivity_user_style_item
 
     @InjectView(R.id.nav_go_back)
     ImageView navGoBack;
