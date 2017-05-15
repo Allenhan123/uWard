@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import butterknife.OnClick;
  */
 
 public class UserStyleActivity extends BaseActivity {
+//    item布局为acivity_user_style_item
 
     @InjectView(R.id.nav_go_back)
     ImageView navGoBack;
@@ -26,7 +28,7 @@ public class UserStyleActivity extends BaseActivity {
     @InjectView(R.id.nav_right)
     TextView navRight;
     @InjectView(R.id.recyclerView_user_style)
-    RecyclerView recyclerViewUserStyle;
+    GridView recyclerViewUserStyle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
