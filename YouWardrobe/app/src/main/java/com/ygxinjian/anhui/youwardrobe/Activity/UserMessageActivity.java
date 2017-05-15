@@ -99,7 +99,7 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
 
 
     @OnClick({R.id.nav_go_back, R.id.item_photo
-            , R.id.item_sex,R.id.get_adress, R.id.item_back_adress
+            , R.id.item_sex, R.id.get_adress, R.id.item_back_adress
             , R.id.item_birthday, R.id.item_figure})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -129,11 +129,11 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
 
             // 身材信息
             case R.id.item_figure:
-                DevUtil.gotoActivity(getContext(),FigureActivity.class);
+                DevUtil.gotoActivity(getContext(), FigureActivity.class);
                 break;
 //            收货地址
             case R.id.get_adress:
-                DevUtil.gotoActivity(getContext(),GetAdressActivity.class);
+                DevUtil.gotoActivity(getContext(), GetAdressActivity.class);
                 break;
 
             // 寄回地址  弹窗显示固定地址
@@ -185,7 +185,6 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
 
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    // TODO Auto-generated method stub
                     if (sexSelectPop != null && sexSelectPop.isShowing()) {
                         sexSelectPop.dismiss();
                         sexSelectPop = null;
@@ -216,9 +215,11 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
      */
     private void getUserInfo() {
         UserModel userModel = BaseModel.getGson()
-                .fromJson(YouWardrobeApplication.getmLocalData().getString(LocalData.KEY_USE_INFO), UserModel.class);
+                .fromJson(YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_INFO), UserModel.class);
         refreshUserView(userModel);
     }
+
+
 
     /**
      * 刷新用户信息界面

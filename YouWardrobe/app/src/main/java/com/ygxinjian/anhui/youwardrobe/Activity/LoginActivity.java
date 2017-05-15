@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.ygxinjian.anhui.youwardrobe.Model.LogInNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
+import com.ygxinjian.anhui.youwardrobe.api.Api;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.StatusBarUtils;
 import com.ygxinjian.anhui.youwardrobe.utils.TextUtil;
@@ -28,6 +30,10 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import okhttp3.Call;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by handongqiang on 17/3/10.
@@ -58,7 +64,8 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-                loginToService();
+//                loginToService();
+                loginTest();
                 break;
             case R.id.tv_register:
                 Intent loginIntent = new Intent(this, RegisterActivity.class);
@@ -78,47 +85,91 @@ public class LoginActivity extends BaseActivity {
     private void loginToService() {
         String userName = etUsername.getText().toString();
         String userPsw = etPassword.getText().toString();
-        DevUtil.gotoActivity(getContext(), MainActivity.class);
+        if (TextUtil.isNull(userName)) {
+            DevUtil.showInfo(this, getString(R.string.tip_user_name_null));
+            return;
+        }
+        if (TextUtil.isNull(userPsw)) {
+            DevUtil.showInfo(this, getString(R.string.tip_psw_null));
+            return;
+        }
 
-//        if (TextUtil.isNull(userName)) {
-//            DevUtil.showInfo(this, getString(R.string.tip_user_name_null));
-//            return;
-//        }
-//        if (TextUtil.isNull(userPsw)) {
-//            DevUtil.showInfo(this, getString(R.string.tip_psw_null));
-//            return;
-//        }
-//
-//        final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
-//        dialog.show();
-//        OkHttpUtils.post()
-//                .url(Constant.login)
-//                .addParams("uid", userName)
-//                .addParams("pwd", userPsw)
-//                .build()
-//                .execute(new StringCallback() {
-//                    @Override
-//                    public void onError(Call call, Exception e, int id) {
-//                        dialog.dismiss();
-//                        DevUtil.showInfo(getContext(), getString(R.string.tip_net_error));
-//                    }
-//
-//                    @Override
-//                    public void onResponse(String response, int id) {
-//                        dialog.dismiss();
-////                        Log.d(TAG, "onResponse: " + response.toString());
-//                        LogInNetModel netModel = BaseModel.getGson().fromJson(response.toString(), LogInNetModel.class);
-//                        if (netModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
-//                            YouWardrobeApplication.getmLocalData().setString(LocalData.KEY_USE_INFO, netModel.getResult().toString());
-//                            YouWardrobeApplication.getmLocalData().setString(LocalData.KEY_USE_ID, netModel.getResult().getName());
-//
-//                            DevUtil.gotoActivity(getContext(), MainActivity.class);
-//                            finish();
-//                        } else {
-//                            DevUtil.showInfo(getContext(), netModel.getMessage());
-//                        }
-//
-//                    }
-//                });
+        final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
+        dialog.show();
+        OkHttpUtils.post()
+                .url(Constant.login)
+                .addParams("uid", userName)
+                .addParams("pwd", userPsw)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        dialog.dismiss();
+                        DevUtil.showInfo(getContext(), getString(R.string.tip_net_error));
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        dialog.dismiss();
+                        LogInNetModel netModel = BaseModel.getGson().fromJson(response.toString(), LogInNetModel.class);
+                        if (netModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+                            YouWardrobeApplication.getLocalData().setString(LocalData.KEY_USE_INFO, netModel.getResult().toString());
+                            YouWardrobeApplication.getLocalData().setString(LocalData.KEY_USE_ID, netModel.getResult().getName());
+                            DevUtil.gotoActivity(getContext(), MainActivity.class);
+                            finish();
+                        } else {
+                            DevUtil.showInfo(getContext(), netModel.getMessage());
+                        }
+
+                    }
+                });
+    }
+
+    //登录  (使用RxJava +Retrofit)
+    private void loginTest() {
+        String userName = etUsername.getText().toString();
+        String userPsw = etPassword.getText().toString();
+        if (TextUtil.isNull(userName)) {
+            DevUtil.showInfo(this, getString(R.string.tip_user_name_null));
+            return;
+        }
+        if (TextUtil.isNull(userPsw)) {
+            DevUtil.showInfo(this, getString(R.string.tip_psw_null));
+            return;
+        }
+
+        final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
+        dialog.show();
+        Api.getYouWardrobeApi().login(userName, userPsw)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<LogInNetModel>() {
+                    @Override
+                    public void onCompleted() {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: " + e.toString());
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(LogInNetModel logInNetModel) {
+                        Log.d(TAG, "onNext: " + logInNetModel.toString());
+                        LogInNetModel netModel = logInNetModel;
+                        if (netModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+                            YouWardrobeApplication.getLocalData().setString(LocalData.KEY_USE_INFO, netModel.getResult().toString());
+                            YouWardrobeApplication.getLocalData().setString(LocalData.KEY_USE_ID, netModel.getResult().getName());
+                            DevUtil.gotoActivity(getContext(), MainActivity.class);
+                            finish();
+                        } else {
+                            DevUtil.showInfo(getContext(), netModel.getMessage());
+                        }
+                    }
+                });
+
+
     }
 }

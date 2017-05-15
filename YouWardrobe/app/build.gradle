@@ -21,7 +21,7 @@ android {
             keyPassword "han!123"
         }
     }
-    
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -71,8 +71,6 @@ dependencies {
     compile 'com.ldoublem.loadingview:loadingviewlib:1.0'
     compile 'com.lzy.widget:imagepicker:0.3.0'
     compile files('libs/glide-3.6.1.jar')
-    compile files('libs/xUtils-2.6.14.jar')
-    compile files('libs/gson-2.3.1.jar')
     compile 'com.kaopiz:kprogresshud:1.0.5'
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
     compile 'com.zhy:okhttputils:2.6.2'
@@ -80,6 +78,15 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'me.yuqirong:cardswipelayout:1.0.0'
 //    sms
-    compile name:'SMSSDK-2.1.4',ext:'aar'
-    compile name:'SMSSDKGUI-2.1.4',ext:'aar'
+    compile name: 'SMSSDK-2.1.4', ext: 'aar'
+    compile name: 'SMSSDKGUI-2.1.4', ext: 'aar'
+    compile 'com.google.code.gson:gson:2.6.2'
+
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'io.reactivex:rxjava:1.1.7'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
+
 }

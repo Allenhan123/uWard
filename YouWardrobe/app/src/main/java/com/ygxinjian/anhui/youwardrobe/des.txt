@@ -1,0 +1,6 @@
+java.lang.OutOfMemoryError
+ at android.graphics.Bitmap.nativeCreate(Native Method)
+at android.graphics.Bitmap.createBitmap(Bitmap.java:640)
+at android.graphics.Bitmap.createBitmap(Bitmap.java:620)
+at com.ygxinjian.anhui.youwardrobe.View.HeadImageView.getCircleBitmap(HeadImageView.java:65)
+at com.ygxinjian.anhui.youwardrobe.View.HeadImageView.onDraw(HeadImageView.java:46)
