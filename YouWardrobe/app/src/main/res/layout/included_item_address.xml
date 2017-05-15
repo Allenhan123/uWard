@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:text="许文强" />
+
+        <TextView
+            android:id="@+id/user_receiver_phone"
+            android:textSize="16sp"
+            android:textColor="#4c4c4c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="18919603467" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginBottom="8dp"
+        android:id="@+id/user_adress"
+        android:textSize="16sp"
+        android:textColor="#4c4c4c"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:singleLine="false"
+        android:text="上海静安区北京西路与万行渡路交叉口38号盛世名城小区13号楼B栋611室" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#c2c2c2"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:id="@+id/ll_fix_first_address"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_is_default"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/bg_checkbox_hook_selector" />
+
+            <TextView
+                android:id="@+id/user_address_isdefaul"
+                android:layout_width="0dp"
+                android:textSize="16sp"
+                android:textColor="#4c4c4c"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:paddingLeft="8dp"
+                android:text="默认地址" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/user_edit"
+            android:textSize="16sp"
+            android:textColor="#4c4c4c"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/app_icon_edit"
+            android:drawablePadding="8dp"
+            android:text="编辑" />
+
+        <TextView
+            android:id="@+id/user_delete"
+            android:textSize="16sp"
+            android:textColor="#4c4c4c"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@drawable/app_icon_delete"
+            android:drawablePadding="8dp"
+            android:text="删除" />
+
+    </LinearLayout>
+
+</LinearLayout>

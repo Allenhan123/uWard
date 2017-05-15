@@ -48,6 +48,8 @@
     <string name="user_get_adress">收货地址</string>
     <string name="user_back_adress">寄回地址</string>
     <string name="user_info_size">尺码</string>
+    <string name="user_short_size">上身</string>
+    <string name="user_trousers_size">下身</string>
     <string name="user_info_height">身高</string>
     <string name="user_info_weight">体重</string>
     <string name="user_info_bust">胸围</string>

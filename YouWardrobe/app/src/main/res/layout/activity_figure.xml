@@ -5,4 +5,333 @@
     android:orientation="vertical">
     <include layout="@layout/top_title_layout_3"></include>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_underline" />
+
+    <LinearLayout
+        android:id="@+id/item_figure"
+        style="@style/My_Item_container">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/figure_size_icon" />
+
+        <TextView
+            style="@style/My_Item_Text"
+            android:layout_weight="0"
+            android:text="@string/user_info_size" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_figure_size"
+            style="@style/ShowTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="请选择"
+            android:textColor="@color/default_gray" />
+
+        <include layout="@layout/view_enter_arrow" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_underline" />
+
+    <LinearLayout
+        android:id="@+id/item_short"
+        style="@style/My_Item_container">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/short_size_icon" />
+        <TextView
+            style="@style/My_Item_Text"
+            android:layout_weight="0"
+            android:text="@string/user_short_size" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_short_size"
+            style="@style/ShowTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="请选择"
+            android:textColor="@color/default_gray" />
+
+        <include layout="@layout/view_enter_arrow" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_underline" />
+
+    <LinearLayout
+        android:id="@+id/item_trousers"
+        style="@style/My_Item_container">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/trousers_size_icon" />
+        <TextView
+            style="@style/My_Item_Text"
+            android:layout_weight="0"
+            android:text="@string/user_trousers_size" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_trousers_size"
+            style="@style/ShowTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="请选择"
+            android:textColor="@color/default_gray" />
+
+        <include layout="@layout/view_enter_arrow" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_underline" />
+
+    <LinearLayout
+        android:id="@+id/item_chest"
+        style="@style/My_Item_container">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/chest_size_icon" />
+
+        <TextView
+            style="@style/My_Item_Text"
+            android:layout_weight="0"
+            android:text="@string/user_info_bust" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_chest"
+            style="@style/ShowTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="请选择"
+            android:textColor="@color/default_gray" />
+
+        <include layout="@layout/view_enter_arrow" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_underline" />
+
+    <LinearLayout
+        android:id="@+id/item_waist"
+        style="@style/My_Item_container">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/waist_size_icon" />
+        <TextView
+            style="@style/My_Item_Text"
+            android:layout_weight="0"
+            android:text="@string/user_info_waistline" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_waist"
+            style="@style/ShowTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="请选择"
+            android:textColor="@color/default_gray" />
+
+        <include layout="@layout/view_enter_arrow" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_underline" />
+
+    <LinearLayout
+        android:id="@+id/item_buttocks"
+        style="@style/My_Item_container">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/buttocks_size_icon" />
+        <TextView
+            style="@style/My_Item_Text"
+            android:layout_weight="0"
+            android:text="@string/user_info_hipline" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_buttocks"
+            style="@style/ShowTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="请选择"
+            android:textColor="@color/default_gray" />
+
+        <include layout="@layout/view_enter_arrow" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_underline" />
+
+    <LinearLayout
+        android:id="@+id/item_height"
+        style="@style/My_Item_container">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/height_size_icon" />
+
+        <TextView
+            style="@style/My_Item_Text"
+            android:layout_weight="0"
+            android:text="@string/user_info_height" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_height"
+            style="@style/ShowTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="请选择"
+            android:textColor="@color/default_gray" />
+
+        <include layout="@layout/view_enter_arrow" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_underline" />
+
+    <LinearLayout
+        android:id="@+id/item_weight"
+        style="@style/My_Item_container">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/weight_size_icon" />
+        <TextView
+            style="@style/My_Item_Text"
+            android:layout_weight="0"
+            android:text="@string/user_info_weight" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_weight"
+            style="@style/ShowTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="请选择"
+            android:textColor="@color/default_gray" />
+
+        <include layout="@layout/view_enter_arrow" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_underline" />
+
+    <LinearLayout
+        android:id="@+id/item_shoulder"
+        style="@style/My_Item_container">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/shoulder_size_icon" />
+        <TextView
+            style="@style/My_Item_Text"
+            android:layout_weight="0"
+            android:text="@string/user_info_shoulderwidth" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_shoulder"
+            style="@style/ShowTv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="right"
+            android:hint="请选择"
+            android:textColor="@color/default_gray" />
+
+        <include layout="@layout/view_enter_arrow" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_underline" />
 </LinearLayout>

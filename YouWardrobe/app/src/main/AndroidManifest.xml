@@ -85,6 +85,11 @@
         <activity
             android:name=".Activity.GetAdressActivity"
             android:screenOrientation="portrait" />
+
+        <!--新增收货地址-->
+        <activity
+            android:name=".Activity.AddAdressActivity"
+            android:screenOrientation="portrait" />
         <!--身材信息-->
         <activity
             android:name=".Activity.FigureActivity"

@@ -2,27 +2,23 @@ package com.ygxinjian.anhui.youwardrobe.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ygxinjian.anhui.youwardrobe.R;
-import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
- * Created by handongqiang on 17/5/11.
+ * Created by Administrator on 2016/7/8.
  */
-
-public class GetAdressActivity extends BaseActivity {
-
-
-//    recycleView item 布局为 include_item_adress
+public class AddAdressActivity extends BaseActivity {
 
 
     @InjectView(R.id.nav_go_back)
@@ -31,38 +27,40 @@ public class GetAdressActivity extends BaseActivity {
     TextView navTvTitle;
     @InjectView(R.id.nav_right)
     TextView navRight;
-    @InjectView(R.id.recycleView_adress)
-    RecyclerView recycleViewAdress;
-    @InjectView(R.id.fab1)
-    FloatingActionButton fab1;
+    @InjectView(R.id.receiver_name)
+    EditText receiverName;
+    @InjectView(R.id.receiver_phone)
+    EditText receiverPhone;
+    @InjectView(R.id.country_name)
+    TextView countryName;
+    @InjectView(R.id.ll_country_select)
+    LinearLayout llCountrySelect;
+    @InjectView(R.id.address)
+    EditText address;
+    @InjectView(R.id.user_address_is_default)
+    CheckBox userAddressIsDefault;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_adress);
+        setContentView(R.layout.activity_addadress);
         ButterKnife.inject(this);
-        navTvTitle.setText("收货地址");
+        navTvTitle.setText("新增收货地址");
     }
 
-    @OnClick({R.id.nav_go_back, R.id.nav_right,R.id.fab1})
+
+    @OnClick({R.id.nav_go_back, R.id.nav_right, R.id.ll_country_select, R.id.user_address_is_default})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.nav_go_back:
                 finish();
                 break;
             case R.id.nav_right:
-                save();
                 break;
-            case R.id.fab1:
-                DevUtil.gotoActivity(getContext(),AddAdressActivity.class);
+            case R.id.ll_country_select:
+                break;
+            case R.id.user_address_is_default:
                 break;
         }
     }
-
-
-    private void save() {
-
-    }
-
-
 }
