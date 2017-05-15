@@ -5,9 +5,10 @@
     android:orientation="vertical">
     <include layout="@layout/top_title_layout_3" />
 
-    <android.support.v7.widget.RecyclerView
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerView_user_style"></android.support.v7.widget.RecyclerView>
+        android:numColumns="2"
+        android:id="@+id/recyclerView_user_style"></GridView>
 
 </LinearLayout>
