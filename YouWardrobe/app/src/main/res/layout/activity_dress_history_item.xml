@@ -78,6 +78,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="55"
+                       android:paddingRight="5dp"
                        style="@style/ShowTv3"
                        android:drawableLeft="@drawable/star_icon"
                        android:textColor="@color/main_Red"
