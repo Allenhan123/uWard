@@ -7,6 +7,9 @@
     <string name="recommend_name">推荐</string>
     <string name="wardrobe_name">衣柜</string>
     <string name="me_name">我的</string>
+    <string name="vip_mon">月卡</string>
+    <string name="vip_ji">季卡</string>
+    <string name="vip_year">年卡</string>
 
     <string name="notifyTitle">提示</string>
     <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>

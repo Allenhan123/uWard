@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ygxinjian.anhui.youwardrobe.Activity.DressHistoryActivity;
+import com.ygxinjian.anhui.youwardrobe.Activity.MoreVipActivity;
 import com.ygxinjian.anhui.youwardrobe.Activity.UserMessageActivity;
 import com.ygxinjian.anhui.youwardrobe.Activity.UserStyleActivity;
 import com.ygxinjian.anhui.youwardrobe.R;
@@ -88,7 +89,7 @@ public class MeFragment extends BaseFragment {
                 break;
 //            更多特权  暂留最后处理
             case R.id.ll_vip_information:
-
+                DevUtil.gotoActivity(getContext(), MoreVipActivity.class);
                 break;
             case R.id.ll_user_information:
                 DevUtil.gotoActivity(getContext(), UserMessageActivity.class);

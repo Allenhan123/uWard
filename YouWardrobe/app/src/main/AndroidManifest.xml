@@ -81,6 +81,11 @@
             android:name=".Activity.UserStyleActivity"
             android:screenOrientation="portrait" />
 
+        <!--更多权限-->
+        <activity
+            android:name=".Activity.MoreVipActivity"
+            android:screenOrientation="portrait" />
+
         <!--收货地址-->
         <activity
             android:name=".Activity.GetAdressActivity"
