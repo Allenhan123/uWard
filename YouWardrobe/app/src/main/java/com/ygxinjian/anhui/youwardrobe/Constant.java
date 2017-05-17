@@ -11,6 +11,7 @@ public class Constant {
 
 
     public static final String Base_Url = "http://115.159.116.34:8089/Interface/i_Interface.aspx";
+    public static final String Base_Image_Url = "http://115.159.116.34:8089";
 
 
     /**

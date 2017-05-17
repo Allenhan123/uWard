@@ -100,7 +100,7 @@ public class TimeUtil {
         try {
             date = formatter.parse(strTime);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
         return date;
@@ -154,7 +154,7 @@ public class TimeUtil {
      * @return String
      * @throws
      * @Title: getChatTime
-     * @Description: TODO
+     * @Description:
      */
     public static String getChatTime(long timesamp) {
         long clearTime = timesamp * 1000;

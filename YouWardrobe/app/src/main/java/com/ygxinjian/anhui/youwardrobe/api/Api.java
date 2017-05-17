@@ -16,6 +16,7 @@ import okio.BufferedSource;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by Olivine on 2017/5/11.
@@ -62,6 +63,7 @@ public class Api {
 
         retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
+                .addConverterFactory(ScalarsConverterFactory.create()) //增加返回值为String的支持
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -49,8 +50,9 @@ public class YouWardrobeApplication extends Application {
 
         ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this)
                 .memoryCache(new LruMemoryCache(MEMORY_SIZE))
-                .diskCache(new UnlimitedDiscCache(new File(getCacheDir(), "caches")))
+                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
                 .diskCacheSize(DISK_SIZE)
+                .writeDebugLogs()
                 .defaultDisplayImageOptions(options)
                 .build();
 
