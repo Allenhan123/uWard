@@ -35,7 +35,7 @@ import rx.schedulers.Schedulers;
 
 public class UserStyleActivity extends BaseActivity {
 //    item布局为acivity_user_style_item
-
+//      多选recycleview https://github.com/afollestad/drag-select-recyclerview
     @InjectView(R.id.nav_go_back)
     ImageView navGoBack;
     @InjectView(R.id.nav_tv_title)
