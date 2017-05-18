@@ -3,40 +3,59 @@ package com.ygxinjian.anhui.youwardrobe.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Home;
+import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Vip_Ji;
 import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Vip_Month;
-import com.ygxinjian.anhui.youwardrobe.Fragment.MeFragment;
-import com.ygxinjian.anhui.youwardrobe.Fragment.RecommendFragment;
-import com.ygxinjian.anhui.youwardrobe.Fragment.WardrobeFragment;
+import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Vip_Year;
 import com.ygxinjian.anhui.youwardrobe.R;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by handongqiang on 17/5/17.
  */
 
-public class MoreVipActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener{
+public class MoreVipActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
 
     private static final String TAG = "MoreVipActivity";
+    @InjectView(R.id.nav_go_back)
+    ImageView navGoBack;
+    @InjectView(R.id.nav_tv_title)
+    TextView navTvTitle;
+    @InjectView(R.id.nav_right)
+    TextView navRight;
+    @InjectView(R.id.ll_vip_content)
+    FrameLayout llVipContent;
+    @InjectView(R.id.top_navigation_bar)
+    BottomNavigationBar topNavigationBar;
 
     private BottomNavigationBar mBottomNavigationBar;
     private Fragment_Vip_Month vipMonthFragment;
+    private Fragment_Vip_Ji vipJiFragment;
+    private Fragment_Vip_Year vipYearFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more_vip);
+        ButterKnife.inject(this);
+        navTvTitle.setText("开通会员");
         initView();
 
     }
 
     private void initView() {
         mBottomNavigationBar = (BottomNavigationBar) findViewById(R.id.top_navigation_bar);
-        mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
+        mBottomNavigationBar.setMode(BottomNavigationBar.MODE_DEFAULT);
+//        mBottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         mBottomNavigationBar.setBarBackgroundColor(R.color.white_1);//set background color for navigation bar
         mBottomNavigationBar.setInActiveColor(R.color.default_gray);//unSelected icon color
@@ -55,6 +74,7 @@ public class MoreVipActivity extends BaseActivity implements BottomNavigationBar
         vipMonthFragment = new Fragment_Vip_Month();
         transaction.replace(R.id.ll_vip_content, vipMonthFragment).commit();
     }
+
     //Tab的点击事件
     @Override
     public void onTabSelected(int position) {
@@ -66,37 +86,37 @@ public class MoreVipActivity extends BaseActivity implements BottomNavigationBar
         hideFragments();
         switch (position) {
             case 0:
-//                if (homeFragment == null) {
-//                    homeFragment = new Fragment_Home();
-//                    transaction.add(R.id.ll_content, homeFragment);
-//                } else {
-//                    transaction.show(homeFragment);
-//                }
+                if (vipMonthFragment == null) {
+                    vipMonthFragment = new Fragment_Vip_Month();
+                    transaction.add(R.id.ll_vip_content, vipMonthFragment);
+                } else {
+                    transaction.show(vipMonthFragment);
+                }
                 break;
             case 1:
-//                if (recommendFragment == null) {
-//                    recommendFragment = new RecommendFragment();
-//                    transaction.add(R.id.ll_content, recommendFragment);
-//                } else {
-//                    transaction.show(recommendFragment);
-//                }
+                if (vipJiFragment == null) {
+                    vipJiFragment = new Fragment_Vip_Ji();
+                    transaction.add(R.id.ll_vip_content, vipJiFragment);
+                } else {
+                    transaction.show(vipJiFragment);
+                }
                 break;
             case 2:
-//                if (youyardrobeFragment == null) {
-//                    youyardrobeFragment = new WardrobeFragment();
-//                    transaction.add(R.id.ll_content, youyardrobeFragment);
-//                } else {
-//                    transaction.show(youyardrobeFragment);
-//                }
+                if (vipYearFragment == null) {
+                    vipYearFragment = new Fragment_Vip_Year();
+                    transaction.add(R.id.ll_vip_content, vipYearFragment);
+                } else {
+                    transaction.show(vipMonthFragment);
+                }
                 break;
 
             default:
-//                if (homeFragment == null) {
-//                    homeFragment = new Fragment_Home();
-//                    transaction.add(R.id.ll_content, homeFragment);
-//                } else {
-//                    transaction.show(homeFragment);
-//                }
+                if (vipMonthFragment == null) {
+                    vipMonthFragment = new Fragment_Vip_Month();
+                    transaction.add(R.id.ll_vip_content, vipMonthFragment);
+                } else {
+                    transaction.show(vipMonthFragment);
+                }
                 break;
         }
         transaction.commit();
@@ -108,15 +128,12 @@ public class MoreVipActivity extends BaseActivity implements BottomNavigationBar
         if (vipMonthFragment != null) {
             transaction.hide(vipMonthFragment);
         }
-//        if (recommendFragment != null) {
-//            transaction.hide(recommendFragment);
-//        }
-//        if (youyardrobeFragment != null) {
-//            transaction.hide(youyardrobeFragment);
-//        }
-//        if (meFragment != null) {
-//            transaction.hide(meFragment);
-//        }
+        if (vipJiFragment != null) {
+            transaction.hide(vipJiFragment);
+        }
+        if (vipYearFragment != null) {
+            transaction.hide(vipYearFragment);
+        }
         transaction.commitAllowingStateLoss();
     }
 
@@ -129,5 +146,16 @@ public class MoreVipActivity extends BaseActivity implements BottomNavigationBar
     @Override
     public void onTabReselected(int position) {
 
+    }
+
+    @OnClick({R.id.nav_go_back, R.id.nav_right})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.nav_go_back:
+                finish();
+                break;
+            case R.id.nav_right:
+                break;
+        }
     }
 }

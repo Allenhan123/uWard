@@ -280,7 +280,7 @@ public class WheelView extends ScrollView {
                 return;
             }
             if (position == i) {
-                itemView.setTextColor(Color.parseColor("#0288ce"));
+                itemView.setTextColor(Color.parseColor("#e888aa"));
             } else {
                 itemView.setTextColor(Color.parseColor("#bbbbbb"));
             }
@@ -319,7 +319,7 @@ public class WheelView extends ScrollView {
 
         if (null == paint) {
             paint = new Paint();
-            paint.setColor(Color.parseColor("#83cde6"));
+            paint.setColor(Color.parseColor("#e6a8be"));
             paint.setStrokeWidth(dip2px(1f));
         }
 

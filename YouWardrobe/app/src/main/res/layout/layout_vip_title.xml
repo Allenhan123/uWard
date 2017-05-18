@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
-                android:layout_width="65dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/vip_change_icon"/>
             <TextView
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
-                android:layout_width="65dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/vip_hours_icon"/>
             <TextView
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <ImageView
-                android:layout_width="65dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/vip_wash_icon"/>
             <TextView

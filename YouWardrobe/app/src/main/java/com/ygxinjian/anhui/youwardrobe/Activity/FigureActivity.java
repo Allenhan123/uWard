@@ -110,31 +110,31 @@ public class FigureActivity extends BaseActivity {
                 save();
                 break;
             case R.id.item_figure:
-                openDialog("尺码", Arrays.asList(PLANETS), tvFigureSize);
+                openDialog("尺码-码", Arrays.asList(PLANETS), tvFigureSize);
                 break;
             case R.id.item_short:
-                openDialog("上身", list, tvShortSize);
+                openDialog("上身-码", Arrays.asList(PLANETS), tvShortSize);
                 break;
             case R.id.item_trousers:
-                openDialog("下身", list, tvTrousersSize);
+                openDialog("下身-码", Arrays.asList(PLANETS), tvTrousersSize);
                 break;
             case R.id.item_chest:
-                openDialog("胸围", list, tvChest);
+                openDialog("胸围-cm", list, tvChest);
                 break;
             case R.id.item_waist:
-                openDialog("腰围", list, tvWaist);
+                openDialog("腰围-cm", list, tvWaist);
                 break;
             case R.id.item_buttocks:
-                openDialog("臀围", list, tvButtocks);
+                openDialog("臀围-cm", list, tvButtocks);
                 break;
             case R.id.item_height:
-                openDialog("身高", list, tvHeight);
+                openDialog("身高-cm", list, tvHeight);
                 break;
             case R.id.item_weight:
-                openDialog("体重", list, tvWeight);
+                openDialog("体重-kg", list, tvWeight);
                 break;
             case R.id.item_shoulder:
-                openDialog("肩宽", list, tvShoulder);
+                openDialog("肩宽-cm", list, tvShoulder);
                 break;
         }
     }
