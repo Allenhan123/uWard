@@ -2,8 +2,11 @@ package com.ygxinjian.anhui.youwardrobe.api;
 
 import com.ygxinjian.anhui.youwardrobe.Model.DressHistoryNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.LogInNetModel;
+import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.Model.SaveUserInfoNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.StyleSetNetModel;
+
+import java.util.Map;
 
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -11,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -36,6 +40,10 @@ public interface YouWardrobeApi {
     //风格设置（个人板块）
     @GET("?m=style_settings")
     Observable<StyleSetNetModel> styleSettings(@Query("uid") String uid);
+
+   //风格设置（个人板块）
+    @GET("?m=perfect_figure")
+    Observable<NetResultModel> perfectFigure(@Query("uid") String uid, @QueryMap Map<String,String>map);
 
 
 }
