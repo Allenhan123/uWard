@@ -34,12 +34,12 @@ public class Fragment_Vip_Month extends BaseFragment {
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_vip_months, null);
-        View shareView = mActivity.findViewById(R.id.share_view);
+        View payView = mActivity.findViewById(R.id.pay_view);
         //获取BottomSheetBehavior
-        sheetBehavior = BottomSheetBehavior.from(shareView);
+        sheetBehavior = BottomSheetBehavior.from(payView);
 
-        ll_ali_pay = (LinearLayout) shareView.findViewById(R.id.ll_ali_pay);
-        ll_wechat_pay = (LinearLayout) shareView.findViewById(R.id.ll_wechat_pay);
+        ll_ali_pay = (LinearLayout) payView.findViewById(R.id.ll_ali_pay);
+        ll_wechat_pay = (LinearLayout) payView.findViewById(R.id.ll_wechat_pay);
         ll_wechat_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

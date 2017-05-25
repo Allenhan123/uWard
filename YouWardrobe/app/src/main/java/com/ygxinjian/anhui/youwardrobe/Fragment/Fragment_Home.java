@@ -1,5 +1,6 @@
 package com.ygxinjian.anhui.youwardrobe.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,6 +20,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.adapter.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.google.gson.Gson;
+import com.ygxinjian.anhui.youwardrobe.Activity.ClassifyActivity;
 import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Controller.HomeExpandableListViewAdapter;
 import com.ygxinjian.anhui.youwardrobe.Controller.NetworkImageHolderView;
@@ -124,7 +126,11 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
                         listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                             @Override
                             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                                DevUtil.showInfo(mActivity, String.valueOf(groupPosition));
+                                Intent _intent = new Intent(mActivity,ClassifyActivity.class);
+                                //在Intent对象当中添加一个键值对
+                                _intent.putExtra("title",groupList.get(groupPosition).getClassifyTitle());
+                                _intent.putExtra("url",groupList.get(groupPosition).getClassifyURL());
+                                startActivity(_intent);
                                 return true;
                             }
                         });

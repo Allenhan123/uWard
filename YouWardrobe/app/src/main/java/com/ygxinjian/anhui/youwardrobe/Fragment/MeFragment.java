@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ygxinjian.anhui.youwardrobe.Activity.DressHistoryActivity;
 import com.ygxinjian.anhui.youwardrobe.Activity.MoreVipActivity;
+import com.ygxinjian.anhui.youwardrobe.Activity.ShareActivity;
 import com.ygxinjian.anhui.youwardrobe.Activity.UserMessageActivity;
 import com.ygxinjian.anhui.youwardrobe.Activity.UserStyleActivity;
 import com.ygxinjian.anhui.youwardrobe.R;
@@ -99,12 +100,14 @@ public class MeFragment extends BaseFragment {
                 break;
 //            分享
             case R.id.ll_user_share:
+                DevUtil.gotoActivity(getContext(), ShareActivity.class);
                 break;
 //            关于我们
             case R.id.ll_about_our:
                 break;
 //            退出
             case R.id.ll_user_exit:
+                mActivity.finish();
                 break;
         }
     }

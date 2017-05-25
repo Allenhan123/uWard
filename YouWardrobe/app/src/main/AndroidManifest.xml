@@ -100,6 +100,16 @@
             android:name=".Activity.FigureActivity"
             android:screenOrientation="portrait" />
 
+        <!--分享好友-->
+        <activity
+            android:name=".Activity.ShareActivity"
+            android:screenOrientation="portrait" />
+
+        <!--分类商品-->
+        <activity
+            android:name=".Activity.ClassifyActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
