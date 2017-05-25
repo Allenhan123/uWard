@@ -26,7 +26,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="3dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/vip_card_icon"/>
+                android:src="@mipmap/vip_gold_year"/>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -104,7 +104,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="3dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/vip_card_icon"/>
+                android:src="@mipmap/vip_platinum_year"/>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -181,6 +181,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="90dp"
@@ -188,7 +189,9 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="3dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/vip_card_icon"/>
+                android:src="@mipmap/vip_diamond_year"
+                android:id="@+id/imageView" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
