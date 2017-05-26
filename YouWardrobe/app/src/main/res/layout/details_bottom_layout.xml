@@ -13,13 +13,11 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:id="@+id/iv_home"
             android:paddingTop="3dp"
             android:layout_height="30dp"
             android:src="@mipmap/consult_qq" />
 
         <TextView
-            android:id="@+id/tv_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="false"

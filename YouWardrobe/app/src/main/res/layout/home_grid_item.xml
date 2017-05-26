@@ -10,7 +10,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="3dp">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_marginLeft="3dp"
@@ -19,16 +19,18 @@
             <com.ygxinjian.anhui.youwardrobe.View.RoundImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:id="@+id/iv_home_grid_item"
                 android:src="@mipmap/banner_loading" />
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="@drawable/text_tag">
+                android:layout_height="23dp"
+                android:layout_alignParentBottom="true"
+                android:background="#e0000000"
+                android:alpha="0.5">
                 <TextView
                     style="@style/ShowTv3"
+                    android:alpha="1"
                     android:id="@+id/tv_home_grid_title"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
@@ -46,7 +48,7 @@
                     android:layout_marginRight="3dp"
                     />
             </RelativeLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 </LinearLayout>
