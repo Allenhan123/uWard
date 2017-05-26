@@ -110,6 +110,11 @@
             android:name=".Activity.ClassifyActivity"
             android:screenOrientation="portrait" />
 
+        <!--商品详情-->
+        <activity
+            android:name=".Activity.GoodsDetailsActivity"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"

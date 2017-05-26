@@ -1,6 +1,7 @@
 package com.ygxinjian.anhui.youwardrobe.Controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,6 +13,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ygxinjian.anhui.youwardrobe.Activity.ClassifyActivity;
+import com.ygxinjian.anhui.youwardrobe.Activity.GoodsDetailsActivity;
 import com.ygxinjian.anhui.youwardrobe.Model.HomeCategoryModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 
@@ -110,8 +113,12 @@ public class HomeExpandableListViewAdapter extends BaseExpandableListAdapter {
         mViewChild.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext, "点击了第" + (groupPosition + 1) + "组，第" +
-                        (position + 1) + "项", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "点击了第" + (groupPosition + 1) + "组，第" +
+//                        (position + 1) + "项", Toast.LENGTH_SHORT).show();
+                Intent _intent = new Intent(mContext,GoodsDetailsActivity.class);
+                _intent.putExtra("title",itemList.get(groupPosition).get(childPosition).getProdTitle());
+                _intent.putExtra("url",itemList.get(groupPosition).get(childPosition).getProdID());
+                mContext.startActivity(_intent);
             }
         });
         return convertView;

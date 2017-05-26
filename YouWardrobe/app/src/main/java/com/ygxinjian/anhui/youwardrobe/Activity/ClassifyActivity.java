@@ -65,9 +65,7 @@ public class ClassifyActivity extends BaseActivity {
     }
 
     private void initData() {
-        //取得从上一个Activity当中传递过来的Intent对象
         Intent _intent = getIntent();
-        //从Intent当中根据key取得value
         if (_intent != null) {
             String title = _intent.getStringExtra("title");
             url = _intent.getStringExtra("url");
@@ -122,10 +120,19 @@ public class ClassifyActivity extends BaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             MyAdapter.ViewHolder styleViewHolder = (MyAdapter.ViewHolder) holder;
             styleViewHolder.bindData(list.get(position));
 
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent _intent = new Intent(ClassifyActivity.this,GoodsDetailsActivity.class);
+                    _intent.putExtra("title",list.get(position).getProdTitle());
+                    _intent.putExtra("url",list.get(position).getUrl());
+                    startActivity(_intent);
+                }
+            });
         }
 
         @Override

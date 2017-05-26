@@ -127,7 +127,6 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
                             @Override
                             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                                 Intent _intent = new Intent(mActivity,ClassifyActivity.class);
-                                //在Intent对象当中添加一个键值对
                                 _intent.putExtra("title",groupList.get(groupPosition).getClassifyTitle());
                                 _intent.putExtra("url",groupList.get(groupPosition).getClassifyURL());
                                 startActivity(_intent);
