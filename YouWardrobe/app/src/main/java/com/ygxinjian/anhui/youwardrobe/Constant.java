@@ -6,8 +6,9 @@ package com.ygxinjian.anhui.youwardrobe;
 
 public class Constant {
     //    天气预报key
-    public static String weatherKer = "a98bc7f5dc264b88a57b5caf1a0f9c9c";
-    public static String weatherUrl = "http://api.avatardata.cn/Weather/Query?key=a98bc7f5dc264b88a57b5caf1a0f9c9c";
+    public static String weatherKer = "2977e9ddc4004e89ab5ded5755bea77c";
+//    public static String weatherKer = "a98bc7f5dc264b88a57b5caf1a0f9c9c";
+    public static String weatherUrl = "http://api.avatardata.cn/Weather/Query?key=dbc2d673816a43569b12aa2201bb4b36";
 
 
     public static final String Base_Url = "http://115.159.116.34:8089/Interface/i_Interface.aspx";
@@ -23,6 +24,8 @@ public class Constant {
     //    单品推荐
     public static String recommendSingleUrl = Base_Url + "?m=recommend_single";
 
+    //    时租区http://115.159.116.34:8089/Interface/i_Interface.aspx?m= when_classify&uid=手机号码
+    public static String rentUrl = Base_Url + "?m= when_classify";
     /*  用户  */
     //登录   http://115.159.116.34:8089/Interface/i_Interface.aspx?m=login&uid=手机号&pwd=登录密码
     public static String login = Base_Url + "?m=login";

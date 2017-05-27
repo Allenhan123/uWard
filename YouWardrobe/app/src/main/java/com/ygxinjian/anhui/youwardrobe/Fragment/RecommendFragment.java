@@ -213,7 +213,7 @@ public class RecommendFragment extends BaseFragment {
         @Override
         public void convert(BaseViewHolder helper, RecommendSingleModel.ResultBean.DataBean mData) {
             helper.setText(R.id.tv_recommend_item, mData.getClassifyTitle());
-            ImageLoader.getInstance().displayImage(mData.getImgUrl(), (ImageView) helper.getView(R.id.iv_recommend_item));
+            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url+mData.getImgUrl(), (ImageView) helper.getView(R.id.iv_recommend_item));
         }
     }
 

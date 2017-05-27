@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.adapter.CBPageAdapter;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.R;
 
 

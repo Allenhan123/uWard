@@ -1,9 +1,11 @@
 package com.ygxinjian.anhui.youwardrobe.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +21,10 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.adapter.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Activity.ClassifyActivity;
 import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Controller.HomeExpandableListViewAdapter;
@@ -31,8 +36,10 @@ import com.ygxinjian.anhui.youwardrobe.Model.BannerModel;
 import com.ygxinjian.anhui.youwardrobe.Model.HomeCategoryModel;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
+import com.ygxinjian.anhui.youwardrobe.Model.RentModel;
 import com.ygxinjian.anhui.youwardrobe.Model.WeatherModel;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.View.MyGridLayoutManager;
 import com.ygxinjian.anhui.youwardrobe.View.WardrobeProgress;
 import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
@@ -69,6 +76,12 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
 
     private HomeCategoryModel homeCategoryModel;
 
+    private RecyclerView recycleView_rent;
+    private RentModel rentModel;
+    private List<RentModel.ResultBean.DataBean> data;
+    private RentAdapter mAdapter;
+
+
     private List<HomeCategoryModel.ResultBean.DataBean> groupList;
     List<List<HomeCategoryModel.ResultBean.DataBean.ItemsBean>> itemList;
 
@@ -87,8 +100,10 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setColorSchemeResources(R.color.main_Red, R.color.color_text_theme);
         initHeadView();
+        initRentView();
         getData();
         listView.addHeaderView(headView);
+        listView.addFooterView(rentView);
         return rootView;
     }
 
@@ -138,6 +153,7 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
     }
 
     private LinearLayout headView;
+    private LinearLayout rentView;
     private TextView tv_city;
     private TextView tv_time;
     private TextView tv_describe;
@@ -152,7 +168,6 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
         tv_temperature = (TextView) headView.findViewById(R.id.temperature);
         tv_time = (TextView) headView.findViewById(R.id.day_year);
         iv_weather = (ImageView) headView.findViewById(R.id.iv_weather);
-
         // 时间
         tv_time.setText(TimeUtil.longToString(System.currentTimeMillis(), TimeUtil.FORMAT_YEAR_MONTH_DAY));
 
@@ -161,8 +176,66 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
         initWeather();
         getBannerDataFromService();
     }
+//    时租区
+    private void initRentView() {
+        rentView = (LinearLayout) View.inflate(getContext(), R.layout.home_rent_view, null);
+        recycleView_rent = (RecyclerView) rentView.findViewById(R.id.recyclerView_rent);
+        initRentData();
+    }
 
+    private void initRentData() {
+        OkHttpUtils.get().url(Constant.rentUrl).addParams("uid", "18656009327").build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+            @Override
+            public void onResponse(String response, int id) {
+                Log.d("Result",response);
+                Gson gson = new Gson();
+                rentModel = gson.fromJson(response,RentModel.class);
+                data = rentModel.getResult().getData();
+                mAdapter = new RentAdapter(mActivity);
+                mAdapter.openLoadAnimation();
+                initAdapter();
+            }
+        });
+    }
 
+    /**
+     * 设置RecyclerView属性
+     */
+    private void initAdapter() {
+        MyGridLayoutManager gridLayoutManager = new MyGridLayoutManager(getContext(),2);
+        gridLayoutManager.setScrollEnabled(false);
+        recycleView_rent.setLayoutManager(gridLayoutManager);
+        mAdapter.openLoadAnimation();
+        recycleView_rent.setAdapter(mAdapter);//设置adapter
+        //设置item点击事件
+        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                DevUtil.showInfo(mActivity,"祖品"+position);
+                Intent intent = new Intent();
+//                intent.setClass(mActivity, CustomWebViewActivity.class);
+//                intent.putExtra("url",Constants.NewsMainURL+newsModel.getResult().getData().get(position).getWz());
+//                intent.putExtra("title",newsModel.getResult().getData().get(position).getTitle());
+//                startActivity(intent);
+            }
+        });
+    }
+
+    class RentAdapter extends BaseQuickAdapter<RentModel.ResultBean.DataBean> {
+
+        public RentAdapter(Context context) {
+            super(context,R.layout.recommenf_single_item,data);
+        }
+
+        @Override
+        public void convert(BaseViewHolder helper, RentModel.ResultBean.DataBean mData) {
+            helper.setText(R.id.tv_recommend_item, mData.getClassifyTitle());
+            ImageLoader.getInstance().displayImage(mData.getImgURL(), (ImageView) helper.getView(R.id.iv_recommend_item));
+        }
+    }
     /**
      * 获取Banner数据
      */
