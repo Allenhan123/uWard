@@ -54,7 +54,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         ImageView ivGridView = (ImageView) convertView.findViewById(R.id.iv_home_grid_item);
         ImageLoader.getInstance().displayImage(itemGridList.get(position).getImgUrl(), ivGridView);
 
-        tvGridView.setText("风格分类");
+        tvGridView.setText(itemGridList.get(position).getProdTitle());
 
         return convertView;
     }

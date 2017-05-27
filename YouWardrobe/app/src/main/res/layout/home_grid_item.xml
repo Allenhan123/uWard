@@ -26,8 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="23dp"
                 android:layout_alignParentBottom="true"
-                android:background="#e0000000"
-                android:alpha="0.5">
+                android:background="@drawable/text_tag">
                 <TextView
                     style="@style/ShowTv3"
                     android:alpha="1"

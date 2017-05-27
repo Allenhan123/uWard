@@ -169,7 +169,7 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
         tv_time = (TextView) headView.findViewById(R.id.day_year);
         iv_weather = (ImageView) headView.findViewById(R.id.iv_weather);
         // 时间
-        tv_time.setText(TimeUtil.longToString(System.currentTimeMillis(), TimeUtil.FORMAT_YEAR_MONTH_DAY));
+        tv_time.setText(TimeUtil.longToString(System.currentTimeMillis(), TimeUtil.FORMAT_DATE));
 
         mConvenientBanner = (ConvenientBanner) headView.findViewById(R.id.banner);
 
