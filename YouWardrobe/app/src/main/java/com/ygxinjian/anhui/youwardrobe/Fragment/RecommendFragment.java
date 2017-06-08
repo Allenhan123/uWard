@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -41,6 +42,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import me.yuqirong.cardswipelayout.CardConfig;
@@ -56,93 +58,40 @@ import rx.schedulers.Schedulers;
  * Created by handongqiang on 17/3/13.
  */
 
-public class RecommendFragment extends BaseFragment {
+public class RecommendFragment extends BaseFragment implements SwipeFlingAdapterView.onFlingListener,
+        SwipeFlingAdapterView.OnItemClickListener{
     private static final String TAG = "RecommendFragment";
     private ImageView iv_back;
     private TextView tv_title;
-//    private List<Integer> list = new ArrayList<>();
     private RecyclerView recyclerView,recycleView_single;
     private RecommendSingleModel recommend_single_model;
     private RecommendSingleAdapter mAdapter;
     private List<RecommendSingleModel.ResultBean.DataBean> data;
 
 //    设计师推荐
-    private SwipeFlingAdapterView swipeFlingAdapterView;
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
+    private SwipeFlingAdapterView swipeView;
+    private SwipeCardAdapter swipeCardAdapter;
     private RecommendDesignModel recommendDesignModel;
     private List<RecommendDesignModel.ResultBean.DataBean> list = new ArrayList<>();
-    private SwipeCardAdapter swipeCardAdapter;
-    private int i;
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_recommend, null);
         iv_back = (ImageView) view.findViewById(R.id.nav_go_back);
         iv_back.setVisibility(View.GONE);
         tv_title = (TextView) view.findViewById(R.id.nav_tv_title);
-        swipeFlingAdapterView = (SwipeFlingAdapterView) view.findViewById(R.id.recommend_view);
         tv_title.setText("精心推荐");
 
-
-//        initRecycView(view);
-
-
-//        al = new ArrayList<>();
-//        al.add("php");
-//        al.add("c");
-//        al.add("python");
-//        al.add("java");
-//        al.add("html");
-//        al.add("c++");
-//        al.add("css");
-//        arrayAdapter = new ArrayAdapter<String>(mActivity, R.layout.recommend_item, R.id.tv_recommend_name, al );
-//        swipeFlingAdapterView.setAdapter(arrayAdapter);
         //        设计师推荐
+        swipeView = (SwipeFlingAdapterView) view.findViewById(R.id.recommend_view);
+        if (swipeView != null) {
+            swipeView.setIsNeedSwipe(true);
+            swipeView.setFlingListener(this);
+            swipeView.setOnItemClickListener(this);
+
+            swipeCardAdapter = new SwipeCardAdapter();
+            swipeView.setAdapter(swipeCardAdapter);
+        }
         initRecycData();
-        swipeFlingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
-            @Override
-            public void removeFirstObjectInAdapter() {
-                // this is the simplest way to delete an object from the Adapter (/AdapterView)
-                Log.d("LIST", "removed object!");
-                al.remove(0);
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onLeftCardExit(Object dataObject) {
-                makeToast(mActivity, "Left!"+dataObject.toString());
-            }
-
-            @Override
-            public void onRightCardExit(Object dataObject) {
-                makeToast(mActivity, "Right!"+dataObject.toString());
-            }
-
-            @Override
-            public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                // Ask for more data here
-                al.add("XML ".concat(String.valueOf(i)));
-                arrayAdapter.notifyDataSetChanged();
-                Log.d("LIST", "notified");
-                i++;
-            }
-
-            @Override
-            public void onScroll(float scrollProgressPercent) {
-                View view = swipeFlingAdapterView.getSelectedView();
-                view.findViewById(R.id.iv_like).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
-                view.findViewById(R.id.iv_dislike).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
-            }
-        });
-
-
-        // Optionally add an OnItemClickListener
-        swipeFlingAdapterView.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClicked(int itemPosition, Object dataObject) {
-                makeToast(mActivity, "Clicked!"+dataObject.toString());
-            }
-        });
 
 //        单品推荐
         initRecycSingleData();
@@ -150,8 +99,38 @@ public class RecommendFragment extends BaseFragment {
 
         return view;
     }
-    static void makeToast(Context ctx, String s){
-        Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
+
+    @Override
+    public void onItemClicked(MotionEvent event, View v, Object dataObject) {
+//        Toast.makeText(mActivity, dataObject.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void removeFirstObjectInAdapter() {
+        swipeCardAdapter.remove(0);
+    }
+//左滑
+    @Override
+    public void onLeftCardExit(Object dataObject) {
+
+    }
+//右滑
+    @Override
+    public void onRightCardExit(Object dataObject) {
+    }
+
+    @Override
+    public void onAdapterAboutToEmpty(int itemsInAdapter) {
+        if (itemsInAdapter == 3) {
+            initRecycData();
+        }
+    }
+
+    @Override
+    public void onScroll(float progress, float scrollXProgress) {
+        View view = swipeView.getSelectedView();
+        view.findViewById(R.id.iv_like).setAlpha(scrollXProgress < 0 ? -scrollXProgress : 0);
+        view.findViewById(R.id.iv_dislike).setAlpha(scrollXProgress > 0 ? scrollXProgress : 0);
     }
 
     private void initRecycData() {
@@ -168,43 +147,75 @@ public class RecommendFragment extends BaseFragment {
                 Gson gson = new Gson();
                 recommendDesignModel = gson.fromJson(response,RecommendDesignModel.class);
                 list = recommendDesignModel.getResult().getData();
-                swipeCardAdapter = new SwipeCardAdapter();
-                swipeFlingAdapterView.setAdapter(swipeCardAdapter);
+                swipeCardAdapter.addAll(list);
             }
         });
     }
 
 
     public class SwipeCardAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            return recommendDesignModel.getResult().getData().size();
+        ArrayList<RecommendDesignModel.ResultBean.DataBean> objs;
+
+        public SwipeCardAdapter() {
+            objs = new ArrayList<>();
+        }
+
+        public void addAll(Collection<RecommendDesignModel.ResultBean.DataBean> collection) {
+            if (isEmpty()) {
+                objs.addAll(collection);
+                notifyDataSetChanged();
+            } else {
+                objs.addAll(collection);
+            }
+        }
+
+        public void clear() {
+            objs.clear();
+            notifyDataSetChanged();
+        }
+
+        public boolean isEmpty() {
+            return objs.isEmpty();
+        }
+
+        public void remove(int index) {
+            if (index > -1 && index < objs.size()) {
+                objs.remove(index);
+                notifyDataSetChanged();
+            }
         }
         @Override
-        public Object getItem(int position) {
-            return recommendDesignModel.getResult().getData().get(position);
+        public int getCount() {
+            return objs.size();
+        }
+        @Override
+        public RecommendDesignModel.ResultBean.DataBean getItem(int position) {
+            if(objs==null ||objs.size()==0) return null;
+            return objs.get(position);
         }
         @Override
         public long getItemId(int position) {
             return position;
         }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
+            RecommendDesignModel.ResultBean.DataBean data = getItem(position);
+
             if (convertView == null) {
+                convertView = LayoutInflater.from(mActivity).inflate(R.layout.recommend_item, parent, false);
                 holder = new ViewHolder();
-                convertView = View.inflate(mActivity, R.layout.recommend_item, null);
+                holder.name = (TextView) convertView.findViewById(R.id.tv_recommend_name);
                 holder.description = (TextView) convertView.findViewById(R.id.tv_recommend_size);
                 holder.iv_recommend = (ImageView) convertView.findViewById(R.id.iv_recommend_design);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.description.setText("dsdf");
-//            holder.tv_zyzz.setText(consulterMessage.result.data.get(position).zyzz);
-//            holder.tv_remark.setText(consulterMessage.result.data.get(position).remark);
-//            holder.tv_hps.setText(consulterMessage.result.data.get(position).hps + "人好评");
-//            imageLoader.displayImage(Constant.URL + consulterMessage.result.data.get(position).imgpath, holder.iv_consulter, options);
+            holder.name.setText(data.getProdTitle());
+            holder.description.setText(data.getSize());
+            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url+data.getImgUrl(),holder.iv_recommend);
             return convertView;
         }
 
@@ -215,150 +226,6 @@ public class RecommendFragment extends BaseFragment {
         TextView createTime;
         ImageView iv_recommend;
     }
-
-//        @Override
-//        public int getCount()
-//        {
-//            return list.size();
-//        }
-//
-//        @Override
-//        public Object getItem(int position) {
-//            return(list.get(position));
-//
-//        }
-//
-//        @Override
-//        public long getItemId(int position)
-//        {
-//            return position;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent)
-//        {
-//            ViewHolder viewHolder = null;
-//            if (null == convertView)
-//            {
-//                viewHolder = new ViewHolder();
-//                convertView = LayoutInflater.from(mActivity).inflate(R.layout.recommend_item, null);
-//
-//                viewHolder.name = (TextView) convertView.findViewById(R.id.tv_recommend_name);
-//                viewHolder.description = (TextView) convertView.findViewById(R.id.tv_recommend_size);
-//                viewHolder.iv_recommend = (ImageView) convertView.findViewById(R.id.iv_recommend_design);
-////            viewHolder.createTime = (TextView) convertView
-////                    .findViewById(R.id.createTime);
-//
-//                convertView.setTag(viewHolder);
-//            }
-//            else
-//            {
-//                viewHolder = (ViewHolder) convertView.getTag();
-//            }
-//
-//            // set item values to the viewHolder:
-//
-//
-//            viewHolder.name.setText("sdfsdfsd");
-//            viewHolder.description.setText(list.get(position).getSize());
-////            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url+markerItems.get(position).getImgUrl(),viewHolder.iv_recommend);
-////            viewHolder.createTime.setText(markerItem.getCreateDate());
-//
-//            return convertView;
-//        }
-//
-//        public class ViewHolder
-//        {
-//            TextView name;
-//            TextView description;
-//            TextView createTime;
-//            ImageView iv_recommend;
-//        }
-
-
-//    推荐
-//    private void initRecycView(View view) {
-//        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViews);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(new MyAdapter());
-//        CardItemTouchHelperCallback cardCallback = new CardItemTouchHelperCallback(recyclerView.getAdapter(), list);
-//        cardCallback.setOnSwipedListener(new OnSwipeListener<Integer>() {
-//
-//            @Override
-//            public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
-//                MyAdapter.MyViewHolder myHolder = (MyAdapter.MyViewHolder) viewHolder;
-//                viewHolder.itemView.setAlpha(1 - Math.abs(ratio) * 0.2f);
-//                if (direction == CardConfig.SWIPING_LEFT) {
-//                    myHolder.dislikeImageView.setAlpha(Math.abs(ratio));
-//                } else if (direction == CardConfig.SWIPING_RIGHT) {
-//                    myHolder.likeImageView.setAlpha(Math.abs(ratio));
-//                } else {
-//                    myHolder.dislikeImageView.setAlpha(0f);
-//                    myHolder.likeImageView.setAlpha(0f);
-//                }
-//            }
-//
-//            @Override
-//            public void onSwiped(RecyclerView.ViewHolder viewHolder, Integer o, int direction) {
-//                MyAdapter.MyViewHolder myHolder = (MyAdapter.MyViewHolder) viewHolder;
-//                viewHolder.itemView.setAlpha(1f);
-//                myHolder.dislikeImageView.setAlpha(0f);
-//                myHolder.likeImageView.setAlpha(0f);
-//                Toast.makeText(mActivity, direction == CardConfig.SWIPED_LEFT ? "加入衣柜" : "不喜欢", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onSwipedClear() {
-//                Toast.makeText(mActivity, "data clear", Toast.LENGTH_SHORT).show();
-//                recyclerView.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        initData();
-//                        recyclerView.getAdapter().notifyDataSetChanged();
-//                    }
-//                }, 3000L);
-//            }
-//
-//        });
-//        final ItemTouchHelper touchHelper = new ItemTouchHelper(cardCallback);
-//        final CardLayoutManager cardLayoutManager = new CardLayoutManager(recyclerView, touchHelper);
-//        recyclerView.setLayoutManager(cardLayoutManager);
-//        touchHelper.attachToRecyclerView(recyclerView);
-//    }
-
-//    private class MyAdapter extends RecyclerView.Adapter {
-//        @Override
-//        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recommend_item, parent, false);
-//            return new MyViewHolder(view);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//            ImageView avatarImageView = ((MyViewHolder) holder).avatarImageView;
-//            avatarImageView.setImageResource(list.get(position));
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return list.size();
-//        }
-//
-//        class MyViewHolder extends RecyclerView.ViewHolder {
-//
-//            ImageView avatarImageView;
-//            ImageView likeImageView;
-//            ImageView dislikeImageView;
-//
-//            MyViewHolder(View itemView) {
-//                super(itemView);
-//                avatarImageView = (ImageView) itemView.findViewById(R.id.iv_avatar);
-//                likeImageView = (ImageView) itemView.findViewById(R.id.iv_like);
-//                dislikeImageView = (ImageView) itemView.findViewById(R.id.iv_dislike);
-//            }
-//
-//        }
-//    }
 
 
 //    单品推荐

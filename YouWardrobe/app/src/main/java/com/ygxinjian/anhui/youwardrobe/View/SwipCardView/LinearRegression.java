@@ -11,7 +11,7 @@ class LinearRegression {
      * Performs a linear regression on the data points <tt>(y[i], x[i])</tt>.
      * @param x the values of the predictor variable
      * @param y the corresponding values of the response variable
-     * @throws java.lang.IllegalArgumentException if the lengths of the two arrays are not equal
+     * @throws IllegalArgumentException if the lengths of the two arrays are not equal
      */
     public LinearRegression(float[] x, float[] y) {
         if (x.length != y.length) {
