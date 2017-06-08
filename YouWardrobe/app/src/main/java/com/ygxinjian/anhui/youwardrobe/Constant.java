@@ -21,6 +21,9 @@ public class Constant {
      **/
     public static String bannerUrl = Base_Url + "?m=carousel";
     public static String homeUrl = Base_Url + "?m=home_classify";//首页
+
+    //    设计师推荐
+    public static String recommendDesignUrl = Base_Url + "?m=recommend_suit";
     //    单品推荐
     public static String recommendSingleUrl = Base_Url + "?m=recommend_single";
 

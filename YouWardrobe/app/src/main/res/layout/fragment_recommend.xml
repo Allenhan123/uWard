@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#efeff4"
     android:orientation="vertical">
     <include layout="@layout/top_title_layout_2"></include>
@@ -13,12 +14,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <android.support.v7.widget.RecyclerView
-                android:background="@color/white"
-                android:id="@+id/recyclerViews"
+            <com.ygxinjian.anhui.youwardrobe.View.SwipCardView.SwipeFlingAdapterView
                 android:layout_width="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_height="400dp"/>
+                android:layout_height="400dp"
+                android:id="@+id/recommend_view"
+                app:rotation_degrees="16"
+                >
+            </com.ygxinjian.anhui.youwardrobe.View.SwipCardView.SwipeFlingAdapterView>
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:background="@color/white"-->
+                <!--android:id="@+id/recyclerViews"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:layout_height="400dp"/>-->
             <include layout="@layout/recyc_head_recommend"></include>
 
             <RelativeLayout

@@ -21,6 +21,7 @@ import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
 import com.ygxinjian.anhui.youwardrobe.api.Api;
+import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.UiUtil;
 
 import java.util.ArrayList;
@@ -166,6 +167,7 @@ public class DressHistoryActivity extends BaseActivity {
 
                             //// TODO: 2017/5/17   去掉下一行代码 测试用
                             list.addAll(netModel.getResult().getData());
+
                             myAdapter.notifyDataSetChanged();
                         }
 

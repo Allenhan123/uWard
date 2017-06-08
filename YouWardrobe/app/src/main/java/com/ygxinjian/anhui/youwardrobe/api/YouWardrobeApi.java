@@ -3,6 +3,7 @@ package com.ygxinjian.anhui.youwardrobe.api;
 import com.ygxinjian.anhui.youwardrobe.Model.DressHistoryNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.LogInNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
+import com.ygxinjian.anhui.youwardrobe.Model.RecommendDesignModel;
 import com.ygxinjian.anhui.youwardrobe.Model.SaveUserInfoNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.StyleSetNetModel;
 
@@ -22,6 +23,7 @@ import rx.Observable;
  */
 
 public interface YouWardrobeApi {
+
     //登录  18656009327  123456
     @FormUrlEncoded
     @POST("?m=login")
@@ -41,9 +43,13 @@ public interface YouWardrobeApi {
     @GET("?m=style_settings")
     Observable<StyleSetNetModel> styleSettings(@Query("uid") String uid);
 
-   //风格设置（个人板块）
+   //（身材信息）
     @GET("?m=perfect_figure")
     Observable<NetResultModel> perfectFigure(@Query("uid") String uid, @QueryMap Map<String,String>map);
+
+    //（设计师推荐）
+    @GET("?m=recommend_suit")
+    Observable<RecommendDesignModel> recommendDesign(@Query("uid") String uid);
 
 
 }
