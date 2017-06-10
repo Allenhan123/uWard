@@ -36,12 +36,21 @@ public class GetAdressActivity extends BaseActivity {
     @InjectView(R.id.fab1)
     FloatingActionButton fab1;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_adress);
+    protected int getLayoutId() {
+        return R.layout.activity_get_adress;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navTvTitle.setText("收货地址");
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @OnClick({R.id.nav_go_back, R.id.nav_right,R.id.fab1})

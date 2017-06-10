@@ -48,10 +48,14 @@ public class UserStyleActivity extends BaseActivity {
     private List<StyleSetNetModel.ResultBean.DataBean> list = new ArrayList<>();
     private MyAdapter myAdapter;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_style);
+    protected int getLayoutId() {
+        return R.layout.activity_user_style;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navTvTitle.setText(R.string.user_user_style_title);
 
@@ -59,7 +63,10 @@ public class UserStyleActivity extends BaseActivity {
         recycle_view.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
         myAdapter = new MyAdapter(getContext(), list);
         recycle_view.setAdapter(myAdapter);
+    }
 
+    @Override
+    protected void initData() {
         getStyleSetFormService();
     }
 

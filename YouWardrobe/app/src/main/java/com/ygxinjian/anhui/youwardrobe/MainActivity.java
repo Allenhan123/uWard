@@ -33,10 +33,28 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = new AMapLocationClientOption();
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        initView();
+//        city = YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_WEATHER);
+//        if (TextUtil.isNull(city)) {
+//            city = "合肥";
+//        }
+//        //初始化定位
+//        initLocation();
+//
+//        startLocation();
+//    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         initView();
         city = YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_WEATHER);
         if (TextUtil.isNull(city)) {
@@ -46,6 +64,11 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
         initLocation();
 
         startLocation();
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void initView() {

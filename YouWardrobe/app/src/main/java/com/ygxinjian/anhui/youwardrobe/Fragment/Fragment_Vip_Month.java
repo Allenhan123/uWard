@@ -32,8 +32,18 @@ public class Fragment_Vip_Month extends BaseFragment {
     private LinearLayout ll_wechat_pay,ll_ali_pay;
 
     @Override
-    public View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_vip_months, null);
+    protected void initData() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_vip_months;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+        ButterKnife.inject(mActivity);
         View payView = mActivity.findViewById(R.id.pay_view);
         //获取BottomSheetBehavior
         sheetBehavior = BottomSheetBehavior.from(payView);
@@ -71,16 +81,6 @@ public class Fragment_Vip_Month extends BaseFragment {
         //下滑的时候是否可以隐藏
         sheetBehavior.setHideable(true);
 
-        return view;
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.inject(this, rootView);
-        return rootView;
     }
 
     @Override

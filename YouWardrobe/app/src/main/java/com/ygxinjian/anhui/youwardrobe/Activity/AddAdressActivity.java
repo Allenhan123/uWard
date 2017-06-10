@@ -41,11 +41,20 @@ public class AddAdressActivity extends BaseActivity {
     CheckBox userAddressIsDefault;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addadress);
+    protected int getLayoutId() {
+        return R.layout.activity_addadress;
+
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navTvTitle.setText("新增收货地址");
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
 

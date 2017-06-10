@@ -54,19 +54,41 @@ public class DressHistoryActivity extends BaseActivity {
 
     private List<DressHistoryNetModel.ResultBean.DataBean> list = new ArrayList<>();
     private MyAdapter myAdapter;
+//
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_dress_history);
+//        ButterKnife.inject(this);
+//        navTvTitle.setText(R.string.user_dress_history_title);
+//        navRight.setText(R.string.clear_dress_history_title);
+//        getDataFromService();
+//
+//        recycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+//        myAdapter = new MyAdapter(getContext(), list);
+//        recycleView.setAdapter(myAdapter);
+//    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dress_history);
+    protected int getLayoutId() {
+        return R.layout.activity_dress_history;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navTvTitle.setText(R.string.user_dress_history_title);
         navRight.setText(R.string.clear_dress_history_title);
-        getDataFromService();
 
         recycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         myAdapter = new MyAdapter(getContext(), list);
         recycleView.setAdapter(myAdapter);
+    }
+
+    @Override
+    protected void initData() {
+        getDataFromService();
+
     }
 
     @OnClick({R.id.nav_go_back, R.id.nav_right})
@@ -163,17 +185,20 @@ public class DressHistoryActivity extends BaseActivity {
                     public void onNext(DressHistoryNetModel netModel) {
                         if (netModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
                             list.clear();
-                            list.addAll(netModel.getResult().getData());
-
                             //// TODO: 2017/5/17   去掉下一行代码 测试用
                             list.addAll(netModel.getResult().getData());
+                            if(list.size()==0){
+                                showEmptyView();
+                                myAdapter.notifyDataSetChanged();
+                            }else if(list.size()>0){
+                                showContentView();
+                                myAdapter.notifyDataSetChanged();
 
-                            myAdapter.notifyDataSetChanged();
+                            }
                         }
 
                     }
                 });
-
     }
 
 

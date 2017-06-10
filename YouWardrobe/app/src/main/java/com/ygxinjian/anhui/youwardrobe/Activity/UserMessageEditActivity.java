@@ -27,11 +27,27 @@ public class UserMessageEditActivity extends BaseActivity {
     EditText etContent;
 
 
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_user_message_edit);
+//        ButterKnife.inject(this);
+//    }
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_message_edit);
+    protected int getLayoutId() {
+        return R.layout.activity_user_message_edit;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @OnClick({R.id.nav_go_back, R.id.nav_right})

@@ -85,18 +85,13 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
     private List<HomeCategoryModel.ResultBean.DataBean> groupList;
     List<List<HomeCategoryModel.ResultBean.DataBean.ItemsBean>> itemList;
 
-    @Override
-    public View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_homes, null);
-        wardrobeProgress = new WardrobeProgress(mActivity);
-        wardrobeProgress.show();
-        return view;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.inject(this, rootView);
+                wardrobeProgress = new WardrobeProgress(mActivity);
+        wardrobeProgress.show();
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setColorSchemeResources(R.color.main_Red, R.color.color_text_theme);
         initHeadView();
@@ -105,6 +100,21 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
         listView.addHeaderView(headView);
         listView.addFooterView(rentView);
         return rootView;
+    }
+
+    @Override
+    protected void initData() {
+        getData();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_homes;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+
     }
 
     private void getData() {
@@ -125,6 +135,7 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
                         Log.d(TAG, "onResponse: " + homeCategoryModel.toString());
                         groupList = new ArrayList<>();
                         groupList = homeCategoryModel.getResult().getData();
+
                         itemList = new ArrayList<>();
                         for (int i = 0; i < groupList.size(); i++) {
                             List<HomeCategoryModel.ResultBean.DataBean.ItemsBean> itemGridList = groupList.get(i).getItems();
@@ -148,6 +159,14 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
                                 return true;
                             }
                         });
+                        if(groupList.size()==0){
+                            showEmptyView();
+                            adapter.notifyDataSetChanged();
+
+                        }else if(groupList.size()>0){
+                            showContentView();
+
+                        }
                     }
                 });
     }

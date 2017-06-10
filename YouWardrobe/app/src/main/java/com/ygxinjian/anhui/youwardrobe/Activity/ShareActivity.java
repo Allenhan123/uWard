@@ -30,9 +30,12 @@ public class ShareActivity extends BaseActivity {
     private BottomSheetBehavior sheetBehavior;
     private LinearLayout ll_wechat,ll_friend;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_share);
+    protected int getLayoutId() {
+        return R.layout.activity_share;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navTvTitle.setText("分享好友");
         navRight.setText("分享");
@@ -73,6 +76,10 @@ public class ShareActivity extends BaseActivity {
 
         //下滑的时候是否可以隐藏
         sheetBehavior.setHideable(true);
+    }
+
+    @Override
+    protected void initData() {
 
     }
 

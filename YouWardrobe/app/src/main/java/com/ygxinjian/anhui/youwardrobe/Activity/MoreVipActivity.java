@@ -42,13 +42,21 @@ public class MoreVipActivity extends BaseActivity implements BottomNavigationBar
     private Fragment_Vip_Ji vipJiFragment;
     private Fragment_Vip_Year vipYearFragment;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_more_vip);
+    protected int getLayoutId() {
+        return R.layout.activity_more_vip;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navTvTitle.setText("开通会员");
         initView();
+    }
+
+    @Override
+    protected void initData() {
 
     }
 

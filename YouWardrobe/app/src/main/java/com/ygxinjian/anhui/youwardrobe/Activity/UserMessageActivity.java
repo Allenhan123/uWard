@@ -79,10 +79,14 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
     long sixtyYears = 60L * 365 * 1000 * 60 * 60 * 24L;
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_message);
+    protected int getLayoutId() {
+        return R.layout.activity_user_message;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navTvTitle.setText(R.string.user_message_title);
 
@@ -93,7 +97,10 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
                 .setTitleStringId("请选择出生日期")
                 .setCallBack(this)
                 .build();
-        //http://115.159.116.34:8089/Interface/i_Interface.aspx?m=getmember&uid=手机号
+    }
+
+    @Override
+    protected void initData() {
         getUserInfo();
     }
 

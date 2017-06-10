@@ -1,6 +1,5 @@
 package com.ygxinjian.anhui.youwardrobe.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,24 +46,38 @@ public class MeFragment extends BaseFragment {
     LinearLayout llAboutOur;
     @InjectView(R.id.ll_user_exit)
     LinearLayout llUserExit;
-    private ImageView navGoBack;
-    private TextView navTvTitle;
+    @InjectView(R.id.nav_go_back)
+    ImageView navGoBack;
+    @InjectView(R.id.nav_tv_title)
+    TextView navTvTitle;
+    @InjectView(R.id.nav_right)
+    ImageView navRight;
+    @InjectView(R.id.iv_user_photo)
+    ImageView ivUserPhoto;
 
-    @Override
-    public View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_me, null);
-        navGoBack = (ImageView) view.findViewById(R.id.nav_go_back);
-        navTvTitle = (TextView) view.findViewById(R.id.nav_tv_title);
-        navGoBack.setVisibility(View.GONE);
-        navTvTitle.setText("");
-        return view;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.inject(this, rootView);
+        navGoBack.setVisibility(View.GONE);
+        navTvTitle.setText("");
         return rootView;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_me;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+
     }
 
     @Override

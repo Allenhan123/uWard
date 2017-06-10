@@ -60,11 +60,11 @@ public class HomeFragment extends BaseFragment {
     private WardrobeProgress wardrobeProgress;
     private WeatherModel weatherModel;
 
-    @Override
-    public View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_home, null);
-        return view;
-    }
+//    @Override
+//    public View initView() {
+//        View view = View.inflate(mActivity, R.layout.fragment_home, null);
+//        return view;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +75,21 @@ public class HomeFragment extends BaseFragment {
         listView.addHeaderView(headView);
         listView.setAdapter(new MyAdapter());
         return rootView;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+
     }
 
     private LinearLayout headView;

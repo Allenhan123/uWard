@@ -48,15 +48,22 @@ public class GoodsDetailsActivity extends BaseActivity {
 
     private String prod_id;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_goodsdetails);
+    protected int getLayoutId() {
+        return R.layout.activity_goodsdetails;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navTvTitle.setText("商品详情");
         navRight.setImageResource(R.mipmap.my_wardrobe);
-        getData();
+    }
 
+    @Override
+    protected void initData() {
+        getData();
     }
 
     private void getData() {

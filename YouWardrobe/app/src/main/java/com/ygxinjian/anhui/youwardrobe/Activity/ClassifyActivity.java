@@ -50,10 +50,14 @@ public class ClassifyActivity extends BaseActivity {
     private List<ClassifyModel.ResultBean.DataBean> list = new ArrayList<>();
     private MyAdapter myAdapter;
 
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_classify);
+    protected int getLayoutId() {
+        return R.layout.activity_classify;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navRight.setVisibility(View.GONE);
 
@@ -61,17 +65,17 @@ public class ClassifyActivity extends BaseActivity {
         myAdapter = new MyAdapter(getContext(), list);
         recyclerViewClassify.setAdapter(myAdapter);
 
-        initData();
-    }
-
-    private void initData() {
         Intent _intent = getIntent();
         if (_intent != null) {
             String title = _intent.getStringExtra("title");
             url = _intent.getStringExtra("url");
             navTvTitle.setText(title);
-            getData();
+
         }
+    }
+    @Override
+    protected void initData() {
+        getData();
     }
 
     private void getData() {
@@ -92,7 +96,14 @@ public class ClassifyActivity extends BaseActivity {
                         classifyModel = gson.fromJson(response, ClassifyModel.class);
                         list.clear();
                         list.addAll(classifyModel.getResult().getData());
-                        myAdapter.notifyDataSetChanged();
+                        if(list.size()==0){
+                            showEmptyView();
+                            myAdapter.notifyDataSetChanged();
+                        }else if(list.size()>0){
+                            showContentView();
+                            myAdapter.notifyDataSetChanged();
+
+                        }
                     }
                 });
     }

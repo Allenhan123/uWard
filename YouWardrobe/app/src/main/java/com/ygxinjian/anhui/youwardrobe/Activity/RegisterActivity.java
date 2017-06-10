@@ -54,10 +54,27 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private static String appSecret = "50e162b039f0e82c4046d91582283802";
     private String number;
     private ProgressDialog dialog;
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_register);
+//        ButterKnife.inject(this);
+//        StatusBarUtils.setWindowStatusBarColor(this, R.color.Login_Red);
+//        tv_sendSms = (TextView) findViewById(R.id.tv_sendSms);
+//        btn_register = (Button) findViewById(R.id.btn_register);
+//        etVerify = (EditText) findViewById(R.id.et_verify);
+//        tv_sendSms.setOnClickListener(this);
+//        btn_register.setOnClickListener(this);
+//        initSDK();
+//    }
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    protected int getLayoutId() {
+        return R.layout.activity_register;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         StatusBarUtils.setWindowStatusBarColor(this, R.color.Login_Red);
         tv_sendSms = (TextView) findViewById(R.id.tv_sendSms);
@@ -66,6 +83,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         tv_sendSms.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         initSDK();
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void initSDK() {

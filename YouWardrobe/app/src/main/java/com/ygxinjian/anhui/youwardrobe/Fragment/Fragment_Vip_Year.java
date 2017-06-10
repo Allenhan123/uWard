@@ -17,10 +17,24 @@ import butterknife.OnClick;
  */
 
 public class Fragment_Vip_Year extends BaseFragment {
+//    @Override
+//    public View initView() {
+//        View view = View.inflate(mActivity, R.layout.fragment_vip_year, null);
+//        return view;
+//    }
+
     @Override
-    public View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_vip_year, null);
-        return view;
+    protected void initData() {
+
     }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_vip_year;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+
+    }
 }

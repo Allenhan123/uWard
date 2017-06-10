@@ -52,12 +52,28 @@ public class LoginActivity extends BaseActivity {
     @InjectView(R.id.tv_forget)
     TextView tvForget;
 
+//    @Override
+//    protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_login);
+//        ButterKnife.inject(this);
+//        StatusBarUtils.setWindowStatusBarColor(this, R.color.Login_Red);
+//    }
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    protected int getLayoutId() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         StatusBarUtils.setWindowStatusBarColor(this, R.color.Login_Red);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @OnClick({R.id.btn_login, R.id.tv_register, R.id.tv_forget})

@@ -10,9 +10,19 @@ import com.ygxinjian.anhui.youwardrobe.R;
  */
 
 public class FindPswActivity extends BaseActivity {
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_psw);
+    protected int getLayoutId() {
+        return R.layout.activity_find_psw;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }

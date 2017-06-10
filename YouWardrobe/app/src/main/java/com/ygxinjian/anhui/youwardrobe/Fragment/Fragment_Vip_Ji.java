@@ -18,13 +18,18 @@ import butterknife.OnClick;
 
 public class Fragment_Vip_Ji extends BaseFragment {
 
-
     @Override
-    public View initView() {
-        View view = View.inflate(mActivity, R.layout.fragment_vip_ji, null);
-        return view;
+    protected void initData() {
+
     }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_vip_ji;
+    }
 
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
 
+    }
 }

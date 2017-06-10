@@ -89,14 +89,22 @@ public class FigureActivity extends BaseActivity {
     private List<String> list=new ArrayList<>();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_figure);
+    protected int getLayoutId() {
+        return R.layout.activity_figure;
+    }
+
+    @Override
+    protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navTvTitle.setText("身材信息");
         for (int i = 10; i < 200; i++) {
             list.add(String.valueOf(i));
         }
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
 
