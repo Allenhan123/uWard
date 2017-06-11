@@ -16,7 +16,7 @@
             android:layout_height="300dp"
             android:scaleType="centerCrop"
             app:radius="7.5dp"
-            android:src="@drawable/img_avatar_01" />
+            android:src="@mipmap/banner_loading" />
 
         <ImageView
             android:id="@+id/iv_dislike"

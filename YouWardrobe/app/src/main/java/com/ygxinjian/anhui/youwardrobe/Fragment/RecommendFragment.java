@@ -88,6 +88,7 @@ public class RecommendFragment extends BaseFragment implements SwipeFlingAdapter
         ButterKnife.inject(this, rootView);
         navRight.setVisibility(View.GONE);
         navTvTitle.setText("精心推荐");
+        navGoBack.setVisibility(View.GONE);
 
         initRecycData();
 //        单品推荐
