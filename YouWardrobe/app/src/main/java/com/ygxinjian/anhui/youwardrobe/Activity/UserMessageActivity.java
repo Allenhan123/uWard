@@ -1,5 +1,6 @@
 package com.ygxinjian.anhui.youwardrobe.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -27,10 +28,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Controller.ImageOptionUtils;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Model.BaseModel;
+import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
+import com.ygxinjian.anhui.youwardrobe.Model.ReturnAddressNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.UserModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
+import com.ygxinjian.anhui.youwardrobe.api.Api;
+import com.ygxinjian.anhui.youwardrobe.api.YouWardrobeApi;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
+import com.ygxinjian.anhui.youwardrobe.utils.UiUtil;
 import com.ygxinjian.anhui.youwardrobe.weigt.SelectPhotoDialog;
 
 import java.io.File;
@@ -41,6 +47,9 @@ import java.text.SimpleDateFormat;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -142,15 +151,9 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
             case R.id.get_adress:
                 DevUtil.gotoActivity(getContext(), GetAdressActivity.class);
                 break;
-
             // 寄回地址  弹窗显示固定地址
             case R.id.item_back_adress:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("寄回地址");
-                builder.setMessage("安徽省合肥市xxxxxx");
-//                builder.setNegativeButton("取消", null);
-                builder.setPositiveButton("确定", null);
-                builder.show();
+                getReturnAddressFromNet();
                 break;
             case R.id.item_sex:
                 if (sexSelectPop != null && sexSelectPop.isShowing()) {
@@ -225,7 +228,6 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
                 .fromJson(YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_INFO), UserModel.class);
         refreshUserView(userModel);
     }
-
 
 
     /**
@@ -321,6 +323,41 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
     public String getDateToString(long time) {
         Date d = new Date(time);
         return sf.format(d);
+    }
+
+
+    /**
+     * 获取寄回地址
+     */
+    public void getReturnAddressFromNet() {
+        final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
+        dialog.show();
+        Api.getYouWardrobeApi()
+                .returnddress()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ReturnAddressNetModel>() {
+                    @Override
+                    public void onCompleted() {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(ReturnAddressNetModel model) {
+                        if (model.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle("寄回地址");
+                            builder.setMessage(model.getAddress());
+                            builder.setPositiveButton("确定", null);
+                            builder.show();
+                        }
+                    }
+                });
     }
 
 

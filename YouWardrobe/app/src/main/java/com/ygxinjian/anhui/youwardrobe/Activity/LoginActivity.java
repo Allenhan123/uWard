@@ -157,8 +157,8 @@ public class LoginActivity extends BaseActivity {
         final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
         dialog.show();
         Api.getYouWardrobeApi().login(userName, userPsw)
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<LogInNetModel>() {
                     @Override
                     public void onCompleted() {

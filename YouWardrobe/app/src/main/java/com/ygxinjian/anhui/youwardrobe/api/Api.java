@@ -2,6 +2,9 @@ package com.ygxinjian.anhui.youwardrobe.api;
 
 import android.util.Log;
 
+import com.lidroid.xutils.http.client.multipart.content.FileBody;
+import com.ygxinjian.anhui.youwardrobe.Controller.HttpLog;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
@@ -11,6 +14,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import okio.Buffer;
 import okio.BufferedSource;
 import retrofit2.Retrofit;
@@ -57,7 +61,12 @@ public class Api {
             }
         };
 
+        //日志
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLog());
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         httpClientBuilder.addInterceptor(loggingIntercept);
+        httpClientBuilder.addInterceptor(loggingInterceptor);
 
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
