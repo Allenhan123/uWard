@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.adapter.CBViewHolderCreator;
@@ -213,7 +215,7 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
                 Gson gson = new Gson();
                 rentModel = gson.fromJson(response,RentModel.class);
                 data = rentModel.getResult().getData();
-                mAdapter = new RentAdapter(mActivity);
+                mAdapter = new RentAdapter(R.layout.recommenf_single_item,data);
                 mAdapter.openLoadAnimation();
                 initAdapter();
             }
@@ -224,29 +226,27 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
      * 设置RecyclerView属性
      */
     private void initAdapter() {
-        MyGridLayoutManager gridLayoutManager = new MyGridLayoutManager(getContext(),2);
-        gridLayoutManager.setScrollEnabled(false);
-        recycleView_rent.setLayoutManager(gridLayoutManager);
-        mAdapter.openLoadAnimation();
+        recycleView_rent.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         recycleView_rent.setAdapter(mAdapter);//设置adapter
         //设置item点击事件
-        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                DevUtil.showInfo(mActivity,"祖品"+position);
-                Intent intent = new Intent();
-//                intent.setClass(mActivity, CustomWebViewActivity.class);
-//                intent.putExtra("url",Constants.NewsMainURL+newsModel.getResult().getData().get(position).getWz());
-//                intent.putExtra("title",newsModel.getResult().getData().get(position).getTitle());
-//                startActivity(intent);
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                DevUtil.showInfo(mActivity,"租品"+position);
+                //                Intent intent = new Intent();
+////                intent.setClass(mActivity, CustomWebViewActivity.class);
+////                intent.putExtra("url",Constants.NewsMainURL+newsModel.getResult().getData().get(position).getWz());
+////                intent.putExtra("title",newsModel.getResult().getData().get(position).getTitle());
+////                startActivity(intent);
             }
         });
     }
 
-    class RentAdapter extends BaseQuickAdapter<RentModel.ResultBean.DataBean> {
+    class RentAdapter extends BaseQuickAdapter<RentModel.ResultBean.DataBean, BaseViewHolder> {
 
-        public RentAdapter(Context context) {
-            super(context,R.layout.recommenf_single_item,data);
+        public RentAdapter(int layoutResId,List data) {
+            super(R.layout.recommenf_single_item,data);
         }
 
         @Override

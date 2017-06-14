@@ -1,15 +1,15 @@
 package com.ygxinjian.anhui.youwardrobe.Fragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +23,6 @@ import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendDesignModel;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
 import com.ygxinjian.anhui.youwardrobe.R;
-import com.ygxinjian.anhui.youwardrobe.View.MyGridLayoutManager;
 import com.ygxinjian.anhui.youwardrobe.View.SwipCardView.SwipeFlingAdapterView;
 import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
@@ -34,88 +33,112 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
  * Created by handongqiang on 17/3/13.
  */
 
-public class RecommendFragment extends BaseFragment implements SwipeFlingAdapterView.onFlingListener,
-        SwipeFlingAdapterView.OnItemClickListener {
+public class RecommendFragment extends BaseFragmentNormal
+        implements SwipeFlingAdapterView.onFlingListener,
+        SwipeFlingAdapterView.OnItemClickListener
+{
     private static final String TAG = "RecommendFragment";
-    @InjectView(R.id.nav_go_back)
-    ImageView navGoBack;
-    @InjectView(R.id.nav_tv_title)
-    TextView navTvTitle;
-    @InjectView(R.id.nav_right)
-    ImageView navRight;
-    @InjectView(R.id.recommend_view)
-    SwipeFlingAdapterView recommendView;
-    @InjectView(R.id.recyclerView_single)
-    RecyclerView recyclerViewSingle;
+    private RecyclerView recyclerViewSingle;
+    private ImageView ivBack;
+    private TextView tvTitle;
 
     private RecommendSingleModel recommend_single_model;
     private RecommendSingleAdapter mAdapter;
     private List<RecommendSingleModel.ResultBean.DataBean> data;
 
     //    设计师推荐
+    private View headView;
+    private SwipeFlingAdapterView recommendView;
     private SwipeCardAdapter swipeCardAdapter;
     private RecommendDesignModel recommendDesignModel;
     private List<RecommendDesignModel.ResultBean.DataBean> list = new ArrayList<>();
 
+//将推荐模块作为头布局加到recycleview上
     @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_recommend;
-    }
-
-    @Override
-    protected void afterCreate(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.inject(this, rootView);
-        navRight.setVisibility(View.GONE);
-        navTvTitle.setText("精心推荐");
-        navGoBack.setVisibility(View.GONE);
-
-        initRecycData();
-//        单品推荐
+    public View initView() {
+        View view = View.inflate(mActivity, R.layout.fragment_recommend, null);
+        ivBack = (ImageView) view.findViewById(R.id.nav_go_back);
+        tvTitle = (TextView) view.findViewById(R.id.nav_tv_title);
+        tvTitle.setText("精心推荐");
+        ivBack.setVisibility(View.GONE);
+        recyclerViewSingle = (RecyclerView) view.findViewById(R.id.recyclerView_single);
+        recyclerViewSingle.setLayoutManager(new GridLayoutManager(mActivity, 2));
+//
         initRecycSingleData();
+        return view;
+    }
 
+    //    单品推荐
+    private void initRecycSingleData() {
+        OkHttpUtils.get().url(Constant.recommendSingleUrl).addParams("uid", "18656009327").build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.d("Result", response);
+                Gson gson = new Gson();
+                recommend_single_model = gson.fromJson(response, RecommendSingleModel.class);
+                data = recommend_single_model.getResult().getData();
+                mAdapter = new RecommendSingleAdapter(R.layout.recommenf_single_item, data);
+                initAdapter();
+            }
+        });
+    }
+
+    /**
+     * 设置RecyclerView属性      单品推荐
+     */
+    private void initAdapter() {
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+
+        initHeadView();
+        mAdapter.addHeaderView(headView);
+
+        recyclerViewSingle.setAdapter(mAdapter);//设置adapter
+        //设置item点击事件
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                DevUtil.showInfo(mActivity, "单品" + position);
+                Intent intent = new Intent();
+//                intent.setClass(mActivity, CustomWebViewActivity.class);
+//                intent.putExtra("url",Constants.NewsMainURL+newsModel.getResult().getData().get(position).getWz());
+//                intent.putExtra("title",newsModel.getResult().getData().get(position).getTitle());
+//                startActivity(intent);
+            }
+        });
+    }
+
+    private void initHeadView() {
+        headView = mActivity.getLayoutInflater().inflate(R.layout.recommend_header, (ViewGroup) recyclerViewSingle.getParent(), false);
+        recommendView = (SwipeFlingAdapterView) headView.findViewById(R.id.recommend_view);
+        initRecycData();
         //        设计师推荐
         if (recommendView != null) {
             recommendView.setIsNeedSwipe(true);
-            recommendView.setFlingListener(this);
+            recommendView.setFlingListener( this);
             recommendView.setOnItemClickListener(this);
 
             swipeCardAdapter = new SwipeCardAdapter();
             recommendView.setAdapter(swipeCardAdapter);
         }
-        return rootView;
     }
-
     @Override
     public void onItemClicked(MotionEvent event, View v, Object dataObject) {
 //        Toast.makeText(mActivity, dataObject.toString(), Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public void removeFirstObjectInAdapter() {
         swipeCardAdapter.remove(0);
     }
-
     //左滑
     @Override
     public void onLeftCardExit(Object dataObject) {
@@ -142,7 +165,7 @@ public class RecommendFragment extends BaseFragment implements SwipeFlingAdapter
     }
 
     private void initRecycData() {
-        final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
+        final Dialog dialog = UiUtil.getLoadDialog(mActivity, true);
         dialog.show();
         OkHttpUtils.get().url(Constant.recommendDesignUrl).addParams("uid", YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_ID)).build().execute(new StringCallback() {
             @Override
@@ -160,14 +183,6 @@ public class RecommendFragment extends BaseFragment implements SwipeFlingAdapter
             }
         });
     }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.reset(this);
-    }
-
 
 
     public class SwipeCardAdapter extends BaseAdapter {
@@ -248,61 +263,16 @@ public class RecommendFragment extends BaseFragment implements SwipeFlingAdapter
         ImageView iv_recommend;
     }
 
-
-    //    单品推荐
-    private void initRecycSingleData() {
-        OkHttpUtils.get().url(Constant.recommendSingleUrl).addParams("uid", "18656009327").build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                Log.d("Result", response);
-                Gson gson = new Gson();
-                recommend_single_model = gson.fromJson(response, RecommendSingleModel.class);
-                data = recommend_single_model.getResult().getData();
-                mAdapter = new RecommendSingleAdapter(mActivity);
-                mAdapter.openLoadAnimation();
-                initAdapter();
-            }
-        });
-    }
-
-    /**
-     * 设置RecyclerView属性      单品推荐
-     */
-    private void initAdapter() {
-        MyGridLayoutManager gridLayoutManager = new MyGridLayoutManager(getContext(), 2);
-        gridLayoutManager.setScrollEnabled(false);
-        recyclerViewSingle.setLayoutManager(gridLayoutManager);
-        mAdapter.openLoadAnimation();
-        recyclerViewSingle.setAdapter(mAdapter);//设置adapter
-        //设置item点击事件
-        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                DevUtil.showInfo(mActivity, "单品" + position);
-                Intent intent = new Intent();
-//                intent.setClass(mActivity, CustomWebViewActivity.class);
-//                intent.putExtra("url",Constants.NewsMainURL+newsModel.getResult().getData().get(position).getWz());
-//                intent.putExtra("title",newsModel.getResult().getData().get(position).getTitle());
-//                startActivity(intent);
-            }
-        });
-    }
-
-    //    单品推荐
-    class RecommendSingleAdapter extends BaseQuickAdapter<RecommendSingleModel.ResultBean.DataBean> {
-
-        public RecommendSingleAdapter(Context context) {
-            super(context, R.layout.recommenf_single_item, data);
+    class RecommendSingleAdapter extends BaseQuickAdapter<RecommendSingleModel.ResultBean.DataBean, BaseViewHolder> {
+        public RecommendSingleAdapter(int layoutResId, List data) {
+            super(R.layout.recommenf_single_item, data);
         }
 
         @Override
-        public void convert(BaseViewHolder helper, RecommendSingleModel.ResultBean.DataBean mData) {
-            helper.setText(R.id.tv_recommend_item, mData.getClassifyTitle());
-            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url + mData.getImgUrl(), (ImageView) helper.getView(R.id.iv_recommend_item));
+        protected void convert(BaseViewHolder helper, RecommendSingleModel.ResultBean.DataBean item) {
+            helper.setText(R.id.tv_recommend_item, item.getClassifyTitle());
+            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url + item.getImgUrl(), (ImageView) helper.getView(R.id.iv_recommend_item));
+
         }
     }
 

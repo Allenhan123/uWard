@@ -90,4 +90,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.4.1'
     compile 'com.squareup.retrofit2:converter-scalars:2.0.2'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
+//    baseAdapter
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18'
 }

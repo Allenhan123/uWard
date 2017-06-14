@@ -80,7 +80,6 @@ public abstract class BaseFragment extends Fragment implements NetworkStateView.
 
     protected abstract void afterCreate(Bundle savedInstanceState);
 
-
     /**
      * 显示加载中的布局
      */

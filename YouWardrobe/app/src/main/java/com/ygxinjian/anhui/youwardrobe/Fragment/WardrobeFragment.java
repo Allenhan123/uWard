@@ -47,13 +47,7 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     TextView tvDelete;
     @InjectView(R.id.tv_go_to_pay)
     TextView tvGoToPay;
-//    private ImageView iv_back;
-//    private TextView tv_title;
-//    private ExpandableListView exListView;
-//    private CheckBox cb_check_all;
-//    private TextView tv_total_price;
-//    private TextView tv_delete;
-//    private TextView tv_go_to_pay;
+
 
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量

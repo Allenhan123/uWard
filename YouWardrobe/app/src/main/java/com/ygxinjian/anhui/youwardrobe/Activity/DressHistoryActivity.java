@@ -54,20 +54,7 @@ public class DressHistoryActivity extends BaseActivity {
 
     private List<DressHistoryNetModel.ResultBean.DataBean> list = new ArrayList<>();
     private MyAdapter myAdapter;
-//
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_dress_history);
-//        ButterKnife.inject(this);
-//        navTvTitle.setText(R.string.user_dress_history_title);
-//        navRight.setText(R.string.clear_dress_history_title);
-//        getDataFromService();
-//
-//        recycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-//        myAdapter = new MyAdapter(getContext(), list);
-//        recycleView.setAdapter(myAdapter);
-//    }
+
 
     @Override
     protected int getLayoutId() {

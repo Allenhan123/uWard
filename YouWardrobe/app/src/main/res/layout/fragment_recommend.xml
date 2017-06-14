@@ -6,34 +6,10 @@
     android:background="#efeff4"
     android:orientation="vertical">
     <include layout="@layout/top_title_layout_2"></include>
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:scrollbars="none">-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical">-->
-            <com.ygxinjian.anhui.youwardrobe.View.SwipCardView.SwipeFlingAdapterView
-                android:layout_width="match_parent"
-                android:layout_height="360dp"
-                android:id="@+id/recommend_view"
-                swipe:min_adapter_stack="4"
-                swipe:max_visible="4"
-                swipe:y_offset_step="28dp"                >
-            </com.ygxinjian.anhui.youwardrobe.View.SwipCardView.SwipeFlingAdapterView>
-            <include layout="@layout/recyc_head_recommend"></include>
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/white"
+        android:id="@+id/recyclerView_single"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants">
-                <android.support.v7.widget.RecyclerView
-                    android:background="@color/white"
-                    android:id="@+id/recyclerView_single"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-        <!--</LinearLayout>-->
-    <!--</ScrollView>-->
 </LinearLayout>
