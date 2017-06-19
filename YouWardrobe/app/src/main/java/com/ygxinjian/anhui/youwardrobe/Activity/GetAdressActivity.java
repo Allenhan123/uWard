@@ -71,7 +71,7 @@ public class GetAdressActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.nav_right:
-                save();
+//                save();
                 break;
             case R.id.fab1:
                 DevUtil.gotoActivity(getContext(), AddAdressActivity.class);
@@ -135,30 +135,7 @@ public class GetAdressActivity extends BaseActivity {
 
 
     private void save() {
-        LoginBody model=new LoginBody();
-        model.setUid("18656009327");
 
-        RequestBody body=RequestBody.create(MediaType.parse("application/json; charset=utf-8"),model.toString());
-        Api.getYouWardrobeApi()
-                .getcart(body)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<NetResultModel>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(NetResultModel netResultModel) {
-
-                    }
-                });
     }
 
 

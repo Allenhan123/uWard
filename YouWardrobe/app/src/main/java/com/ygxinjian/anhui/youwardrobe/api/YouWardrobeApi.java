@@ -76,7 +76,16 @@ public interface YouWardrobeApi {
 
     //获取购物车信息
     @POST("?m=getcart")
-    @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Observable<NetResultModel> getcart(@Body RequestBody model);
+
+
+
+   //获取购物车信息
+    @GET("?m=getcart")
+    Observable<NetResultModel> getcart(@Query("uid") String uid);
+
+
+
+
 
 }
