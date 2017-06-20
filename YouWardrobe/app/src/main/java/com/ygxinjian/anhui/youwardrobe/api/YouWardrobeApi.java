@@ -10,6 +10,7 @@ import com.ygxinjian.anhui.youwardrobe.Model.ReturnAddressNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.SaveUserInfoNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.StyleSetNetModel;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.RequestBody;
@@ -69,10 +70,15 @@ public interface YouWardrobeApi {
     @POST("?m=getaddress")
     Observable<ReturnAddressNetModel> getAddress(@Field("uid") String uid);
 
+//    // 用户收货地址管理
+//    @POST("?m=member_address")
+//    //Body小知识 http://www.jianshu.com/p/56b5bce47d8c
+//    Observable<NetResultModel> managerAddress(@Body AddressBodyModel model);
+
     // 用户收货地址管理
     @POST("?m=member_address")
-    //Body小知识 http://www.jianshu.com/p/56b5bce47d8c
-    Observable<NetResultModel> managerAddress(@Body AddressBodyModel model);
+    Observable<NetResultModel> managerAddress(@QueryMap HashMap<String,String> paramsMap);
+
 
     //获取购物车信息
     @POST("?m=getcart")

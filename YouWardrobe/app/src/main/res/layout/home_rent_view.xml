@@ -14,6 +14,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:id="@+id/iv_intro_rent"
             android:scaleType="centerCrop"
             android:src="@drawable/rent_icon" />
     </LinearLayout>

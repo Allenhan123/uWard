@@ -18,11 +18,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.ygxinjian.anhui.youwardrobe.Activity.ClassifyActivity;
 import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendDesignModel;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.View.BetterRecyclerView;
 import com.ygxinjian.anhui.youwardrobe.View.SwipCardView.SwipeFlingAdapterView;
 import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
@@ -44,7 +46,7 @@ public class RecommendFragment extends BaseFragmentNormal
         SwipeFlingAdapterView.OnItemClickListener
 {
     private static final String TAG = "RecommendFragment";
-    private RecyclerView recyclerViewSingle;
+    private BetterRecyclerView recyclerViewSingle;
     private ImageView ivBack;
     private TextView tvTitle;
 
@@ -67,7 +69,7 @@ public class RecommendFragment extends BaseFragmentNormal
         tvTitle = (TextView) view.findViewById(R.id.nav_tv_title);
         tvTitle.setText("精心推荐");
         ivBack.setVisibility(View.GONE);
-        recyclerViewSingle = (RecyclerView) view.findViewById(R.id.recyclerView_single);
+        recyclerViewSingle = (BetterRecyclerView) view.findViewById(R.id.recyclerView_single);
         recyclerViewSingle.setLayoutManager(new GridLayoutManager(mActivity, 2));
 //
         initRecycSingleData();
@@ -107,12 +109,10 @@ public class RecommendFragment extends BaseFragmentNormal
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                DevUtil.showInfo(mActivity, "单品" + position);
-                Intent intent = new Intent();
-//                intent.setClass(mActivity, CustomWebViewActivity.class);
-//                intent.putExtra("url",Constants.NewsMainURL+newsModel.getResult().getData().get(position).getWz());
-//                intent.putExtra("title",newsModel.getResult().getData().get(position).getTitle());
-//                startActivity(intent);
+                Intent _intent = new Intent(mActivity,ClassifyActivity.class);
+                _intent.putExtra("title",data.get(position).getClassifyTitle());
+//                _intent.putExtra("url",data.get(position).getUrl());
+                startActivity(_intent);
             }
         });
     }

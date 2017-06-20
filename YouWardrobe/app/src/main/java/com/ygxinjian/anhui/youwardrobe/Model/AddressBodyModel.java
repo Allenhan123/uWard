@@ -23,7 +23,7 @@ public class AddressBodyModel extends BaseModel {
     private String Township;   //乡镇
     private String Street;   //街道
     private String Address;   //详细地址
-    private String ipCode;   //ipCode 邮编
+    private String zipCode;   //zipCode 邮编
     private int IsDefault;   // IsDefault=是否为默认地址（0否1是）
     private String Contact;   //  Contact=联系人姓名
     private String Telephone;   //  Telephone=联系人电话
@@ -78,12 +78,12 @@ public class AddressBodyModel extends BaseModel {
         Country = country;
     }
 
-    public String getIpCode() {
-        return ipCode;
+    public String getzipCode() {
+        return zipCode;
     }
 
-    public void setIpCode(String ipCode) {
-        this.ipCode = ipCode;
+    public void setzipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public int getIsDefault() {

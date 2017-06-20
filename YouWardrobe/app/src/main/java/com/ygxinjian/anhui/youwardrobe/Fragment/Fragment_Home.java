@@ -58,7 +58,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
- * HOME  TEST
+ * HOME  使用
  * Created by handongqiang on 17/3/13.
  */
 
@@ -167,7 +167,6 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
 
                         }else if(groupList.size()>0){
                             showContentView();
-
                         }
                     }
                 });
@@ -179,7 +178,7 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
     private TextView tv_time;
     private TextView tv_describe;
     private TextView tv_temperature;
-    private ImageView iv_weather;
+    private ImageView iv_weather,iv_rent_intro;
     private ConvenientBanner mConvenientBanner;
 
     private void initHeadView() {
@@ -201,6 +200,13 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
     private void initRentView() {
         rentView = (LinearLayout) View.inflate(getContext(), R.layout.home_rent_view, null);
         recycleView_rent = (RecyclerView) rentView.findViewById(R.id.recyclerView_rent);
+        iv_rent_intro = (ImageView) rentView.findViewById(R.id.iv_intro_rent);
+        iv_rent_intro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DevUtil.showInfo(mActivity,"时租区介绍");
+            }
+        });
         initRentData();
     }
 
@@ -233,12 +239,10 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                DevUtil.showInfo(mActivity,"租品"+position);
-                //                Intent intent = new Intent();
-////                intent.setClass(mActivity, CustomWebViewActivity.class);
-////                intent.putExtra("url",Constants.NewsMainURL+newsModel.getResult().getData().get(position).getWz());
-////                intent.putExtra("title",newsModel.getResult().getData().get(position).getTitle());
-////                startActivity(intent);
+                Intent _intent = new Intent(mActivity,ClassifyActivity.class);
+                _intent.putExtra("title",data.get(position).getClassifyTitle());
+                _intent.putExtra("url",data.get(position).getClassifyURL());
+                startActivity(_intent);
             }
         });
     }

@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Model.ClassifyModel;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.UiUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -79,33 +80,37 @@ public class ClassifyActivity extends BaseActivity {
     }
 
     private void getData() {
-        final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
-        dialog.show();
-        OkHttpUtils.get().url(url)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        dialog.dismiss();
-                        Gson gson = new Gson();
-                        classifyModel = gson.fromJson(response, ClassifyModel.class);
-                        list.clear();
-                        list.addAll(classifyModel.getResult().getData());
-                        if(list.size()==0){
-                            showEmptyView();
-                            myAdapter.notifyDataSetChanged();
-                        }else if(list.size()>0){
-                            showContentView();
-                            myAdapter.notifyDataSetChanged();
-
+        if(url!=null){
+            final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
+            dialog.show();
+            OkHttpUtils.get().url(url)
+                    .build()
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            dialog.dismiss();
                         }
-                    }
-                });
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            dialog.dismiss();
+                            Gson gson = new Gson();
+                            classifyModel = gson.fromJson(response, ClassifyModel.class);
+                            list.clear();
+                            list.addAll(classifyModel.getResult().getData());
+                            if(list.size()==0){
+                                showEmptyView();
+                                myAdapter.notifyDataSetChanged();
+                            }else if(list.size()>0){
+                                showContentView();
+                                myAdapter.notifyDataSetChanged();
+
+                            }
+                        }
+                    });
+
+        }
+
     }
 
     @OnClick(R.id.nav_go_back)

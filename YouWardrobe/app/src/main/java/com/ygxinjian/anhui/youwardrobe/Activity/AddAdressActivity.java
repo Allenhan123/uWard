@@ -15,6 +15,8 @@ import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.api.Api;
 
+import java.util.HashMap;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -85,22 +87,38 @@ public class AddAdressActivity extends BaseActivity {
 
 
     private void addAddressToNet() {
-        AddressBodyModel addressBodyMode = new AddressBodyModel();
-        addressBodyMode.setUid("18656009327");
-        addressBodyMode.setProvince("安徽省");
-        addressBodyMode.setCity("合肥");
-        addressBodyMode.setTownship("包河");
-        addressBodyMode.setStreet("街道");
-        addressBodyMode.setAddress("详细地址");
-        addressBodyMode.setIpCode("100000");
-        addressBodyMode.setIsDefault(0);
-        addressBodyMode.setContact("打死小强");
-        addressBodyMode.setTelephone("15256029226");
+//        AddressBodyModel addressBodyMode = new AddressBodyModel();
+//        addressBodyMode.setUid("18656009327");
+//        addressBodyMode.setProvince("安徽省");
+//        addressBodyMode.setCity("合肥");
+//        addressBodyMode.setTownship("包河");
+//        addressBodyMode.setStreet("街道");
+//        addressBodyMode.setAddress("详细地址");
+//        addressBodyMode.setzipCode("100000");
+//        addressBodyMode.setIsDefault(0);
+//        addressBodyMode.setContact("打死小强");
+//        addressBodyMode.setTelephone("15256029226");
+//http://115.159.116.34:8089/Interface/i_Interface.aspx?m= member_address&uid=手机号码& Country=国家（选选填 默认中国）&
+// Province=省& City=市& County=县& Township=乡镇& Street=街道& Address=详细地址& AddressFlag=地址标记（选填 0 家 / 1 办公）&ZipCode=邮编&IsDefault=是否为默认地址（0否1是）& Contact=联系人姓名& Telephone=联系人电话
 
+        HashMap map = new HashMap<String,String>();
+        map.put("uid","18656009327");
+        map.put("Country","中国");
+        map.put("Province","安徽省");
+        map.put("City","合肥");
+        map.put("County","");
+        map.put("Township","包河");
+        map.put("Street","");
+        map.put("Address","详细地址");
+        map.put("AddressFlag","1");
+        map.put("ZipCode","");
+        map.put("IsDefault","0");
+        map.put("Contact","");
+        map.put("Telephone","123");
 
         Api.
                 getYouWardrobeApi()
-                .managerAddress(addressBodyMode)
+                .managerAddress(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<NetResultModel>() {
