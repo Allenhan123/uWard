@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="380dp"
-    android:layout_height="380dp"
+    android:layout_width="match_parent"
+    android:layout_height="540dp"
     android:background="@drawable/img_card_background"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="380dp">
 
         <com.ygxinjian.anhui.youwardrobe.View.RoundImageView
             android:id="@+id/iv_recommend_design"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="380dp"
             android:scaleType="centerCrop"
-            app:radius="7.5dp"
+            app:radius="9dp"
             android:src="@mipmap/banner_loading" />
 
         <ImageView
@@ -41,9 +41,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:paddingLeft="14dp"
-        android:paddingTop="2dp">
+        android:layout_height="110dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="14dp">
 
         <TextView
             android:id="@+id/tv_recommend_name"
@@ -52,7 +52,7 @@
             android:gravity="center"
             android:text="校园清新"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_recommend_size"
@@ -63,17 +63,29 @@
             android:text="喜欢数：223"
             android:layout_marginRight="8dp"
             android:textColor="@color/default_gray"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/tv_recommend_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:id="@+id/btn_more_recommend"
+            android:textColor="@color/white"
+            android:background="@drawable/bt_bg"
+            android:text="@string/recommed_more"/>
 
         <TextView
+            android:layout_below="@+id/btn_more_recommend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:text="@string/commend_describe"
-            android:textColor="#cbcbcb" />
+            android:textColor="@color/main_Red"
+            android:layout_marginBottom="5dp"/>
 
     </RelativeLayout>
 

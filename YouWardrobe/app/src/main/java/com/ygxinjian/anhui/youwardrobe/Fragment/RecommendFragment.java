@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -244,6 +245,7 @@ public class RecommendFragment extends BaseFragmentNormal
                 holder.name = (TextView) convertView.findViewById(R.id.tv_recommend_name);
                 holder.description = (TextView) convertView.findViewById(R.id.tv_recommend_size);
                 holder.iv_recommend = (ImageView) convertView.findViewById(R.id.iv_recommend_design);
+                holder.btn_more_recommend = (Button) convertView.findViewById(R.id.btn_more_recommend);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -251,6 +253,14 @@ public class RecommendFragment extends BaseFragmentNormal
             holder.name.setText(data.getProdTitle());
             holder.description.setText(data.getSize());
             ImageLoader.getInstance().displayImage(Constant.Base_Image_Url + data.getImgUrl(), holder.iv_recommend);
+            holder.btn_more_recommend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent _intent = new Intent(mActivity,ClassifyActivity.class);
+                    _intent.putExtra("title","更多推荐");
+//                _intent.putExtra("url",data.get(position).getUrl());
+                    startActivity(_intent);                }
+            });
             return convertView;
         }
 
@@ -261,6 +271,7 @@ public class RecommendFragment extends BaseFragmentNormal
         TextView description;
         TextView createTime;
         ImageView iv_recommend;
+        Button btn_more_recommend;
     }
 
     class RecommendSingleAdapter extends BaseQuickAdapter<RecommendSingleModel.ResultBean.DataBean, BaseViewHolder> {

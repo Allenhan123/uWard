@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * Created by handongqiang on 17/3/13.
  */
 
-public class MeFragment extends BaseFragment {
+public class MeFragment extends BaseFragmentNormal {
     @InjectView(R.id.tv_nick)
     TextView tvNick;
     @InjectView(R.id.rl_userMessage)
@@ -66,19 +66,13 @@ public class MeFragment extends BaseFragment {
     }
 
     @Override
-    protected void initData() {
+    public View initView() {
+        View view = View.inflate(mActivity, R.layout.fragment_me, null);
 
+        return view;
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_me;
-    }
 
-    @Override
-    protected void afterCreate(Bundle savedInstanceState) {
-
-    }
 
     @Override
     public void onDestroyView() {

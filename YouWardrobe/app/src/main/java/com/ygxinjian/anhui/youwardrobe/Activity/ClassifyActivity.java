@@ -13,9 +13,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.ygxinjian.anhui.youwardrobe.Constant;
+import com.ygxinjian.anhui.youwardrobe.Fragment.RecommendFragment;
 import com.ygxinjian.anhui.youwardrobe.Model.ClassifyModel;
+import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.UiUtil;
@@ -62,16 +67,11 @@ public class ClassifyActivity extends BaseActivity {
         ButterKnife.inject(this);
         navRight.setVisibility(View.GONE);
 
-        recyclerViewClassify.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
-        myAdapter = new MyAdapter(getContext(), list);
-        recyclerViewClassify.setAdapter(myAdapter);
-
         Intent _intent = getIntent();
         if (_intent != null) {
             String title = _intent.getStringExtra("title");
             url = _intent.getStringExtra("url");
             navTvTitle.setText(title);
-
         }
     }
     @Override
@@ -103,8 +103,8 @@ public class ClassifyActivity extends BaseActivity {
                                 myAdapter.notifyDataSetChanged();
                             }else if(list.size()>0){
                                 showContentView();
-                                myAdapter.notifyDataSetChanged();
-
+                                myAdapter = new MyAdapter(R.layout.activity_classify_item, list);
+                                initAdapter();
                             }
                         }
                     });
@@ -112,69 +112,39 @@ public class ClassifyActivity extends BaseActivity {
         }
 
     }
+    private void initAdapter() {
+        recyclerViewClassify.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
+        myAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
+        recyclerViewClassify.setAdapter(myAdapter);//设置adapter
+        //设置item点击事件
+        myAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    Intent _intent = new Intent(ClassifyActivity.this,GoodsDetailsActivity.class);
+                    _intent.putExtra("title",list.get(position).getProdTitle());
+                    _intent.putExtra("url",list.get(position).getUrl());
+                    startActivity(_intent);
+            }
+        });
+    }
+    class MyAdapter extends BaseQuickAdapter<ClassifyModel.ResultBean.DataBean, BaseViewHolder> {
+        public MyAdapter(int layoutResId, List data) {
+            super(R.layout.activity_classify_item, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper,ClassifyModel.ResultBean.DataBean item) {
+            helper.setText(R.id.tv_user_classify_title, item.getProdTitle());
+            helper.setText(R.id.tv_user_classify_size, item.getSize());
+            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url + item.getImgUrl(), (ImageView) helper.getView(R.id.iv_user_classify_des));
+
+
+        }
+    }
 
     @OnClick(R.id.nav_go_back)
     public void onClick() {
         finish();
     }
 
-
-    public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-        private Context context;
-        private List<ClassifyModel.ResultBean.DataBean> list;
-
-        public MyAdapter(Context context, List<ClassifyModel.ResultBean.DataBean> list) {
-            this.context = context;
-            this.list = list;
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.activity_classify_item, parent, false);
-            return new MyAdapter.ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-            MyAdapter.ViewHolder styleViewHolder = (MyAdapter.ViewHolder) holder;
-            styleViewHolder.bindData(list.get(position));
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent _intent = new Intent(ClassifyActivity.this,GoodsDetailsActivity.class);
-                    _intent.putExtra("title",list.get(position).getProdTitle());
-                    _intent.putExtra("url",list.get(position).getUrl());
-                    startActivity(_intent);
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return list.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder{
-            @InjectView(R.id.iv_user_classify_des)
-            ImageView ivUserClassifyDes;
-            @InjectView(R.id.tv_user_classify_title)
-            TextView tvUserClassifyTitle;
-            @InjectView(R.id.tv_user_classify_size)
-            TextView tvUserClassifySize;
-
-            ViewHolder(View view) {
-                super(view);
-                ButterKnife.inject(this, view);
-            }
-            public void bindData(ClassifyModel.ResultBean.DataBean model){
-                ImageLoader.getInstance().displayImage(model.getImgUrl(),ivUserClassifyDes);
-                tvUserClassifyTitle.setText(model.getProdTitle());
-                tvUserClassifySize.setText(model.getSize());
-
-            }
-        }
-
-    }
 }
