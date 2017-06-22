@@ -147,6 +147,7 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
                         // 创建适配器
                         HomeExpandableListViewAdapter adapter = new HomeExpandableListViewAdapter(mActivity,
                                 groupList, itemList);
+                        listView.setGroupIndicator(null);
                         listView.setAdapter(adapter);
                         for (int i = 0; i < groupList.size(); i++) {
                             listView.expandGroup(i);// 初始化时，将ExpandableListView以展开的方式呈现
