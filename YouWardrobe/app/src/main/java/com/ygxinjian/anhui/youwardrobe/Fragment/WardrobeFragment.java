@@ -1,8 +1,10 @@
 package com.ygxinjian.anhui.youwardrobe.Fragment;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ygxinjian.anhui.youwardrobe.Controller.ShopcartExpandableListViewAdapter;
+import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
+import com.ygxinjian.anhui.youwardrobe.Model.DressHistoryNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.GroupInfo;
+import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.Model.ProductInfo;
+import com.ygxinjian.anhui.youwardrobe.Model.WardrobeModel;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
+import com.ygxinjian.anhui.youwardrobe.api.Api;
+import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
+import com.ygxinjian.anhui.youwardrobe.utils.UiUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +35,9 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by handongqiang on 17/3/13.
@@ -47,6 +60,8 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     TextView tvDelete;
     @InjectView(R.id.tv_go_to_pay)
     TextView tvGoToPay;
+    private List<WardrobeModel.ResultBean.DataBean> list = new ArrayList<>();
+    private List<WardrobeModel.ResultBean.DataBean.ItemsBean> childrens = new ArrayList<>();// 子元素数据列表
 
 
     private double totalPrice = 0.00;// 购买的商品总价
@@ -78,13 +93,64 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
         ButterKnife.inject(this, rootView);
         navGoBack.setVisibility(View.GONE);
         navTvTitle.setText("我的衣柜");
-        virtualData();
+        getWardrobeData();
+//        virtualData();
         initEvents();
         return rootView;
     }
+//获取购物车数据
+    private void getWardrobeData() {
+        final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
+        dialog.show();
+        Api.getYouWardrobeApi().wardrobeCar(YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_ID))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<WardrobeModel>() {
+                    @Override
+                    public void onCompleted() {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Log.d(TAG, "onError: " + e.toString());
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(WardrobeModel netModel) {
+                        if (netModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+                            list.clear();
+                            //// TODO: 2017/5/17   去掉下一行代码 测试用
+                            list.addAll(netModel.getResult().getData());
+
+                            for (int i = 0; i < list.size(); i++){
+                                WardrobeModel.ResultBean.DataBean.ItemsBean item = (WardrobeModel.ResultBean.DataBean.ItemsBean) list.get(i).getItems();
+                                childrens.add(item);
+                            }
+
+                            Log.e("RE",list.get(0).getClassifyTitle());
+                            Log.e("RE",list.get(0).getItems().get(0).getProdTitle());
+
+                            DevUtil.showInfo(mActivity,list.get(0).getClassifyTitle()+"--"+childrens.get(0).getProdTitle());
+
+                            if(list.size()==0){
+                                showEmptyView();
+                                selva.notifyDataSetChanged();
+                            }else if(list.size()>0){
+                                showContentView();
+                                selva.notifyDataSetChanged();
+
+                            }
+                        }
+
+                    }
+                });
+    }
+
 
     private void initEvents() {
-        selva = new ShopcartExpandableListViewAdapter(groups, children, getContext());
+        selva = new ShopcartExpandableListViewAdapter(list, childrens, getContext());
         selva.setCheckInterface(this);// 关键步骤1,设置复选框接口
         selva.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
         exListView.setAdapter(selva);
@@ -122,51 +188,51 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
         AlertDialog alert;
         switch (v.getId()) {
             case R.id.all_chekbox:
-                doCheckAll();
+//                doCheckAll();
                 break;
             case R.id.tv_go_to_pay:
-                if (totalCount == 0) {
-                    Toast.makeText(mActivity, "请选择要支付的商品", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                alert = new AlertDialog.Builder(mActivity).create();
-                alert.setTitle("操作提示");
-                alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元");
-                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                });
-                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                });
-                alert.show();
+//                if (totalCount == 0) {
+//                    Toast.makeText(mActivity, "请选择要支付的商品", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//                alert = new AlertDialog.Builder(mActivity).create();
+//                alert.setTitle("操作提示");
+//                alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元");
+//                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        return;
+//                    }
+//                });
+//                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        return;
+//                    }
+//                });
+//                alert.show();
                 break;
             case R.id.tv_delete:
-                if (totalCount == 0) {
-                    Toast.makeText(mActivity, "请选择要移除的商品", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                alert = new AlertDialog.Builder(mActivity).create();
-                alert.setTitle("操作提示");
-                alert.setMessage("您确定要将这些商品从购物车中移除吗？");
-                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                });
-                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        doDelete();
-                    }
-                });
-                alert.show();
+//                if (totalCount == 0) {
+//                    Toast.makeText(mActivity, "请选择要移除的商品", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//                alert = new AlertDialog.Builder(mActivity).create();
+//                alert.setTitle("操作提示");
+//                alert.setMessage("您确定要将这些商品从购物车中移除吗？");
+//                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        return;
+//                    }
+//                });
+//                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        doDelete();
+//                    }
+//                });
+//                alert.show();
                 break;
         }
     }

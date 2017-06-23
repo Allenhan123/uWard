@@ -9,6 +9,7 @@ import com.ygxinjian.anhui.youwardrobe.Model.RecommendDesignModel;
 import com.ygxinjian.anhui.youwardrobe.Model.ReturnAddressNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.SaveUserInfoNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.StyleSetNetModel;
+import com.ygxinjian.anhui.youwardrobe.Model.WardrobeModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,10 @@ public interface YouWardrobeApi {
     //保存用户个人信息(修改)将身材信息拆分到11条实现
     @POST("?m= perfect_info")
     Observable<SaveUserInfoNetModel> saveUserInfo(@Body SaveUserInfoNetModel.RequestModel model);
+
+    //购物车（衣柜板块）
+    @GET("?m=getcart")
+    Observable<WardrobeModel> wardrobeCar(@Query("uid") String uid);
 
 
     //穿衣记录（个人板块）

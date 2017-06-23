@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.ygxinjian.anhui.youwardrobe.Model.GroupInfo;
 import com.ygxinjian.anhui.youwardrobe.Model.ProductInfo;
+import com.ygxinjian.anhui.youwardrobe.Model.WardrobeModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 
 import java.util.List;
@@ -17,8 +18,8 @@ import java.util.Map;
 
 public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 {
-	private List<GroupInfo> groups;
-	private Map<String, List<ProductInfo>> children;
+	private List<WardrobeModel.ResultBean.DataBean> groups;
+	private List<WardrobeModel.ResultBean.DataBean.ItemsBean> children;
 	private Context context;
 	//HashMap<Integer, View> groupMap = new HashMap<Integer, View>();
 	//HashMap<Integer, View> childrenMap = new HashMap<Integer, View>();
@@ -34,7 +35,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 	 *            子元素列表
 	 * @param context
 	 */
-	public ShopcartExpandableListViewAdapter(List<GroupInfo> groups, Map<String, List<ProductInfo>> children, Context context)
+	public ShopcartExpandableListViewAdapter(List<WardrobeModel.ResultBean.DataBean> groups, List<WardrobeModel.ResultBean.DataBean.ItemsBean> children, Context context)
 	{
 		super();
 		this.groups = groups;
@@ -61,8 +62,8 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 	@Override
 	public int getChildrenCount(int groupPosition)
 	{
-		String groupId = groups.get(groupPosition).getId();
-		return children.get(groupId).size();
+//		String groupId = groups.get(groupPosition).getId();
+		return children.size();
 	}
 
 	@Override
@@ -74,9 +75,9 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 	@Override
 	public Object getChild(int groupPosition, int childPosition)
 	{
-		List<ProductInfo> childs = children.get(groups.get(groupPosition).getId());
+//		List<ProductInfo> childs = children.get(groups.get(groupPosition));
 
-		return childs.get(childPosition);
+		return children.get(childPosition);
 	}
 
 	@Override

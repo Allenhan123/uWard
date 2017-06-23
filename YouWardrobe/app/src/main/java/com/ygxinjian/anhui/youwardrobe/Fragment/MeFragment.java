@@ -62,6 +62,7 @@ public class MeFragment extends BaseFragmentNormal {
         ButterKnife.inject(this, rootView);
         navGoBack.setVisibility(View.GONE);
         navTvTitle.setText("");
+
         return rootView;
     }
 

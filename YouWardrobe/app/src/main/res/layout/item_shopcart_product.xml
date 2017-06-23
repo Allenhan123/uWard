@@ -33,7 +33,7 @@
         <ImageView
             android:id="@+id/iv_adapter_list_pic"
             android:layout_width="85dp"
-            android:layout_height="85dp"
+            android:layout_height="70dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:scaleType="centerCrop"
@@ -42,7 +42,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="13dp" >
+            android:layout_marginLeft="15dp" >
 
             <TextView
                 android:id="@+id/tv_intro"
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal" >
 
                 <TextView
