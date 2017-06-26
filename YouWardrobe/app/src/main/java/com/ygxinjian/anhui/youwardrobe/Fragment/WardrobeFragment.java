@@ -190,48 +190,48 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
 //                doCheckAll();
                 break;
             case R.id.tv_go_to_pay:
-//                if (totalCount == 0) {
-//                    Toast.makeText(mActivity, "请选择要支付的商品", Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//                alert = new AlertDialog.Builder(mActivity).create();
-//                alert.setTitle("操作提示");
-//                alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元");
-//                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        return;
-//                    }
-//                });
-//                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        return;
-//                    }
-//                });
-//                alert.show();
+                if (totalCount == 0) {
+                    Toast.makeText(mActivity, "请选择要支付的商品", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                alert = new AlertDialog.Builder(mActivity).create();
+                alert.setTitle("操作提示");
+                alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元");
+                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                alert.show();
                 break;
             case R.id.tv_delete:
-//                if (totalCount == 0) {
-//                    Toast.makeText(mActivity, "请选择要移除的商品", Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//                alert = new AlertDialog.Builder(mActivity).create();
-//                alert.setTitle("操作提示");
-//                alert.setMessage("您确定要将这些商品从购物车中移除吗？");
-//                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        return;
-//                    }
-//                });
-//                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        doDelete();
-//                    }
-//                });
-//                alert.show();
+                if (totalCount == 0) {
+                    Toast.makeText(mActivity, "请选择要移除的商品", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                alert = new AlertDialog.Builder(mActivity).create();
+                alert.setTitle("操作提示");
+                alert.setMessage("您确定要将这些商品从购物车中移除吗？");
+                alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        doDelete();
+                    }
+                });
+                alert.show();
                 break;
         }
     }
@@ -242,57 +242,58 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
      * 2.现将要删除的对象放进相应的列表容器中，待遍历完后，以removeAll的方式进行删除
      */
     protected void doDelete() {
-        List<GroupInfo> toBeDeleteGroups = new ArrayList<GroupInfo>();// 待删除的组元素列表
-        for (int i = 0; i < groups.size(); i++) {
-            GroupInfo group = groups.get(i);
-            if (group.isChoosed()) {
-
-                toBeDeleteGroups.add(group);
-            }
-            List<ProductInfo> toBeDeleteProducts = new ArrayList<ProductInfo>();// 待删除的子元素列表
-            List<ProductInfo> childs = children.get(group.getId());
-            for (int j = 0; j < childs.size(); j++) {
-                if (childs.get(j).isChoosed()) {
-                    toBeDeleteProducts.add(childs.get(j));
-                }
-            }
-            childs.removeAll(toBeDeleteProducts);
-
-        }
-
-        groups.removeAll(toBeDeleteGroups);
-
-        selva.notifyDataSetChanged();
-        calculate();
+//        List<GroupInfo> toBeDeleteGroups = new ArrayList<GroupInfo>();// 待删除的组元素列表
+//
+//        for (int i = 0; i < groups.size(); i++) {
+//            GroupInfo group = groups.get(i);
+//            if (group.isChoosed()) {
+//
+//                toBeDeleteGroups.add(group);
+//            }
+//            List<ProductInfo> toBeDeleteProducts = new ArrayList<ProductInfo>();// 待删除的子元素列表
+//            List<ProductInfo> childs = children.get(group.getId());
+//            for (int j = 0; j < childs.size(); j++) {
+//                if (childs.get(j).isChoosed()) {
+//                    toBeDeleteProducts.add(childs.get(j));
+//                }
+//            }
+//            childs.removeAll(toBeDeleteProducts);
+//
+//        }
+//
+//        groups.removeAll(toBeDeleteGroups);
+//
+//        selva.notifyDataSetChanged();
+//        calculate();
     }
 
     @Override
     public void doIncrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
 
-        ProductInfo product = (ProductInfo) selva.getChild(groupPosition, childPosition);
-        int currentCount = product.getCount();
-        currentCount++;
-        product.setCount(currentCount);
-        ((TextView) showCountView).setText(currentCount + "");
-
-        selva.notifyDataSetChanged();
-        calculate();
+//        ProductInfo product = (ProductInfo) selva.getChild(groupPosition, childPosition);
+//        int currentCount = product.getCount();
+//        currentCount++;
+//        product.setCount(currentCount);
+//        ((TextView) showCountView).setText(currentCount + "");
+//
+//        selva.notifyDataSetChanged();
+//        calculate();
     }
 
     @Override
     public void doDecrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
 
-        ProductInfo product = (ProductInfo) selva.getChild(groupPosition, childPosition);
-        int currentCount = product.getCount();
-        if (currentCount == 1)
-            return;
-        currentCount--;
-
-        product.setCount(currentCount);
-        ((TextView) showCountView).setText(currentCount + "");
-
-        selva.notifyDataSetChanged();
-        calculate();
+//        ProductInfo product = (ProductInfo) selva.getChild(groupPosition, childPosition);
+//        int currentCount = product.getCount();
+//        if (currentCount == 1)
+//            return;
+//        currentCount--;
+//
+//        product.setCount(currentCount);
+//        ((TextView) showCountView).setText(currentCount + "");
+//
+//        selva.notifyDataSetChanged();
+//        calculate();
     }
 
     @Override

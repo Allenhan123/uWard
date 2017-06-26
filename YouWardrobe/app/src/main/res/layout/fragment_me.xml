@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#efeff4"
     android:orientation="vertical">
 
@@ -14,7 +13,7 @@
         android:id="@+id/rl_userMessage"
         android:background="@color/main_Red">
 
-        <com.ygxinjian.anhui.youwardrobe.View.RoundImageView
+        <ImageView
             android:id="@+id/iv_user_photo"
             android:layout_width="60dp"
             android:layout_height="70dp"

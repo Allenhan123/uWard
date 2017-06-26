@@ -48,7 +48,7 @@ public class MyGridViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (null == convertView) {
-            convertView = View.inflate(mContext, R.layout.home_grid_item, null);
+            convertView = View.inflate(mContext, R.layout.home_mygrid_item, null);
         }
         TextView tvGridView = (TextView) convertView.findViewById(R.id.tv_home_grid_title);
         ImageView ivGridView = (ImageView) convertView.findViewById(R.id.iv_home_grid_item);

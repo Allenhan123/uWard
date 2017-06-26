@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +100,8 @@ public class ClassifyActivity extends BaseActivity {
                             classifyModel = gson.fromJson(response, ClassifyModel.class);
                             list.clear();
                             list.addAll(classifyModel.getResult().getData());
+                            list.addAll(classifyModel.getResult().getData());
+                            list.addAll(classifyModel.getResult().getData());
                             if(list.size()==0){
                                 showEmptyView();
                                 myAdapter.notifyDataSetChanged();
@@ -113,7 +117,8 @@ public class ClassifyActivity extends BaseActivity {
 
     }
     private void initAdapter() {
-        recyclerViewClassify.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
+//        recyclerViewClassify.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
+        recyclerViewClassify.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         myAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
         recyclerViewClassify.setAdapter(myAdapter);//设置adapter
         //设置item点击事件
@@ -136,8 +141,7 @@ public class ClassifyActivity extends BaseActivity {
         protected void convert(BaseViewHolder helper,ClassifyModel.ResultBean.DataBean item) {
             helper.setText(R.id.tv_user_classify_title, item.getProdTitle());
             helper.setText(R.id.tv_user_classify_size, item.getSize());
-            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url + item.getImgUrl(), (ImageView) helper.getView(R.id.iv_user_classify_des));
-
+            ImageLoader.getInstance().displayImage(item.getImgUrl(), (ImageView) helper.getView(R.id.iv_user_classify_des));
 
         }
     }

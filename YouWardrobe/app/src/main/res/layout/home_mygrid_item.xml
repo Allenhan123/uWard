@@ -3,43 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#f4f4f4"
-    android:paddingTop="2dp"
-    android:paddingBottom="3dp"
     android:orientation="vertical">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="245dp"
         android:layout_marginTop="3dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginLeft="1dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
         app:cardCornerRadius="1dp"
         app:cardUseCompatPadding="true"
         app:cardElevation="2dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="195dp"
                 android:scaleType="centerCrop"
-                android:id="@+id/iv_user_classify_des"
+                android:id="@+id/iv_home_grid_item"
                 android:src="@mipmap/banner_loading"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
                     style="@style/ShowTv3"
-                    android:id="@+id/tv_user_classify_title"
-                    android:text="风格描述：美丽漂亮大方"
+                    android:id="@+id/tv_home_grid_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="3dp"
                     android:textColor="@color/black"
+                    android:text="校园清新"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -49,7 +46,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ShowTv4"
-                        android:id="@+id/tv_user_classify_size"
                         android:layout_marginLeft="5dp"
                         android:textColor="@color/default_gray"
                         android:text="XL/L"
@@ -65,7 +61,7 @@
                         style="@style/ShowTv3"
                         android:textColor="@color/main_Red"
                         android:layout_marginRight="5dp"
-                        android:drawablePadding="3dp"
+                        android:drawablePadding="5dp"
                         android:drawableLeft="@drawable/star_icon"
                         />
                 </LinearLayout>
@@ -73,4 +69,5 @@
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
+
 </LinearLayout>

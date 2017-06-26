@@ -12,6 +12,6 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:numColumns="2"
-        tools:listitem="@layout/home_grid_item"/>
+        tools:listitem="@layout/home_mygrid_item"/>
 
 </LinearLayout>
