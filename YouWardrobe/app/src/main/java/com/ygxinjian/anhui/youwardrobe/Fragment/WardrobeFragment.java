@@ -88,7 +88,6 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.inject(this, rootView);
         navGoBack.setVisibility(View.GONE);
@@ -124,24 +123,24 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
                             //// TODO: 2017/5/17   去掉下一行代码 测试用
                             list.addAll(netModel.getResult().getData());
 
-                            for (int i = 0; i < list.size(); i++){
-                                WardrobeModel.ResultBean.DataBean.ItemsBean item = (WardrobeModel.ResultBean.DataBean.ItemsBean) list.get(i).getItems();
-                                childrens.add(item);
-                            }
+//                            for (int i = 0; i < list.size(); i++){
+//                                WardrobeModel.ResultBean.DataBean.ItemsBean item = (WardrobeModel.ResultBean.DataBean.ItemsBean) list.get(i).getItems();
+//                                childrens.add(item);
+//                            }
+//
+//                            Log.e("RE",list.get(0).getClassifyTitle());
+//                            Log.e("RE",list.get(0).getItems().get(0).getProdTitle());
+//
+//                            DevUtil.showInfo(mActivity,list.get(0).getClassifyTitle()+"--"+childrens.get(0).getProdTitle());
 
-                            Log.e("RE",list.get(0).getClassifyTitle());
-                            Log.e("RE",list.get(0).getItems().get(0).getProdTitle());
-
-                            DevUtil.showInfo(mActivity,list.get(0).getClassifyTitle()+"--"+childrens.get(0).getProdTitle());
-
-                            if(list.size()==0){
-                                showEmptyView();
-                                selva.notifyDataSetChanged();
-                            }else if(list.size()>0){
-                                showContentView();
-                                selva.notifyDataSetChanged();
-
-                            }
+                            initEvents();
+//                            if(list.size()==0){
+//                                showEmptyView();
+//                                selva.notifyDataSetChanged();
+//                            }else if(list.size()>0){
+//                                showContentView();
+//                                selva.notifyDataSetChanged();
+//                            }
                         }
 
                     }

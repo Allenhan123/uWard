@@ -62,6 +62,7 @@ public class WardrobeModel extends BaseModel {
              * Items : [{"CartID":"2","ProdID":"2","ProdTitle":"新品推荐2","ProdDesc":"新品推荐2","ImgUrl":"http://115.159.116.34:8089//Images/CommodityImg/20170527/68808c4c-5653-4687-8133-2f1382d62223.jpg"}]
              */
 
+            private boolean choosed;
             private int ClassifyID;
             private String ClassifyTitle;
             private String ClassifyDesc;
@@ -108,6 +109,14 @@ public class WardrobeModel extends BaseModel {
                 this.Items = Items;
             }
 
+            public void setChoosed(boolean choosed) {
+                this.choosed = choosed;
+            }
+
+            public boolean isChoosed() {
+                return choosed;
+            }
+
             public static class ItemsBean {
                 /**
                  * CartID : 2
@@ -116,6 +125,8 @@ public class WardrobeModel extends BaseModel {
                  * ProdDesc : 新品推荐2
                  * ImgUrl : http://115.159.116.34:8089//Images/CommodityImg/20170527/68808c4c-5653-4687-8133-2f1382d62223.jpg
                  */
+
+                private boolean choosed;
 
                 private String CartID;
                 private String ProdID;
@@ -161,6 +172,14 @@ public class WardrobeModel extends BaseModel {
 
                 public void setImgUrl(String ImgUrl) {
                     this.ImgUrl = ImgUrl;
+                }
+
+                public boolean isChoosed() {
+                    return choosed;
+                }
+
+                public void setChoosed(boolean choosed) {
+                    this.choosed = choosed;
                 }
             }
         }
