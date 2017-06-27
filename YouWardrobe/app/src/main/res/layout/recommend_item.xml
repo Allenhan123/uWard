@@ -64,6 +64,25 @@
             android:layout_marginRight="8dp"
             android:textColor="@color/default_gray"
             android:textSize="12sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_recommend_name"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:id="@+id/ll_addCar"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/recommend_guizi"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/defau_gray"
+                android:textSize="10sp"
+                android:text="加入衣柜"/>
+        </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"
@@ -75,17 +94,37 @@
             android:textColor="@color/white"
             android:background="@drawable/bt_bg"
             android:text="@string/recommed_more"/>
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_recommend_name"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:id="@+id/ll_pro_detail"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/recommend_product"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/defau_gray"
+                android:textSize="10sp"
+                android:text="商品详情"/>
+        </LinearLayout>
         <TextView
             android:layout_below="@+id/btn_more_recommend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="17dp"
             android:layout_centerHorizontal="true"
             android:textSize="12sp"
             android:text="@string/commend_describe"
             android:textColor="@color/main_Red"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginBottom="3dp"/>
 
     </RelativeLayout>
 

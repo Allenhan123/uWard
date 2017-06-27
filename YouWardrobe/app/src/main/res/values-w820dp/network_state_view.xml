@@ -62,7 +62,7 @@
         <item name="nsvErrorText">网络异常~</item>
         <item name="emptyView">@layout/view_empty</item>
         <item name="nsvEmptyImage">@drawable/ic_empty</item>
-        <item name="nsvEmptyText">没有数据~</item>
+        <item name="nsvEmptyText">您还没穿衣服呢~</item>
         <item name="noNetworkView">@layout/view_no_network</item>
         <item name="nsvNoNetworkImage">@drawable/ic_no_network</item>
         <item name="nsvNoNetworkText">没有网络~</item>

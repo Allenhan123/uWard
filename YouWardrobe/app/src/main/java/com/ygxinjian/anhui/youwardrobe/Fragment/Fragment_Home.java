@@ -28,6 +28,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Activity.ClassifyActivity;
+import com.ygxinjian.anhui.youwardrobe.Activity.RentIntroActivity;
 import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Controller.HomeExpandableListViewAdapter;
 import com.ygxinjian.anhui.youwardrobe.Controller.NetworkImageHolderView;
@@ -205,7 +206,7 @@ public class Fragment_Home extends BaseFragment implements SwipeRefreshLayout.On
         iv_rent_intro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DevUtil.showInfo(mActivity,"时租区介绍");
+                DevUtil.gotoActivity(mActivity, RentIntroActivity.class);
             }
         });
         initRentData();

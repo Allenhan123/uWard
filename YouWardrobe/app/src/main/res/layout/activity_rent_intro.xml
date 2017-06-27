@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/top_title_layout_3"></include>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rent_head"
+        android:scaleType="centerCrop"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1:免开会员照样穿衣"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="      在个人中心交付押金后便可选取喜欢的衣服下单，下单限三件，时间为一个月，超过一个月每天收费5块钱。"
+        android:textColor="@color/default_gray"
+        android:textSize="14sp"/>
+</LinearLayout>

@@ -122,25 +122,12 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
                             list.clear();
                             //// TODO: 2017/5/17   去掉下一行代码 测试用
                             list.addAll(netModel.getResult().getData());
-
-//                            for (int i = 0; i < list.size(); i++){
-//                                WardrobeModel.ResultBean.DataBean.ItemsBean item = (WardrobeModel.ResultBean.DataBean.ItemsBean) list.get(i).getItems();
-//                                childrens.add(item);
-//                            }
-//
-//                            Log.e("RE",list.get(0).getClassifyTitle());
-//                            Log.e("RE",list.get(0).getItems().get(0).getProdTitle());
-//
-//                            DevUtil.showInfo(mActivity,list.get(0).getClassifyTitle()+"--"+childrens.get(0).getProdTitle());
-
-                            initEvents();
-//                            if(list.size()==0){
-//                                showEmptyView();
+                            if(list.size()==0){
+                                showEmptyView();
 //                                selva.notifyDataSetChanged();
-//                            }else if(list.size()>0){
-//                                showContentView();
-//                                selva.notifyDataSetChanged();
-//                            }
+                            }else if(list.size()>0){
+                                initEvents();
+                            }
                         }
 
                     }

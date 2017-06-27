@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Activity.ClassifyActivity;
+import com.ygxinjian.anhui.youwardrobe.Activity.GoodsDetailsActivity;
 import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Model.DressHistoryNetModel;
@@ -39,6 +41,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import okhttp3.Call;
 import rx.Subscriber;
@@ -154,7 +157,10 @@ public class RecommendFragment extends BaseFragmentNormal
     }
     @Override
     public void onItemClicked(MotionEvent event, View v, Object dataObject) {
-        Toast.makeText(mActivity, dataObject.toString(), Toast.LENGTH_SHORT).show();
+//        Intent _intent = new Intent(mActivity,GoodsDetailsActivity.class);
+//        _intent.putExtra("title",swipeCardAdapter.getItem(recommendView.getTop()).getProdTitle());
+//        _intent.putExtra("url",swipeCardAdapter.getItem(recommendView.getTop()).getUrl());
+//        mActivity.startActivity(_intent);
     }
     @Override
     public void removeFirstObjectInAdapter() {
@@ -163,12 +169,18 @@ public class RecommendFragment extends BaseFragmentNormal
     //左滑
     @Override
     public void onLeftCardExit(Object dataObject) {
-
+//        加入购物车
+//        if(recommendView.getTop()==0){
+//            addCar(swipeCardAdapter.getItem(recommendView.getTop()).getProdID());
+//        }else {
+//            addCar(swipeCardAdapter.getItem(recommendView.getTop()).getProdID());
+//        }
     }
 
     //右滑
     @Override
     public void onRightCardExit(Object dataObject) {
+
     }
 
     @Override
@@ -255,7 +267,7 @@ public class RecommendFragment extends BaseFragmentNormal
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
             RecommendDesignModel.ResultBean.DataBean data = getItem(position);
 
@@ -266,6 +278,8 @@ public class RecommendFragment extends BaseFragmentNormal
                 holder.description = (TextView) convertView.findViewById(R.id.tv_recommend_size);
                 holder.iv_recommend = (ImageView) convertView.findViewById(R.id.iv_recommend_design);
                 holder.btn_more_recommend = (Button) convertView.findViewById(R.id.btn_more_recommend);
+                holder.ll_addCar = (LinearLayout) convertView.findViewById(R.id.ll_addCar);
+                holder.ll_proDetail = (LinearLayout) convertView.findViewById(R.id.ll_pro_detail);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -279,10 +293,60 @@ public class RecommendFragment extends BaseFragmentNormal
                     Intent _intent = new Intent(mActivity,ClassifyActivity.class);
                     _intent.putExtra("title","更多推荐");
 //                _intent.putExtra("url",data.get(position).getUrl());
-                    startActivity(_intent);                }
+                    startActivity(_intent);
+                }
             });
+            holder.ll_addCar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addCar(objs.get(position).getProdID());
+                    recommendView.swipeLeft();
+                }
+            });
+            holder.ll_proDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent _intent = new Intent(mActivity,GoodsDetailsActivity.class);
+                    _intent.putExtra("title",objs.get(position).getProdTitle());
+//                    _intent.putExtra("url",swipeCardAdapter.getItem(recommendView.getTop()).getUrl());
+                    mActivity.startActivity(_intent);
+                }
+            });
+
             return convertView;
         }
+
+    }
+
+    private void addCar(int pro_id) {
+        HashMap map = new HashMap<String,String>();
+        map.put("uid",YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_ID));
+        map.put("prod_id",String.valueOf(pro_id));
+        map.put("tradetype","0");
+        map.put("quantity","1");
+
+        Api.getYouWardrobeApi()
+                .addCar(map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<NetResultModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(NetResultModel netResultModel) {
+                        if (netResultModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+                            DevUtil.showShortInfo(mActivity,"已加入衣柜");
+                        }
+                    }
+                });
 
     }
 
@@ -292,6 +356,8 @@ public class RecommendFragment extends BaseFragmentNormal
         TextView createTime;
         ImageView iv_recommend;
         Button btn_more_recommend;
+        LinearLayout ll_addCar;
+        LinearLayout ll_proDetail;
     }
 
     class RecommendSingleAdapter extends BaseQuickAdapter<RecommendSingleModel.ResultBean.DataBean, BaseViewHolder> {

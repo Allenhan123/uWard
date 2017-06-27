@@ -71,7 +71,7 @@ public class GoodsDetailsActivity extends BaseActivity {
         if (_intent != null) {
             String title = _intent.getStringExtra("title");
             prod_id = _intent.getStringExtra("url");
-            Log.e("URL", prod_id);
+//            Log.e("URL", prod_id);
 
             SpannableString spannableString = new SpannableString("价格：299.0");
             StrikethroughSpan strikethroughSpan = new StrikethroughSpan();

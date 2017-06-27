@@ -60,6 +60,9 @@ public interface YouWardrobeApi {
     @GET("?m=getcart")
     Observable<WardrobeModel> wardrobeCar(@Query("uid") String uid);
 
+    // 添加至购物车
+    @POST("?m=addcart")
+    Observable<NetResultModel> addCar(@QueryMap HashMap<String,String> paramsMap);
 
     //穿衣记录（个人板块）
     @GET("?m=dressing_record")

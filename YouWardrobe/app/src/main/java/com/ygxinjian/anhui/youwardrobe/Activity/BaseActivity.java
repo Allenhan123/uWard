@@ -149,7 +149,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetworkS
      */
     public void onNetworkViewRefresh() {
         initData();
-        DevUtil.showInfo(getContext(),"请求中...");
+        DevUtil.showShortInfo(getContext(),"请求中...");
     }
 
 

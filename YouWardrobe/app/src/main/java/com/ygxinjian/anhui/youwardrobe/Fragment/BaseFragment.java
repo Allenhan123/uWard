@@ -128,7 +128,7 @@ public abstract class BaseFragment extends Fragment implements NetworkStateView.
      */
     public void onNetworkViewRefresh() {
         initData();
-        DevUtil.showInfo(getContext(),"请求中...");
+        DevUtil.showShortInfo(getContext(),"请求中...");
     }
 
     /**
