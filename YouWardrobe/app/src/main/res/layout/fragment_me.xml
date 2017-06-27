@@ -15,11 +15,11 @@
 
         <ImageView
             android:id="@+id/iv_user_photo"
-            android:layout_width="60dp"
+            android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="30dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_avatar_06" />
+            android:src="@drawable/iv_user_pic" />
 
         <TextView
             android:id="@+id/tv_nick"

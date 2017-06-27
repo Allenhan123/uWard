@@ -187,6 +187,4 @@ public class DressHistoryActivity extends BaseActivity {
                     }
                 });
     }
-
-
 }

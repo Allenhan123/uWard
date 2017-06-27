@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -22,12 +23,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Activity.ClassifyActivity;
 import com.ygxinjian.anhui.youwardrobe.Constant;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
+import com.ygxinjian.anhui.youwardrobe.Model.DressHistoryNetModel;
+import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendDesignModel;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.View.BetterRecyclerView;
 import com.ygxinjian.anhui.youwardrobe.View.SwipCardView.SwipeFlingAdapterView;
 import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
+import com.ygxinjian.anhui.youwardrobe.api.Api;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.UiUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -37,6 +41,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import okhttp3.Call;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by handongqiang on 17/3/13.
@@ -51,9 +58,8 @@ public class RecommendFragment extends BaseFragmentNormal
     private ImageView ivBack;
     private TextView tvTitle;
 
-    private RecommendSingleModel recommend_single_model;
     private RecommendSingleAdapter mAdapter;
-    private List<RecommendSingleModel.ResultBean.DataBean> data;
+    private List<RecommendSingleModel.ResultBean.DataBean> list_single = new ArrayList<>();
 
     //    设计师推荐
     private View headView;
@@ -62,7 +68,7 @@ public class RecommendFragment extends BaseFragmentNormal
     private RecommendDesignModel recommendDesignModel;
     private List<RecommendDesignModel.ResultBean.DataBean> list = new ArrayList<>();
 
-//将推荐模块作为头布局加到recycleview上
+//将推荐模块作为头布局加到recycleview（解决滑动冲突）
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_recommend, null);
@@ -70,30 +76,44 @@ public class RecommendFragment extends BaseFragmentNormal
         tvTitle = (TextView) view.findViewById(R.id.nav_tv_title);
         tvTitle.setText("精心推荐");
         ivBack.setVisibility(View.GONE);
+
         recyclerViewSingle = (BetterRecyclerView) view.findViewById(R.id.recyclerView_single);
         recyclerViewSingle.setLayoutManager(new GridLayoutManager(mActivity, 2));
-//
+        mAdapter = new RecommendSingleAdapter(R.layout.recommenf_single_item, list_single);
+        initAdapter();
+
         initRecycSingleData();
         return view;
     }
 
     //    单品推荐
     private void initRecycSingleData() {
-        OkHttpUtils.get().url(Constant.recommendSingleUrl).addParams("uid", "18656009327").build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-            }
+        Api.getYouWardrobeApi().recommendSingle(YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_ID))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<RecommendSingleModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-            @Override
-            public void onResponse(String response, int id) {
-                Log.d("Result", response);
-                Gson gson = new Gson();
-                recommend_single_model = gson.fromJson(response, RecommendSingleModel.class);
-                data = recommend_single_model.getResult().getData();
-                mAdapter = new RecommendSingleAdapter(R.layout.recommenf_single_item, data);
-                initAdapter();
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d(TAG, "onError: " + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(RecommendSingleModel netModel) {
+                        if (netModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+                            list_single.clear();
+                            //// TODO: 2017/5/17   去掉下一行代码 测试用
+                            list_single.addAll(netModel.getResult().getData());
+                           if(list_single.size()>0){
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        }
+
+                    }
+                });
     }
 
     /**
@@ -111,7 +131,7 @@ public class RecommendFragment extends BaseFragmentNormal
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent _intent = new Intent(mActivity,ClassifyActivity.class);
-                _intent.putExtra("title",data.get(position).getClassifyTitle());
+                _intent.putExtra("title",list_single.get(position).getClassifyTitle());
 //                _intent.putExtra("url",data.get(position).getUrl());
                 startActivity(_intent);
             }
@@ -134,7 +154,7 @@ public class RecommendFragment extends BaseFragmentNormal
     }
     @Override
     public void onItemClicked(MotionEvent event, View v, Object dataObject) {
-//        Toast.makeText(mActivity, dataObject.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mActivity, dataObject.toString(), Toast.LENGTH_SHORT).show();
     }
     @Override
     public void removeFirstObjectInAdapter() {

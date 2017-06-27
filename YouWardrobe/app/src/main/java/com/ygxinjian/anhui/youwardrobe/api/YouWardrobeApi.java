@@ -1,11 +1,13 @@
 package com.ygxinjian.anhui.youwardrobe.api;
 
 import com.ygxinjian.anhui.youwardrobe.Model.AddressBodyModel;
+import com.ygxinjian.anhui.youwardrobe.Model.ClassifyModel;
 import com.ygxinjian.anhui.youwardrobe.Model.DressHistoryNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.LogInNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.LoginBody;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.Model.RecommendDesignModel;
+import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
 import com.ygxinjian.anhui.youwardrobe.Model.ReturnAddressNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.SaveUserInfoNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.StyleSetNetModel;
@@ -24,6 +26,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -40,6 +43,18 @@ public interface YouWardrobeApi {
     //保存用户个人信息(修改)将身材信息拆分到11条实现
     @POST("?m= perfect_info")
     Observable<SaveUserInfoNetModel> saveUserInfo(@Body SaveUserInfoNetModel.RequestModel model);
+
+    //分类数据（首页板块）   *@Url：使用全路径复写baseUrl，适用于非统一baseUrl的场景。*
+    @GET
+    Observable<ClassifyModel>  classifyDatav3(@Url String url);
+
+    //单品推荐（推荐板块）
+    @GET("?m=recommend_single")
+    Observable<RecommendSingleModel> recommendSingle(@Query("uid") String uid);
+
+    //（设计师推荐）
+    @GET("?m=recommend_suit")
+    Observable<RecommendDesignModel> recommendDesign(@Query("uid") String uid);
 
     //购物车（衣柜板块）
     @GET("?m=getcart")
@@ -59,9 +74,6 @@ public interface YouWardrobeApi {
     @GET("?m=perfect_figure")
     Observable<NetResultModel> perfectFigure(@Query("uid") String uid, @QueryMap Map<String, String> map);
 
-    //（设计师推荐）
-    @GET("?m=recommend_suit")
-    Observable<RecommendDesignModel> recommendDesign(@Query("uid") String uid);
 
     /**
      * （个人板块）

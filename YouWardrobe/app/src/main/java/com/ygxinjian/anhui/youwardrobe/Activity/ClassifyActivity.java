@@ -1,33 +1,23 @@
 package com.ygxinjian.anhui.youwardrobe.Activity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.ygxinjian.anhui.youwardrobe.Constant;
-import com.ygxinjian.anhui.youwardrobe.Fragment.RecommendFragment;
 import com.ygxinjian.anhui.youwardrobe.Model.ClassifyModel;
-import com.ygxinjian.anhui.youwardrobe.Model.RecommendSingleModel;
+import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.R;
-import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
+import com.ygxinjian.anhui.youwardrobe.api.Api;
 import com.ygxinjian.anhui.youwardrobe.utils.UiUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +25,9 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import okhttp3.Call;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 商品分类
@@ -75,6 +67,8 @@ public class ClassifyActivity extends BaseActivity {
             url = _intent.getStringExtra("url");
             navTvTitle.setText(title);
         }
+        myAdapter = new MyAdapter(R.layout.activity_classify_item, list);
+        initAdapter();
     }
     @Override
     protected void initData() {
@@ -85,36 +79,42 @@ public class ClassifyActivity extends BaseActivity {
         if(url!=null){
             final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
             dialog.show();
-            OkHttpUtils.get().url(url)
-                    .build()
-                    .execute(new StringCallback() {
+            Api.getYouWardrobeApi().classifyDatav3(url)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ClassifyModel>() {
                         @Override
-                        public void onError(Call call, Exception e, int id) {
+                        public void onCompleted() {
                             dialog.dismiss();
                         }
 
                         @Override
-                        public void onResponse(String response, int id) {
+                        public void onError(Throwable e) {
+                            Log.d(TAG, "onError: " + e.toString());
                             dialog.dismiss();
-                            Gson gson = new Gson();
-                            classifyModel = gson.fromJson(response, ClassifyModel.class);
-                            list.clear();
-                            list.addAll(classifyModel.getResult().getData());
-                            list.addAll(classifyModel.getResult().getData());
-                            list.addAll(classifyModel.getResult().getData());
-                            if(list.size()==0){
-                                showEmptyView();
-                                myAdapter.notifyDataSetChanged();
-                            }else if(list.size()>0){
-                                showContentView();
-                                myAdapter = new MyAdapter(R.layout.activity_classify_item, list);
-                                initAdapter();
+                        }
+
+                        @Override
+                        public void onNext(ClassifyModel netModel) {
+                            if (netModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+                                list.clear();
+                                //// TODO: 2017/5/17   去掉下一行代码 测试用
+                                list.addAll(netModel.getResult().getData());
+                                list.addAll(netModel.getResult().getData());
+                                list.addAll(netModel.getResult().getData());
+                                if(list.size()==0){
+                                    showEmptyView();
+                                    myAdapter.notifyDataSetChanged();
+                                }else if(list.size()>0){
+                                    showContentView();
+                                    myAdapter.notifyDataSetChanged();
+
+                                }
                             }
+
                         }
                     });
-
         }
-
     }
     private void initAdapter() {
 //        recyclerViewClassify.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
