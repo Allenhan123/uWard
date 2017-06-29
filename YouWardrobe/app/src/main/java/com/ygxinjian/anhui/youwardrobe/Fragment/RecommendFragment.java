@@ -332,14 +332,10 @@ public class RecommendFragment extends BaseFragmentNormal
                 .subscribe(new Subscriber<NetResultModel>() {
                     @Override
                     public void onCompleted() {
-
                     }
-
                     @Override
                     public void onError(Throwable e) {
-
                     }
-
                     @Override
                     public void onNext(NetResultModel netResultModel) {
                         if (netResultModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
@@ -347,7 +343,6 @@ public class RecommendFragment extends BaseFragmentNormal
                         }
                     }
                 });
-
     }
 
     class ViewHolder {

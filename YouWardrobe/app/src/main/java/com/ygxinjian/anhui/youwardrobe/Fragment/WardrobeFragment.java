@@ -97,7 +97,9 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
         initEvents();
         return rootView;
     }
-//获取购物车数据
+
+
+    //获取购物车数据
     private void getWardrobeData() {
         final Dialog dialog = UiUtil.getLoadDialog(getContext(), true);
         dialog.show();

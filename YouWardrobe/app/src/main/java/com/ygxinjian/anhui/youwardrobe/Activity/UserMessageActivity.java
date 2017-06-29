@@ -101,6 +101,7 @@ public class UserMessageActivity extends BaseActivity implements OnDateSetListen
 
         mDialogYearMonthDay = new TimePickerDialog.Builder()
                 .setType(Type.YEAR_MONTH_DAY)
+                .setThemeColor(R.color.main_Red)
                 .setMaxMillseconds(System.currentTimeMillis())
                 .setMinMillseconds(System.currentTimeMillis() - sixtyYears)
                 .setTitleStringId("请选择出生日期")

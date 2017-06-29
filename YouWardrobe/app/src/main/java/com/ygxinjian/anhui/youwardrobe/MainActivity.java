@@ -1,5 +1,6 @@
 package com.ygxinjian.anhui.youwardrobe;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +11,10 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.nostra13.universalimageloader.utils.L;
 import com.ygxinjian.anhui.youwardrobe.Activity.CheckPermissionsActivity;
+import com.ygxinjian.anhui.youwardrobe.Controller.ChangeEvent;
+import com.ygxinjian.anhui.youwardrobe.Controller.RxBus;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Fragment.Fragment_Home;
 import com.ygxinjian.anhui.youwardrobe.Fragment.MeFragment;
@@ -19,6 +23,9 @@ import com.ygxinjian.anhui.youwardrobe.Fragment.WardrobeFragment;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.LocationUtils;
 import com.ygxinjian.anhui.youwardrobe.utils.TextUtil;
+
+import rx.Subscription;
+import rx.functions.Action1;
 
 public class MainActivity extends CheckPermissionsActivity implements BottomNavigationBar.OnTabSelectedListener {
     private static final String TAG = "MainActivity";
@@ -33,6 +40,7 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = new AMapLocationClientOption();
 
+    public Subscription rxSubscription;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -49,7 +57,26 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
         initLocation();
 
         startLocation();
+
+        // rxSubscription是一个Subscription的全局变量，这段代码可以在onCreate/onStart等生命周期内
+        rxSubscription = RxBus.getDefault().toObservable(ChangeEvent.class)
+                .subscribe(new Action1<ChangeEvent>() {
+                               @Override
+                               public void call(ChangeEvent userEvent) {
+                                   long id = userEvent.getId();
+                                   if(id==1){
+                                       showFragment(2);
+                                   }
+                               }
+                           },
+                        new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                // TODO: 处理异常
+                            }
+                        });
     }
+
 
     @Override
     protected void initData() {
@@ -258,5 +285,9 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
     protected void onDestroy() {
         super.onDestroy();
         destroyLocation();
+        if (!rxSubscription.isUnsubscribed()){
+            rxSubscription.unsubscribe();
+        }
     }
+
 }

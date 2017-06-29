@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.ygxinjian.anhui.youwardrobe.Controller.ChangeEvent;
+import com.ygxinjian.anhui.youwardrobe.Controller.RxBus;
 import com.ygxinjian.anhui.youwardrobe.R;
 
 import butterknife.ButterKnife;
@@ -87,7 +89,9 @@ public class GoodsDetailsActivity extends BaseActivity {
             case R.id.nav_go_back:
                 finish();
                 break;
+//            切换到购物车板块
             case R.id.nav_right:
+                RxBus.getDefault().post(new ChangeEvent(1));
                 break;
             case R.id.ll_select_size:
 
