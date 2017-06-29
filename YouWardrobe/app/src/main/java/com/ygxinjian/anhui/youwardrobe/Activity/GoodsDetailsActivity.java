@@ -16,7 +16,9 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.ygxinjian.anhui.youwardrobe.Controller.ChangeEvent;
 import com.ygxinjian.anhui.youwardrobe.Controller.RxBus;
+import com.ygxinjian.anhui.youwardrobe.Fragment.WardrobeFragment;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -91,7 +93,8 @@ public class GoodsDetailsActivity extends BaseActivity {
                 break;
 //            切换到购物车板块
             case R.id.nav_right:
-                RxBus.getDefault().post(new ChangeEvent(1));
+//                RxBus.getDefault().post(new ChangeEvent(1));
+                DevUtil.gotoActivity(GoodsDetailsActivity.this, WardrobeActivity.class);
                 break;
             case R.id.ll_select_size:
 

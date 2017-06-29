@@ -115,6 +115,11 @@
             android:name=".Activity.GoodsDetailsActivity"
             android:screenOrientation="portrait" />
 
+        <!--购物车-->
+        <activity
+            android:name=".Activity.WardrobeActivity"
+            android:screenOrientation="portrait" />
+
         <!--时租详情-->
         <activity
             android:name=".Activity.RentIntroActivity"

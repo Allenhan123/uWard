@@ -40,7 +40,6 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = new AMapLocationClientOption();
 
-    public Subscription rxSubscription;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -58,23 +57,6 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
 
         startLocation();
 
-        // rxSubscription是一个Subscription的全局变量，这段代码可以在onCreate/onStart等生命周期内
-        rxSubscription = RxBus.getDefault().toObservable(ChangeEvent.class)
-                .subscribe(new Action1<ChangeEvent>() {
-                               @Override
-                               public void call(ChangeEvent userEvent) {
-                                   long id = userEvent.getId();
-                                   if(id==1){
-                                       showFragment(2);
-                                   }
-                               }
-                           },
-                        new Action1<Throwable>() {
-                            @Override
-                            public void call(Throwable throwable) {
-                                // TODO: 处理异常
-                            }
-                        });
     }
 
 
@@ -285,9 +267,6 @@ public class MainActivity extends CheckPermissionsActivity implements BottomNavi
     protected void onDestroy() {
         super.onDestroy();
         destroyLocation();
-        if (!rxSubscription.isUnsubscribed()){
-            rxSubscription.unsubscribe();
-        }
     }
 
 }
