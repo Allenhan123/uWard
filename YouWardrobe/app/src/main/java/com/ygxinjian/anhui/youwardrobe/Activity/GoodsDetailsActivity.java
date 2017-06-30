@@ -74,6 +74,7 @@ public class GoodsDetailsActivity extends BaseActivity {
         Intent _intent = getIntent();
         if (_intent != null) {
             String title = _intent.getStringExtra("title");
+            DevUtil.showInfo(GoodsDetailsActivity.this,title);
             prod_id = _intent.getStringExtra("url");
 //            Log.e("URL", prod_id);
 

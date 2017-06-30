@@ -102,8 +102,6 @@
         <TextView
             style="@style/My_Item_Text"
             android:text="个人信息" />
-
-
         <include layout="@layout/view_enter_arrow" />
 
     </LinearLayout>

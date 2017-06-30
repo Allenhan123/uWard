@@ -56,13 +56,17 @@ public interface YouWardrobeApi {
     @GET("?m=recommend_suit")
     Observable<RecommendDesignModel> recommendDesign(@Query("uid") String uid);
 
-    //购物车（衣柜板块）
+    //获取购物车（衣柜板块）
     @GET("?m=getcart")
     Observable<WardrobeModel> wardrobeCar(@Query("uid") String uid);
 
     // 添加至购物车
     @POST("?m=addcart")
     Observable<NetResultModel> addCar(@QueryMap HashMap<String,String> paramsMap);
+
+    // 移除购物车
+    @POST("?m=addcart")
+    Observable<NetResultModel> deleteCar(@QueryMap HashMap<String,String> paramsMap);
 
     //穿衣记录（个人板块）
     @GET("?m=dressing_record")

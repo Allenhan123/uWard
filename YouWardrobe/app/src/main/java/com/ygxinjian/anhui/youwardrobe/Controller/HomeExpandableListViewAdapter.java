@@ -109,6 +109,7 @@ public class HomeExpandableListViewAdapter extends BaseExpandableListAdapter {
         }
         MyGridViewAdapter gridViewAdapter = new MyGridViewAdapter(mContext, itemList.get
                 (groupPosition));
+
         mViewChild.gridView.setAdapter(gridViewAdapter);
         mViewChild.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -116,8 +117,8 @@ public class HomeExpandableListViewAdapter extends BaseExpandableListAdapter {
 //                Toast.makeText(mContext, "点击了第" + (groupPosition + 1) + "组，第" +
 //                        (position + 1) + "项", Toast.LENGTH_SHORT).show();
                 Intent _intent = new Intent(mContext,GoodsDetailsActivity.class);
-                _intent.putExtra("title",itemList.get(groupPosition).get(childPosition).getProdTitle());
-                _intent.putExtra("url",itemList.get(groupPosition).get(childPosition).getProdID());
+                _intent.putExtra("title",groupList.get(groupPosition).getItems().get(position).getProdTitle());
+                _intent.putExtra("url",groupList.get(groupPosition).getItems().get(position).getProdID());
                 mContext.startActivity(_intent);
             }
         });

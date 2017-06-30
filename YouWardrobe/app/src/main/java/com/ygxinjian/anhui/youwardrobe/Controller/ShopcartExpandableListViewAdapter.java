@@ -1,6 +1,7 @@
 package com.ygxinjian.anhui.youwardrobe.Controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -8,10 +9,12 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.ygxinjian.anhui.youwardrobe.Activity.GoodsDetailsActivity;
 import com.ygxinjian.anhui.youwardrobe.Model.GroupInfo;
 import com.ygxinjian.anhui.youwardrobe.Model.ProductInfo;
 import com.ygxinjian.anhui.youwardrobe.Model.WardrobeModel;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -122,22 +125,24 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 
             cholder.tv_product_desc = (TextView) convertView.findViewById(R.id.tv_intro);
             cholder.tv_price = (TextView) convertView.findViewById(R.id.tv_price);
-//			cholder.iv_increase = (TextView) convertView.findViewById(R.id.tv_add);
-//			cholder.iv_decrease = (TextView) convertView.findViewById(R.id.tv_reduce);
-//			cholder.tv_count = (TextView) convertView.findViewById(R.id.tv_num);
-            // childrenMap.put(groupPosition, convertView);
             convertView.setTag(cholder);
         } else {
-            // convertView = childrenMap.get(groupPosition);
             cholder = (ChildHolder) convertView.getTag();
         }
         final WardrobeModel.ResultBean.DataBean.ItemsBean product = (WardrobeModel.ResultBean.DataBean.ItemsBean) getChild(groupPosition,childPosition);
 
+        convertView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                DevUtil.showInfo(context,"sd"+groupPosition+childPosition);
+                Intent _intent = new Intent(context,GoodsDetailsActivity.class);
+                _intent.putExtra("title",product.getProdTitle());
+                _intent.putExtra("url",product.getProdID());
+                context.startActivity(_intent);
+            }
+        });
         if (product != null) {
-
             cholder.tv_product_desc.setText(product.getProdDesc());
-//            cholder.tv_price.setText("￥" + product.getPrice() + "");
-//			cholder.tv_count.setText(product.getCount() + "");
             cholder.cb_check.setChecked(product.isChoosed());
             cholder.cb_check.setOnClickListener(new OnClickListener() {
                 @Override
@@ -147,22 +152,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
                     checkInterface.checkChild(groupPosition, childPosition, ((CheckBox) v).isChecked());// 暴露子选接口
                 }
             });
-//			cholder.iv_increase.setOnClickListener(new OnClickListener()
-//			{
-//				@Override
-//				public void onClick(View v)
-//				{
-//					modifyCountInterface.doIncrease(groupPosition, childPosition, cholder.tv_count, cholder.cb_check.isChecked());// 暴露增加接口
-//				}
-//			});
-//			cholder.iv_decrease.setOnClickListener(new OnClickListener()
-//			{
-//				@Override
-//				public void onClick(View v)
-//				{
-//					modifyCountInterface.doDecrease(groupPosition, childPosition, cholder.tv_count, cholder.cb_check.isChecked());// 暴露删减接口
-//				}
-//			});
+
         }
         return convertView;
     }

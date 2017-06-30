@@ -43,7 +43,7 @@ import rx.schedulers.Schedulers;
  * Created by handongqiang on 17/3/13.
  */
 
-public class WardrobeFragment extends BaseFragment implements ShopcartExpandableListViewAdapter.CheckInterface, ShopcartExpandableListViewAdapter.ModifyCountInterface, View.OnClickListener {
+public class WardrobeFragment extends BaseFragment implements ShopcartExpandableListViewAdapter.CheckInterface, View.OnClickListener {
     @InjectView(R.id.nav_go_back)
     ImageView navGoBack;
     @InjectView(R.id.nav_tv_title)
@@ -63,14 +63,9 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     private List<WardrobeModel.ResultBean.DataBean> list = new ArrayList<>();
     private List<WardrobeModel.ResultBean.DataBean.ItemsBean> childrens = new ArrayList<>();// 子元素数据列表
 
-
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
     private ShopcartExpandableListViewAdapter selva;
-    private List<GroupInfo> groups = new ArrayList<GroupInfo>();// 组元素数据列表
-    private Map<String, List<ProductInfo>> children = new HashMap<String, List<ProductInfo>>();// 子元素数据列表
-
-
     @Override
     protected void initData() {
 
@@ -93,7 +88,6 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
         navGoBack.setVisibility(View.GONE);
         navTvTitle.setText("我的衣柜");
         getWardrobeData();
-//        virtualData();
         initEvents();
         return rootView;
     }
@@ -114,7 +108,6 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
 
                     @Override
                     public void onError(Throwable e) {
-//                        Log.d(TAG, "onError: " + e.toString());
                         dialog.dismiss();
                     }
 
@@ -140,7 +133,7 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     private void initEvents() {
         selva = new ShopcartExpandableListViewAdapter(list, childrens, getContext());
         selva.setCheckInterface(this);// 关键步骤1,设置复选框接口
-        selva.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
+//        selva.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
         exListView.setAdapter(selva);
 
         for (int i = 0; i < selva.getGroupCount(); i++) {
@@ -152,31 +145,12 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
         tvGoToPay.setOnClickListener(this);
     }
 
-    /**
-     * 模拟数据<br>
-     * 遵循适配器的数据列表填充原则，组元素被放在一个List中，对应的组元素下辖的子元素被放在Map中，<br>
-     */
-    private void virtualData() {
-
-        for (int i = 0; i < 6; i++) {
-
-            groups.add(new GroupInfo(i + "", "风格" + (i + 1) + "店"));
-
-            List<ProductInfo> products = new ArrayList<ProductInfo>();
-            for (int j = 0; j <= i; j++) {
-
-                products.add(new ProductInfo(j + "", "商品", "", groups.get(i).getName() + "的第" + (j + 1) + "个商品", 120.00 + i * j, 1));
-            }
-            children.put(groups.get(i).getId(), products);// 将组元素的一个唯一值，这里取Id，作为子元素List的Key
-        }
-    }
-
     @Override
     public void onClick(View v) {
         AlertDialog alert;
         switch (v.getId()) {
             case R.id.all_chekbox:
-//                doCheckAll();
+                doCheckAll();
                 break;
             case R.id.tv_go_to_pay:
                 if (totalCount == 0) {
@@ -185,7 +159,7 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
                 }
                 alert = new AlertDialog.Builder(mActivity).create();
                 alert.setTitle("操作提示");
-                alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元");
+                alert.setMessage("总计:\n" + totalCount + "种商品\n");
                 alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -195,6 +169,7 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
                 alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(mActivity, "下单成功", Toast.LENGTH_LONG).show();
                         return;
                     }
                 });
@@ -231,64 +206,33 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
      * 2.现将要删除的对象放进相应的列表容器中，待遍历完后，以removeAll的方式进行删除
      */
     protected void doDelete() {
-//        List<GroupInfo> toBeDeleteGroups = new ArrayList<GroupInfo>();// 待删除的组元素列表
-//
-//        for (int i = 0; i < groups.size(); i++) {
-//            GroupInfo group = groups.get(i);
-//            if (group.isChoosed()) {
-//
-//                toBeDeleteGroups.add(group);
-//            }
-//            List<ProductInfo> toBeDeleteProducts = new ArrayList<ProductInfo>();// 待删除的子元素列表
-//            List<ProductInfo> childs = children.get(group.getId());
-//            for (int j = 0; j < childs.size(); j++) {
-//                if (childs.get(j).isChoosed()) {
-//                    toBeDeleteProducts.add(childs.get(j));
-//                }
-//            }
-//            childs.removeAll(toBeDeleteProducts);
-//
-//        }
-//
-//        groups.removeAll(toBeDeleteGroups);
-//
-//        selva.notifyDataSetChanged();
-//        calculate();
+        List<WardrobeModel.ResultBean.DataBean> toBeDeleteGroups = new ArrayList<WardrobeModel.ResultBean.DataBean>();// 待删除的组元素列表
+        for (int i = 0; i < list.size(); i++) {
+            WardrobeModel.ResultBean.DataBean group = list.get(i);
+            if (group.isChoosed()) {
+                toBeDeleteGroups.add(group);
+            }
+            List<WardrobeModel.ResultBean.DataBean.ItemsBean> toBeDeleteProducts = new ArrayList<WardrobeModel.ResultBean.DataBean.ItemsBean>();// 待删除的子元素列表
+            List<WardrobeModel.ResultBean.DataBean.ItemsBean> childs = group.getItems();// 子元素数据列表
+            for (int j = 0; j < childs.size(); j++) {
+                if (childs.get(j).isChoosed()) {
+                    toBeDeleteProducts.add(childs.get(j));
+                }
+            }
+            childs.removeAll(toBeDeleteProducts);
+        }
+
+        list.removeAll(toBeDeleteGroups);
+        selva.notifyDataSetChanged();
+        calculate();
     }
 
-    @Override
-    public void doIncrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
-
-//        ProductInfo product = (ProductInfo) selva.getChild(groupPosition, childPosition);
-//        int currentCount = product.getCount();
-//        currentCount++;
-//        product.setCount(currentCount);
-//        ((TextView) showCountView).setText(currentCount + "");
-//
-//        selva.notifyDataSetChanged();
-//        calculate();
-    }
-
-    @Override
-    public void doDecrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
-
-//        ProductInfo product = (ProductInfo) selva.getChild(groupPosition, childPosition);
-//        int currentCount = product.getCount();
-//        if (currentCount == 1)
-//            return;
-//        currentCount--;
-//
-//        product.setCount(currentCount);
-//        ((TextView) showCountView).setText(currentCount + "");
-//
-//        selva.notifyDataSetChanged();
-//        calculate();
-    }
 
     @Override
     public void checkGroup(int groupPosition, boolean isChecked) {
-        GroupInfo group = groups.get(groupPosition);
-        List<ProductInfo> childs = children.get(group.getId());
+        WardrobeModel.ResultBean.DataBean group = list.get(groupPosition);
+        List<WardrobeModel.ResultBean.DataBean.ItemsBean> childs = group.getItems();// 子元素数据列表
+
         for (int i = 0; i < childs.size(); i++) {
             childs.get(i).setChoosed(isChecked);
         }
@@ -303,8 +247,9 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     @Override
     public void checkChild(int groupPosition, int childPosiTion, boolean isChecked) {
         boolean allChildSameState = true;// 判断改组下面的所有子元素是否是同一种状态
-        GroupInfo group = groups.get(groupPosition);
-        List<ProductInfo> childs = children.get(group.getId());
+        WardrobeModel.ResultBean.DataBean group = list.get(groupPosition);
+        List<WardrobeModel.ResultBean.DataBean.ItemsBean> childs = group.getItems();// 子元素数据列表
+
         for (int i = 0; i < childs.size(); i++) {
             if (childs.get(i).isChoosed() != isChecked) {
                 allChildSameState = false;
@@ -326,11 +271,9 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     }
 
     private boolean isAllCheck() {
-
-        for (GroupInfo group : groups) {
+        for (WardrobeModel.ResultBean.DataBean  group : list) {
             if (!group.isChoosed())
                 return false;
-
         }
 
         return true;
@@ -340,12 +283,13 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
      * 全选与反选
      */
     private void doCheckAll() {
-        for (int i = 0; i < groups.size(); i++) {
-            groups.get(i).setChoosed(allChekbox.isChecked());
-            GroupInfo group = groups.get(i);
-            List<ProductInfo> childs = children.get(group.getId());
-            for (int j = 0; j < childs.size(); j++) {
-                childs.get(j).setChoosed(allChekbox.isChecked());
+        for (int i = 0; i < list.size(); i++){
+            list.get(i).setChoosed(allChekbox.isChecked());
+            WardrobeModel.ResultBean.DataBean group = list.get(i);
+            List<WardrobeModel.ResultBean.DataBean.ItemsBean> childrens = group.getItems();// 子元素数据列表
+
+            for (int j = 0; j < childrens.size(); j++) {
+                childrens.get(j).setChoosed(allChekbox.isChecked());
             }
         }
         selva.notifyDataSetChanged();
@@ -359,19 +303,18 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
      */
     private void calculate() {
         totalCount = 0;
-        totalPrice = 0.00;
-        for (int i = 0; i < groups.size(); i++) {
-            GroupInfo group = groups.get(i);
-            List<ProductInfo> childs = children.get(group.getId());
-            for (int j = 0; j < childs.size(); j++) {
-                ProductInfo product = childs.get(j);
+        for (int i = 0; i < list.size(); i++) {
+            WardrobeModel.ResultBean.DataBean group = list.get(i);
+            List<WardrobeModel.ResultBean.DataBean.ItemsBean> childrens = group.getItems();// 子元素数据列表
+
+            for (int j = 0; j < childrens.size(); j++) {
+                WardrobeModel.ResultBean.DataBean.ItemsBean product = childrens.get(j);
                 if (product.isChoosed()) {
                     totalCount++;
-                    totalPrice += product.getPrice() * product.getCount();
                 }
             }
         }
-        tvTotalPrice.setText("￥" + totalPrice);
+        tvTotalPrice.setText( totalCount+"件");
         tvGoToPay.setText("去支付(" + totalCount + ")");
     }
 
