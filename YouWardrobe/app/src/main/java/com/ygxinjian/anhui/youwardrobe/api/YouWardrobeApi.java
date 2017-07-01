@@ -3,6 +3,7 @@ package com.ygxinjian.anhui.youwardrobe.api;
 import com.ygxinjian.anhui.youwardrobe.Model.AddressBodyModel;
 import com.ygxinjian.anhui.youwardrobe.Model.ClassifyModel;
 import com.ygxinjian.anhui.youwardrobe.Model.DressHistoryNetModel;
+import com.ygxinjian.anhui.youwardrobe.Model.GoodsDetailModel;
 import com.ygxinjian.anhui.youwardrobe.Model.LogInNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.LoginBody;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
@@ -55,6 +56,11 @@ public interface YouWardrobeApi {
     //（设计师推荐）
     @GET("?m=recommend_suit")
     Observable<RecommendDesignModel> recommendDesign(@Query("uid") String uid);
+
+    //商品详情（）
+//    http://115.159.116.34:8089/ Interface/i_Interface.aspx?m= prod_details&prod_id=商品ID&uid=手机号
+    @GET("?m=prod_details")
+    Observable<GoodsDetailModel> goodsDetail(@Query("prod_id") String pid, @Query("uid") String uid);
 
     //获取购物车（衣柜板块）
     @GET("?m=getcart")

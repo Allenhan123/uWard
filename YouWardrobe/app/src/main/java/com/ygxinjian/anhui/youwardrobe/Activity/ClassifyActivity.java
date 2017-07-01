@@ -127,7 +127,7 @@ public class ClassifyActivity extends BaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     Intent _intent = new Intent(ClassifyActivity.this,GoodsDetailsActivity.class);
                     _intent.putExtra("title",list.get(position).getProdTitle());
-                    _intent.putExtra("url",list.get(position).getUrl());
+                    _intent.putExtra("url",list.get(position).getProdID()+"");
                     startActivity(_intent);
             }
         });

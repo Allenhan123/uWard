@@ -200,7 +200,10 @@ public class DevUtil {
         return (int) (getResources().getDisplayMetrics().density * dp + 0.5f);
 //        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
     }
-
+    public static int dipToPix(Context context, int dip) {
+        int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, context.getResources().getDisplayMetrics());
+        return size;
+    }
     /**
      * 将px值转换为dp值
      * @param px 需要转换的px值

@@ -115,6 +115,16 @@
             android:name=".Activity.GoodsDetailsActivity"
             android:screenOrientation="portrait" />
 
+        <!--商品评价-->
+        <activity
+            android:name=".Activity.AllPingActivity"
+            android:screenOrientation="portrait" />
+
+        <!--大图-->
+        <activity
+            android:name=".Activity.ImagePagerActivity"
+            android:screenOrientation="portrait" />
+
         <!--购物车-->
         <activity
             android:name=".Activity.WardrobeActivity"

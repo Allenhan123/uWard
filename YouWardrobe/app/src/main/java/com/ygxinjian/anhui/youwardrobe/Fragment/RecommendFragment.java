@@ -308,7 +308,7 @@ public class RecommendFragment extends BaseFragmentNormal
                 public void onClick(View v) {
                     Intent _intent = new Intent(mActivity,GoodsDetailsActivity.class);
                     _intent.putExtra("title",objs.get(position).getProdTitle());
-//                    _intent.putExtra("url",swipeCardAdapter.getItem(recommendView.getTop()).getUrl());
+                    _intent.putExtra("url",objs.get(position).getProdID()+"");
                     mActivity.startActivity(_intent);
                 }
             });

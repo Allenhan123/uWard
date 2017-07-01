@@ -10,6 +10,7 @@
     <color name="money_blue">#47ddc7</color>
     <color name="white">#ffffff</color>
     <color name="white_1">#f9f9f9</color>
+    <color name="white_2">#eeeeee</color>
     <color name="default_gray">#676767</color>
     <color name="defau_gray">#949393</color>
     <color name="gray">#0d000000</color>
@@ -39,6 +40,9 @@
     <color name="color_text_theme">#e889ab</color>
     <color name="color_grey_bg">#ecedee</color>
 
-
+    <color name="default_clickable_color">#cccccc</color>
+    <color name="name_selector_color">#cccccc</color>
+    <color name="im_font_color_text_hint">#abb1b6</color>
+    <color name="bg_no_photo">#EEEEEE</color>
 
 </resources>

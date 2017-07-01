@@ -14,11 +14,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <com.bigkoo.convenientbanner.ConvenientBanner
-                android:id="@+id/banner_details"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="370dp"
-                android:background="@mipmap/banner_loading" />
+                android:layout_height="380dp">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:id="@+id/guideGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="10dp"></LinearLayout>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,7 +92,8 @@
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="黑色/L"
+                    android:text="S 码"
+                    android:id="@+id/tv_sel_size"
                     style="@style/ShowTv2"/>
                 <Space
                     android:layout_width="0dp"
@@ -127,6 +141,55 @@
                     android:text="24H发货"
                     android:drawableLeft="@drawable/tag_icon"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#f4f4f4"></LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:id="@+id/ll_pingjia"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <TextView
+                    android:paddingLeft="10dp"
+                    style="@style/ShowTv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商品评价"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/defau_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(154)"
+                    android:id="@+id/tv_num_ping"
+                    style="@style/ShowTv3"/>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/defau_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部评价"
+                    android:id="@+id/tv_all_ping"
+                    style="@style/ShowTv3"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:src="@mipmap/arrow_right"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_underline" />
+            <include layout="@layout/goods_ping_item"></include>
         </LinearLayout>
     </ScrollView>
 
