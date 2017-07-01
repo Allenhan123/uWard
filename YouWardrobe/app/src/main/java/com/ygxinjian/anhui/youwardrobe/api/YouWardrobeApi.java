@@ -65,7 +65,7 @@ public interface YouWardrobeApi {
     Observable<NetResultModel> addCar(@QueryMap HashMap<String,String> paramsMap);
 
     // 移除购物车
-    @POST("?m=addcart")
+    @POST("?m=removecart")
     Observable<NetResultModel> deleteCar(@QueryMap HashMap<String,String> paramsMap);
 
     //穿衣记录（个人板块）

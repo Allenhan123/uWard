@@ -116,8 +116,7 @@ public class AddAdressActivity extends BaseActivity {
         map.put("Contact","");
         map.put("Telephone","123");
 
-        Api.
-                getYouWardrobeApi()
+        Api.getYouWardrobeApi()
                 .managerAddress(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

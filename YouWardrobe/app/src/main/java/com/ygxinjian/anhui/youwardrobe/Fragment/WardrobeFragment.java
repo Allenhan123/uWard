@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +18,7 @@ import android.widget.Toast;
 
 import com.ygxinjian.anhui.youwardrobe.Controller.ShopcartExpandableListViewAdapter;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
-import com.ygxinjian.anhui.youwardrobe.Model.DressHistoryNetModel;
-import com.ygxinjian.anhui.youwardrobe.Model.GroupInfo;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
-import com.ygxinjian.anhui.youwardrobe.Model.ProductInfo;
 import com.ygxinjian.anhui.youwardrobe.Model.WardrobeModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.YouWardrobeApplication;
@@ -30,11 +29,9 @@ import com.ygxinjian.anhui.youwardrobe.utils.UiUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -43,7 +40,7 @@ import rx.schedulers.Schedulers;
  * Created by handongqiang on 17/3/13.
  */
 
-public class WardrobeFragment extends BaseFragment implements ShopcartExpandableListViewAdapter.CheckInterface, View.OnClickListener {
+public class WardrobeFragment extends BaseFragment implements ShopcartExpandableListViewAdapter.CheckInterface, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     @InjectView(R.id.nav_go_back)
     ImageView navGoBack;
     @InjectView(R.id.nav_tv_title)
@@ -60,6 +57,8 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     TextView tvDelete;
     @InjectView(R.id.tv_go_to_pay)
     TextView tvGoToPay;
+    @InjectView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefresh;
     private List<WardrobeModel.ResultBean.DataBean> list = new ArrayList<>();
     private List<WardrobeModel.ResultBean.DataBean.ItemsBean> childrens = new ArrayList<>();// 子元素数据列表
 
@@ -87,6 +86,8 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
         ButterKnife.inject(this, rootView);
         navGoBack.setVisibility(View.GONE);
         navTvTitle.setText("我的衣柜");
+        swipeRefresh.setOnRefreshListener(this);
+        swipeRefresh.setColorSchemeResources(R.color.main_Red, R.color.color_text_theme);
         getWardrobeData();
         initEvents();
         return rootView;
@@ -117,10 +118,10 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
                             list.clear();
                             //// TODO: 2017/5/17   去掉下一行代码 测试用
                             list.addAll(netModel.getResult().getData());
-                            if(list.size()==0){
+                            if (list.size() == 0) {
                                 showEmptyView();
 //                                selva.notifyDataSetChanged();
-                            }else if(list.size()>0){
+                            } else if (list.size() > 0) {
                                 initEvents();
                             }
                         }
@@ -201,12 +202,13 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     }
 
     /**
-     * 删除操作<br>
+     * 删除操作
      * 1.不要边遍历边删除，容易出现数组越界的情况<br>
      * 2.现将要删除的对象放进相应的列表容器中，待遍历完后，以removeAll的方式进行删除
      */
     protected void doDelete() {
-        List<WardrobeModel.ResultBean.DataBean> toBeDeleteGroups = new ArrayList<WardrobeModel.ResultBean.DataBean>();// 待删除的组元素列表
+        List<String> deleteId = new ArrayList<>();
+        final List<WardrobeModel.ResultBean.DataBean> toBeDeleteGroups = new ArrayList<WardrobeModel.ResultBean.DataBean>();// 待删除的组元素列表
         for (int i = 0; i < list.size(); i++) {
             WardrobeModel.ResultBean.DataBean group = list.get(i);
             if (group.isChoosed()) {
@@ -217,14 +219,44 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
             for (int j = 0; j < childs.size(); j++) {
                 if (childs.get(j).isChoosed()) {
                     toBeDeleteProducts.add(childs.get(j));
+                    deleteId.add(childs.get(j).getCartID());
                 }
             }
             childs.removeAll(toBeDeleteProducts);
         }
-
-        list.removeAll(toBeDeleteGroups);
-        selva.notifyDataSetChanged();
-        calculate();
+        String deleteIds = "";
+        for (int i = 0; i <deleteId.size(); i++) {
+            if (i == 0) {
+                deleteIds = deleteId.get(i);
+            } else {
+                deleteIds = deleteIds+"," + deleteId.get(i);
+            }
+        }
+        HashMap map = new HashMap<String,String>();
+        map.put("cartid",deleteIds);
+        Api.getYouWardrobeApi()
+                .deleteCar(map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<NetResultModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+                    @Override
+                    public void onNext(NetResultModel netResultModel) {
+                        if (netResultModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
+                            list.removeAll(toBeDeleteGroups);
+                            selva.notifyDataSetChanged();
+                            calculate();
+                            DevUtil.showShortInfo(mActivity,"移除成功");
+                        }else {
+                            DevUtil.showShortInfo(mActivity,"服务器连接失败，请稍后再试");
+                        }
+                    }
+                });
     }
 
 
@@ -271,7 +303,7 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     }
 
     private boolean isAllCheck() {
-        for (WardrobeModel.ResultBean.DataBean  group : list) {
+        for (WardrobeModel.ResultBean.DataBean group : list) {
             if (!group.isChoosed())
                 return false;
         }
@@ -283,7 +315,7 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
      * 全选与反选
      */
     private void doCheckAll() {
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             list.get(i).setChoosed(allChekbox.isChecked());
             WardrobeModel.ResultBean.DataBean group = list.get(i);
             List<WardrobeModel.ResultBean.DataBean.ItemsBean> childrens = group.getItems();// 子元素数据列表
@@ -314,7 +346,7 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
                 }
             }
         }
-        tvTotalPrice.setText( totalCount+"件");
+        tvTotalPrice.setText(totalCount + "件");
         tvGoToPay.setText("去支付(" + totalCount + ")");
     }
 
@@ -325,5 +357,15 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
         ButterKnife.reset(this);
     }
 
-
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getWardrobeData();
+                // 加载完数据设置为不刷新状态，将下拉进度收起来
+                swipeRefresh.setRefreshing(false);
+            }
+        }, 500);
+    }
 }

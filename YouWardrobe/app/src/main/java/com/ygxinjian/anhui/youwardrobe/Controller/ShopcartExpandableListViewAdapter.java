@@ -7,8 +7,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Activity.GoodsDetailsActivity;
 import com.ygxinjian.anhui.youwardrobe.Model.GroupInfo;
 import com.ygxinjian.anhui.youwardrobe.Model.ProductInfo;
@@ -123,8 +125,9 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
             convertView = View.inflate(context, R.layout.item_shopcart_product, null);
             cholder.cb_check = (CheckBox) convertView.findViewById(R.id.check_box);
 
-            cholder.tv_product_desc = (TextView) convertView.findViewById(R.id.tv_intro);
-            cholder.tv_price = (TextView) convertView.findViewById(R.id.tv_price);
+            cholder.tv_product_name = (TextView) convertView.findViewById(R.id.tv_car_intro);
+            cholder.tv_product_desc = (TextView) convertView.findViewById(R.id.tv_car_descr);
+            cholder.iv_car_pic = (ImageView) convertView.findViewById(R.id.iv_car_list_pic);
             convertView.setTag(cholder);
         } else {
             cholder = (ChildHolder) convertView.getTag();
@@ -134,7 +137,6 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
         convertView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DevUtil.showInfo(context,"sd"+groupPosition+childPosition);
                 Intent _intent = new Intent(context,GoodsDetailsActivity.class);
                 _intent.putExtra("title",product.getProdTitle());
                 _intent.putExtra("url",product.getProdID());
@@ -142,7 +144,10 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
             }
         });
         if (product != null) {
+            cholder.tv_product_name.setText(product.getProdTitle());
             cholder.tv_product_desc.setText(product.getProdDesc());
+            ImageLoader.getInstance().displayImage(product.getImgUrl(), cholder.iv_car_pic);
+
             cholder.cb_check.setChecked(product.isChoosed());
             cholder.cb_check.setOnClickListener(new OnClickListener() {
                 @Override
@@ -175,13 +180,9 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
      */
     private class ChildHolder {
         CheckBox cb_check;
-
         TextView tv_product_name;
         TextView tv_product_desc;
-        TextView tv_price;
-        TextView iv_increase;
-        TextView tv_count;
-        TextView iv_decrease;
+        ImageView iv_car_pic;
     }
 
     /**
