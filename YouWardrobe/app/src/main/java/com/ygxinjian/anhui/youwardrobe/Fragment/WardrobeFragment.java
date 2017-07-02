@@ -319,12 +319,12 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
             list.get(i).setChoosed(allChekbox.isChecked());
             WardrobeModel.ResultBean.DataBean group = list.get(i);
             List<WardrobeModel.ResultBean.DataBean.ItemsBean> childrens = group.getItems();// 子元素数据列表
-
             for (int j = 0; j < childrens.size(); j++) {
                 childrens.get(j).setChoosed(allChekbox.isChecked());
             }
         }
         selva.notifyDataSetChanged();
+        calculate();
     }
 
     /**

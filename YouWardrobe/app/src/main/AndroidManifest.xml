@@ -120,6 +120,11 @@
             android:name=".Activity.AllPingActivity"
             android:screenOrientation="portrait" />
 
+        <!--用户评价-->
+        <activity
+            android:name=".Activity.ProductPingActivity"
+            android:screenOrientation="portrait" />
+
         <!--大图-->
         <activity
             android:name=".Activity.ImagePagerActivity"

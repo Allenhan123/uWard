@@ -11,7 +11,7 @@
         android:id="@+id/recommend_view"
         swipe:min_adapter_stack="4"
         swipe:max_visible="4"
-        swipe:y_offset_step="-25dp">
+        swipe:y_offset_step="25dp">
     </com.ygxinjian.anhui.youwardrobe.View.SwipCardView.SwipeFlingAdapterView>
     <include layout="@layout/recyc_head_recommend"></include>
 

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -129,18 +130,26 @@ public class DressHistoryActivity extends BaseActivity {
             TextView tvDressHistoryTime;
             @InjectView(R.id.tv_dress_history_star)
             TextView tvDressHistoryStar;
+            @InjectView(R.id.cardView_takephotos)
+            CardView cardViewTakephotos;
 
             MyViewHolder(View view) {
                 super(view);
                 ButterKnife.inject(this, view);
             }
 
-            public void bindData(DressHistoryNetModel.ResultBean.DataBean model){
+            public void bindData(final DressHistoryNetModel.ResultBean.DataBean model){
                 ImageLoader.getInstance().displayImage(Constant.Base_Image_Url+model.getImgUrl(),ivPhoto);
                 tvDressHistoryTitle.setText(model.getProdTitle());
                 tvDressHistorySize.setText(model.getSize());
                 tvDressHistoryTime.setText(model.getTransTime().substring(0,10));
                 tvDressHistoryStar.setText(model.getElated());
+                cardViewTakephotos.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DevUtil.gotoActivity(context,ProductPingActivity.class);
+                    }
+                });
             }
         }
     }

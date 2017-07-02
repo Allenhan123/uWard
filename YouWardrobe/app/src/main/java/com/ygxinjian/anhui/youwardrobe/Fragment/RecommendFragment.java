@@ -286,7 +286,7 @@ public class RecommendFragment extends BaseFragmentNormal
             }
             holder.name.setText(data.getProdTitle());
             holder.description.setText(data.getSize());
-            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url + data.getImgUrl(), holder.iv_recommend);
+            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url + getItem(0).getImgUrl(), holder.iv_recommend);
             holder.btn_more_recommend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
