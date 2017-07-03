@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,8 +24,12 @@ import com.ygxinjian.anhui.youwardrobe.Controller.ImagePickerAdapter;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.TextUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -176,6 +181,34 @@ public class ProductPingActivity extends BaseActivity implements ImagePickerAdap
 
     private void commit() {
 //        selImageList为提交的图片数组  mRatingBarShop.getRating()为选中的星星数
+        if (selImageList != null && selImageList.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < selImageList.size(); i++) {
+                if (i == selImageList.size() - 1) sb.append("图片").append(i + 1).append(" ： ").append(selImageList.get(i).path);
+                else sb.append("图片").append(i + 1).append(" ： ").append(selImageList.get(i).path).append("\n");
+            }
+//            图片路径
+        Log.e("IMAGE",sb.toString());
+        }
+        ArrayList<File> files = new ArrayList<>();
+        if (selImageList != null && selImageList.size() > 0) {
+            for (int i = 0; i < selImageList.size(); i++) {
+                files.add(new File(selImageList.get(i).path));
+            }
+        }
+        Map<String, String> params = new HashMap<>();
+        //        params.put("username", "杨光福");
+        //        params.put("password", "123");
+
+        String url = "http://192.168.10.168:8080/FileUpload/FileUploadServlet";
+        OkHttpUtils.post()//
+//                .addFile("mFile", "01.jpg", file)//
+//                .addFile("mFile", "afua.txt", file2)//
+                .url(url)
+                .params(params)//
+//                .addFileParams("file", files)
+                .build();
+//                .execute(new MyStringCallback());
 
     }
 }
