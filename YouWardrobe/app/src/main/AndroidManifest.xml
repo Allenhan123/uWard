@@ -123,13 +123,18 @@
         <!--用户评价-->
         <activity
             android:name=".Activity.ProductPingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <!--大图-->
         <activity
             android:name=".Activity.ImagePagerActivity"
             android:screenOrientation="portrait" />
 
+        <!--大图-->
+        <activity
+            android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
+            android:theme="@style/ImagePickerThemeFullScreen"/>
         <!--购物车-->
         <activity
             android:name=".Activity.WardrobeActivity"

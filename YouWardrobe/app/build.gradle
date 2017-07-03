@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "24.0.1"
     defaultConfig {
         applicationId "com.ygxinjian.anhui.youwardrobe"
@@ -93,6 +93,9 @@ dependencies {
 
 //    baseAdapter
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18'
+
+    compile 'com.lzy.widget:imagepicker:0.5.5'  //指定版本
+
 
 //        leaks
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'

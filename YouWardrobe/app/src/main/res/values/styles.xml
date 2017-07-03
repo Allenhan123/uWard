@@ -135,4 +135,11 @@
         <item name="min_adapter_stack">6</item>
         <item name="max_visible">4</item>
     </style>
+
+    <style name="RatingBar1" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_bar</item>
+        <item name="android:maxHeight">32dp</item>
+        <item name="android:isIndicator">false</item>
+        <item name="android:minHeight">16dp</item>
+    </style>
 </resources>
