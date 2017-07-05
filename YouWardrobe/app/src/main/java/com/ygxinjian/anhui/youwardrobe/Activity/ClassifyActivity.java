@@ -152,8 +152,8 @@ public class ClassifyActivity extends BaseActivity implements AAH_FabulousFragme
 //    筛选回调 接受传功来的值
     @Override
     public void onResult(Object result) {
-
         DevUtil.showShortInfo(ClassifyActivity.this,result.toString());
+        getData();
     }
 
     class MyAdapter extends BaseQuickAdapter<ClassifyModel.ResultBean.DataBean, BaseViewHolder> {

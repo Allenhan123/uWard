@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="智能排序"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
@@ -103,42 +103,49 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="尺码"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:text="S"
                     android:textSize="14sp"
+                    android:id="@+id/tv_S"
                     android:textColor="@color/defau_gray"
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:text="L"
+                    android:id="@+id/tv_L"
+
                     android:textSize="14sp"
                     android:textColor="@color/defau_gray"
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:text="M"
+                    android:id="@+id/tv_M"
+
                     android:textSize="14sp"
                     android:textColor="@color/defau_gray"
                     android:layout_marginLeft="20dp"
                     android:layout_gravity="center"
                     />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:text="XL"
+                    android:id="@+id/tv_XL"
+
                     android:textSize="14sp"
                     android:textColor="@color/defau_gray"
                     android:layout_marginLeft="20dp"
@@ -147,7 +154,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="XLL"
+                    android:text="XXL"
+                    android:id="@+id/tv_XXL"
+
                     android:textSize="14sp"
                     android:textColor="@color/defau_gray"
                     android:layout_marginLeft="20dp"

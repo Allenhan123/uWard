@@ -23,8 +23,9 @@ import butterknife.OnClick;
 
 public class SelectorFragment extends AAH_FabulousFragment implements View.OnClickListener{
 
-    private TextView tv_hot,tv_stars,tv_new;
-    private String tv_order;
+    private TextView tv_hot,tv_stars,tv_new,tv_s,tv_m,tv_l,tv_xl,tv_xxl;
+    private String tv_order,tv_size;
+
 
     public static SelectorFragment newInstance() {
         SelectorFragment f = new SelectorFragment();
@@ -40,11 +41,22 @@ public class SelectorFragment extends AAH_FabulousFragment implements View.OnCli
         tv_hot = (TextView) contentView.findViewById(R.id.tv_hot);
         tv_stars = (TextView) contentView.findViewById(R.id.tv_stars);
         tv_new = (TextView) contentView.findViewById(R.id.tv_new);
+        tv_s = (TextView) contentView.findViewById(R.id.tv_S);
+        tv_m = (TextView) contentView.findViewById(R.id.tv_M);
+        tv_xl = (TextView) contentView.findViewById(R.id.tv_XL);
+        tv_l = (TextView) contentView.findViewById(R.id.tv_L);
+        tv_xxl = (TextView) contentView.findViewById(R.id.tv_XXL);
         tv_hot.setOnClickListener(this);
         tv_stars.setOnClickListener(this);
         tv_new.setOnClickListener(this);
+        tv_s.setOnClickListener(this);
+        tv_m.setOnClickListener(this);
+        tv_l.setOnClickListener(this);
+        tv_xl.setOnClickListener(this);
+        tv_xxl.setOnClickListener(this);
         initTvView();
         tv_order = "";
+        tv_size = "";
 
         contentView.findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +68,7 @@ public class SelectorFragment extends AAH_FabulousFragment implements View.OnCli
         ll_buttons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                closeFilter(tv_order);
+                closeFilter(tv_order+tv_size);
             }
         });
         //params to set
@@ -106,6 +118,27 @@ public class SelectorFragment extends AAH_FabulousFragment implements View.OnCli
                 initTvView();
                 tv_stars.setTextColor(getResources().getColor(R.color.main_Red));
                 tv_order = "喜欢数";
+                break;
+            case R.id.tv_S:
+                tv_s.setTextColor(getResources().getColor(R.color.main_Red));
+                tv_size = "S";
+                break;
+            case R.id.tv_M:
+                tv_m.setTextColor(getResources().getColor(R.color.main_Red));
+                tv_size = "M";
+                break;
+            case R.id.tv_L:
+                tv_l.setTextColor(getResources().getColor(R.color.main_Red));
+                tv_size = "L";
+                break;
+            case R.id.tv_XL:
+                tv_xl.setTextColor(getResources().getColor(R.color.main_Red));
+                tv_size = "xl";
+                break;
+            case R.id.tv_XXL:
+
+                tv_xxl.setTextColor(getResources().getColor(R.color.main_Red));
+                tv_size = "xxl";
                 break;
         }
     }
