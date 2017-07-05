@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.1"
     defaultConfig {
         applicationId "com.ygxinjian.anhui.youwardrobe"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -96,6 +96,7 @@ dependencies {
 
     compile 'com.lzy.widget:imagepicker:0.5.5'  //指定版本
 
+    compile 'com.allattentionhere:fabulousfilter:0.0.2'
 
 //        leaks
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'

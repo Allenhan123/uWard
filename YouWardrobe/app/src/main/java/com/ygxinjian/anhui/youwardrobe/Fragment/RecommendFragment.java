@@ -24,6 +24,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ygxinjian.anhui.youwardrobe.Activity.ClassifyActivity;
 import com.ygxinjian.anhui.youwardrobe.Activity.GoodsDetailsActivity;
 import com.ygxinjian.anhui.youwardrobe.Constant;
+import com.ygxinjian.anhui.youwardrobe.Controller.ChangeEvent;
+import com.ygxinjian.anhui.youwardrobe.Controller.RxBus;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Model.DressHistoryNetModel;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
@@ -340,6 +342,8 @@ public class RecommendFragment extends BaseFragmentNormal
                     public void onNext(NetResultModel netResultModel) {
                         if (netResultModel.getCode() == NetResultModel.RESULT_CODE_SUCCESS) {
                             DevUtil.showShortInfo(mActivity,"已加入衣柜");
+                            RxBus.getDefault().post(new ChangeEvent(1));
+
                         }
                     }
                 });

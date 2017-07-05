@@ -3,6 +3,7 @@ package com.ygxinjian.anhui.youwardrobe.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -10,13 +11,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.ygxinjian.anhui.youwardrobe.Fragment.SelectorFragment;
 import com.ygxinjian.anhui.youwardrobe.Model.ClassifyModel;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.R;
 import com.ygxinjian.anhui.youwardrobe.api.Api;
+import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 import com.ygxinjian.anhui.youwardrobe.utils.UiUtil;
 
 import java.util.ArrayList;
@@ -34,7 +38,7 @@ import rx.schedulers.Schedulers;
  * Created by handongqiang on 17/5/25.
  */
 
-public class ClassifyActivity extends BaseActivity {
+public class ClassifyActivity extends BaseActivity implements AAH_FabulousFragment.Callbacks{
     private static final String TAG = "ClassifyActivity";
     @InjectView(R.id.nav_go_back)
     ImageView navGoBack;
@@ -44,6 +48,7 @@ public class ClassifyActivity extends BaseActivity {
     TextView navRight;
     @InjectView(R.id.recyclerView_classify)
     RecyclerView recyclerViewClassify;
+    FloatingActionButton fab;
 
     private String url;
     private ClassifyModel classifyModel;
@@ -60,6 +65,16 @@ public class ClassifyActivity extends BaseActivity {
     protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         navRight.setVisibility(View.GONE);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SelectorFragment dialogFrag = SelectorFragment.newInstance();
+                dialogFrag.setParentFab(fab);
+                dialogFrag.show(getSupportFragmentManager(), dialogFrag.getTag());
+            }
+        });
 
         Intent _intent = getIntent();
         if (_intent != null) {
@@ -132,6 +147,15 @@ public class ClassifyActivity extends BaseActivity {
             }
         });
     }
+
+
+//    筛选回调 接受传功来的值
+    @Override
+    public void onResult(Object result) {
+
+        DevUtil.showShortInfo(ClassifyActivity.this,result.toString());
+    }
+
     class MyAdapter extends BaseQuickAdapter<ClassifyModel.ResultBean.DataBean, BaseViewHolder> {
         public MyAdapter(int layoutResId, List data) {
             super(R.layout.activity_classify_item, data);

@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ygxinjian.anhui.youwardrobe.Controller.ChangeEvent;
+import com.ygxinjian.anhui.youwardrobe.Controller.RxBus;
 import com.ygxinjian.anhui.youwardrobe.Controller.ShopcartExpandableListViewAdapter;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
@@ -33,7 +35,9 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -65,6 +69,8 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
     private ShopcartExpandableListViewAdapter selva;
+    public Subscription rxSubscription;
+
     @Override
     protected void initData() {
 
@@ -90,6 +96,24 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
         swipeRefresh.setColorSchemeResources(R.color.main_Red, R.color.color_text_theme);
         getWardrobeData();
         initEvents();
+
+        // rxSubscription是一个Subscription的全局变量，这段代码可以在onCreate/onStart等生命周期内
+        rxSubscription = RxBus.getDefault().toObservable(ChangeEvent.class)
+                .subscribe(new Action1<ChangeEvent>() {
+                               @Override
+                               public void call(ChangeEvent userEvent) {
+                                   long id = userEvent.getId();
+                                   if(id==1){
+                                       getWardrobeData();
+                                   }
+                               }
+                           },
+                        new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                // TODO: 处理异常
+                            }
+                        });
         return rootView;
     }
 
