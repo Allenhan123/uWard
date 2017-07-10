@@ -3,11 +3,16 @@ package com.ygxinjian.anhui.youwardrobe.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ygxinjian.anhui.youwardrobe.Constant;
@@ -52,6 +57,8 @@ public class LoginActivity extends BaseActivity {
     @InjectView(R.id.tv_forget)
     TextView tvForget;
 
+    private ImageView mImg_Background;
+
 //    @Override
 //    protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -69,6 +76,15 @@ public class LoginActivity extends BaseActivity {
     protected void afterCreate(Bundle savedInstanceState) {
         ButterKnife.inject(this);
         StatusBarUtils.setWindowStatusBarColor(this, R.color.Login_Red);
+
+        mImg_Background = (ImageView) findViewById(R.id.de_img_backgroud);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animation animation = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.translate_anim);
+                mImg_Background.startAnimation(animation);
+            }
+        }, 200);
     }
 
     @Override
@@ -84,16 +100,34 @@ public class LoginActivity extends BaseActivity {
                 loginTest();
                 break;
             case R.id.tv_register:
-                Intent loginIntent = new Intent(this, RegisterActivity.class);
-                startActivity(loginIntent);
+//                Intent loginIntent = new Intent(this, RegisterActivity.class);
+//                startActivity(loginIntent);
+                startActivityForResult(new Intent(this, RegisterActivity.class), 1);
+
                 break;
             case R.id.tv_forget:
-                Intent findIntent = new Intent(this, FindPswActivity.class);
-                startActivity(findIntent);
+//                Intent findIntent = new Intent(this, FindPswActivity.class);
+//                startActivity(findIntent);
+                startActivityForResult(new Intent(this, FindPswActivity.class), 2);
+
                 break;
         }
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 2 && data != null) {
+            String phone = data.getStringExtra("phone");
+            String password = data.getStringExtra("password");
+            etUsername.setText(phone);
+            etPassword.setText(password);
+        } else if (data != null && requestCode == 1) {
+            String phone = data.getStringExtra("phone");
+            String password = data.getStringExtra("password");
+            etUsername.setText(phone);
+            etPassword.setText(password);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     /**
      * 登录到服务器

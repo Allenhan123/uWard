@@ -2,12 +2,16 @@ package com.ygxinjian.anhui.youwardrobe.Activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,12 +52,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private  EditText etVerify;
     private TextView tv_sendSms;
     private Button btn_register;
+    private static final int REGISTER_BACK = 1001;
 
     private static String appKey = "1cf9ebeba5b32";
     // 填写从短信SDK应用后台注册得到的APPSECRET
     private static String appSecret = "50e162b039f0e82c4046d91582283802";
-    private String number;
+    private String number,userPsd;
     private ProgressDialog dialog;
+
+    private ImageView mImg_Background;
+
 //    @Override
 //    protected void onCreate(@Nullable Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -82,6 +90,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         etVerify = (EditText) findViewById(R.id.et_verify);
         tv_sendSms.setOnClickListener(this);
         btn_register.setOnClickListener(this);
+
+        mImg_Background = (ImageView) findViewById(R.id.de_img_backgroud);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animation animation = AnimationUtils.loadAnimation(RegisterActivity.this, R.anim.translate_anim);
+                mImg_Background.startAnimation(animation);
+            }
+        }, 200);
+
         initSDK();
     }
 
@@ -149,8 +167,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 .show();
     }
     public void registerToSerVice() {
-        String userPsw = etPassword.getText().toString();
-        if (TextUtil.isNull(userPsw)) {
+        userPsd = etPassword.getText().toString();
+        if (TextUtil.isNull(userPsd)) {
             DevUtil.showInfo(this, getString(R.string.tip_psw_null));
             return;
         }
@@ -160,7 +178,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         OkHttpUtils.post()
                 .url(Constant.register)
                 .addParams("uid", number)
-                .addParams("pwd", userPsw)
+                .addParams("pwd", userPsd)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -178,6 +196,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             String msg = jsonObject.getString("message");
                             if (code == NetResultModel.RESULT_CODE_SUCCESS) {
                                 DevUtil.showInfo(RegisterActivity.this,"注册成功");
+                                Intent data = new Intent();
+                                data.putExtra("phone", number);
+                                data.putExtra("password", userPsd);
+                                setResult(REGISTER_BACK, data);
                                 finish();
                             } else {
                                 DevUtil.showInfo(getContext(), msg);
