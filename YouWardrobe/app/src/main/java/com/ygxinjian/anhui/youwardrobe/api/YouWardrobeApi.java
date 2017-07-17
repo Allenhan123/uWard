@@ -57,6 +57,14 @@ public interface YouWardrobeApi {
     @GET("?m=recommend_suit")
     Observable<RecommendDesignModel> recommendDesign(@Query("uid") String uid);
 
+    //（更多推荐）
+    @GET("?m=recommend_suitlist")
+    Observable<RecommendDesignModel> recommendMore(@Query("uid") String uid);
+
+    //（单品推荐列表）
+    @GET("?m=recommend_singlelist")
+    Observable<RecommendDesignModel> recommendSingleList(@Query("uid") String uid,@Query("typeid") String type_id);
+
     //商品详情（）
 //    http://115.159.116.34:8089/ Interface/i_Interface.aspx?m= prod_details&prod_id=商品ID&uid=手机号
     @GET("?m=prod_details")

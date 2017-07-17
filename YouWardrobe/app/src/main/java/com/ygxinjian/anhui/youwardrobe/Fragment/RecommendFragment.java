@@ -137,7 +137,8 @@ public class RecommendFragment extends BaseFragmentNormal
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent _intent = new Intent(mActivity,ClassifyActivity.class);
                 _intent.putExtra("title",list_single.get(position).getClassifyTitle());
-//                _intent.putExtra("url",data.get(position).getUrl());
+                _intent.putExtra("url",Constant.singleRecommendLister+YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_ID)
+                    +"&typeid="+list_single.get(position).getClassifyID());
                 startActivity(_intent);
             }
         });
@@ -294,7 +295,7 @@ public class RecommendFragment extends BaseFragmentNormal
                 public void onClick(View v) {
                     Intent _intent = new Intent(mActivity,ClassifyActivity.class);
                     _intent.putExtra("title","更多推荐");
-//                _intent.putExtra("url",data.get(position).getUrl());
+                    _intent.putExtra("url",Constant.moreRecommend+YouWardrobeApplication.getLocalData().getString(LocalData.KEY_USE_ID));
                     startActivity(_intent);
                 }
             });

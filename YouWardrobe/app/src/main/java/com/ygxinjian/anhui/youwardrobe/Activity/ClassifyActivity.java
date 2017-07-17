@@ -81,6 +81,7 @@ public class ClassifyActivity extends BaseActivity implements AAH_FabulousFragme
             String title = _intent.getStringExtra("title");
             url = _intent.getStringExtra("url");
             navTvTitle.setText(title);
+            Log.e("ClassURL",url);
         }
         myAdapter = new MyAdapter(R.layout.activity_classify_item, list);
         initAdapter();

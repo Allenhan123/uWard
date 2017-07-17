@@ -35,5 +35,11 @@ public class Constant {
 
     //注册 http://115.159.116.34:8089/Interface/i_Interface.aspx?m=register&uid=手机号&pwd=登录密码
     public static String register = Base_Url + "?m=register";
+//更多推荐
+    public static String moreRecommend =  "?m=recommend_suitlist&uid=";
+
+//    单品列表
+    public static String singleRecommendLister =  "?m=recommend_singlelist&uid=";
+
 
 }
