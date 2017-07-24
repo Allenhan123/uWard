@@ -3,6 +3,7 @@ package com.ygxinjian.anhui.youwardrobe.Fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.net.compatibility.WebAddress;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 
 import com.ygxinjian.anhui.youwardrobe.Controller.ChangeEvent;
 import com.ygxinjian.anhui.youwardrobe.Controller.RxBus;
-import com.ygxinjian.anhui.youwardrobe.Controller.ShopcartExpandableListViewAdapter;
+import com.ygxinjian.anhui.youwardrobe.Controller.ShopCarExpandableListViewAdapter;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.Model.WardrobeModel;
@@ -44,7 +45,8 @@ import rx.schedulers.Schedulers;
  * Created by handongqiang on 17/3/13.
  */
 
-public class WardrobeFragment extends BaseFragment implements ShopcartExpandableListViewAdapter.CheckInterface, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class WardrobeFragment extends BaseFragment implements ShopCarExpandableListViewAdapter.CheckInterface, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+    private static final String TAG = WardrobeFragment.class.getSimpleName();
     @InjectView(R.id.nav_go_back)
     ImageView navGoBack;
     @InjectView(R.id.nav_tv_title)
@@ -68,7 +70,7 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
 
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
-    private ShopcartExpandableListViewAdapter selva;
+    private ShopCarExpandableListViewAdapter selva;
     public Subscription rxSubscription;
 
     @Override
@@ -94,6 +96,7 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
         navTvTitle.setText("我的衣柜");
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setColorSchemeResources(R.color.main_Red, R.color.color_text_theme);
+
         getWardrobeData();
         initEvents();
 
@@ -156,10 +159,16 @@ public class WardrobeFragment extends BaseFragment implements ShopcartExpandable
 
 
     private void initEvents() {
-        selva = new ShopcartExpandableListViewAdapter(list, childrens, getContext());
+        selva = new ShopCarExpandableListViewAdapter(list, getContext());
         selva.setCheckInterface(this);// 关键步骤1,设置复选框接口
 //        selva.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
         exListView.setAdapter(selva);
+        selva.setCheckListener(new ShopCarExpandableListViewAdapter.CheckListener() {
+            @Override
+            public void itemClick(List<WardrobeModel.ResultBean.DataBean.ItemsBean> selectItem) {
+                Log.d(TAG, "itemClick: "+selectItem);
+            }
+        });
 
         for (int i = 0; i < selva.getGroupCount(); i++) {
             exListView.expandGroup(i);// 关键步骤3,初始化时，将ExpandableListView以展开的方式呈现

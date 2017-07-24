@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ygxinjian.anhui.youwardrobe.Controller.ShopcartExpandableListViewAdapter;
+import com.ygxinjian.anhui.youwardrobe.Controller.ShopCarExpandableListViewAdapter;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.ygxinjian.anhui.youwardrobe.Model.NetResultModel;
 import com.ygxinjian.anhui.youwardrobe.Model.WardrobeModel;
@@ -38,7 +38,7 @@ import rx.schedulers.Schedulers;
  * Created by handongqiang on 17/6/29.
  */
 
-public class WardrobeActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, ShopcartExpandableListViewAdapter.CheckInterface, View.OnClickListener {
+public class WardrobeActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, ShopCarExpandableListViewAdapter.CheckInterface, View.OnClickListener {
 
 
     @InjectView(R.id.nav_go_back)
@@ -64,7 +64,7 @@ public class WardrobeActivity extends BaseActivity implements SwipeRefreshLayout
 
     private double totalPrice = 0.00;// 购买的商品总价
     private int totalCount = 0;// 购买的商品总数量
-    private ShopcartExpandableListViewAdapter selva;
+    private ShopCarExpandableListViewAdapter selva;
     private Context context;
 
     @Override
@@ -134,7 +134,7 @@ public class WardrobeActivity extends BaseActivity implements SwipeRefreshLayout
 
 
     private void initEvents() {
-        selva = new ShopcartExpandableListViewAdapter(list, childrens, context);
+        selva = new ShopCarExpandableListViewAdapter(list, context);
         selva.setCheckInterface(this);// 关键步骤1,设置复选框接口
 //        selva.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
         exListView.setAdapter(selva);
