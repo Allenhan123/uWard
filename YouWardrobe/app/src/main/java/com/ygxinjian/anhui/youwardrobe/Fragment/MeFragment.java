@@ -1,9 +1,11 @@
 package com.ygxinjian.anhui.youwardrobe.Fragment;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -15,6 +17,7 @@ import com.ygxinjian.anhui.youwardrobe.Activity.ShareActivity;
 import com.ygxinjian.anhui.youwardrobe.Activity.UserMessageActivity;
 import com.ygxinjian.anhui.youwardrobe.Activity.UserStyleActivity;
 import com.ygxinjian.anhui.youwardrobe.R;
+import com.ygxinjian.anhui.youwardrobe.View.WaveView;
 import com.ygxinjian.anhui.youwardrobe.utils.DevUtil;
 
 import butterknife.ButterKnife;
@@ -55,6 +58,7 @@ public class MeFragment extends BaseFragmentNormal {
     @InjectView(R.id.iv_user_photo)
     ImageView ivUserPhoto;
 
+    private WaveView waveView3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,7 +73,12 @@ public class MeFragment extends BaseFragmentNormal {
     @Override
     public View initView() {
         View view = View.inflate(mActivity, R.layout.fragment_me, null);
-
+        waveView3 = (WaveView) view.findViewById(R.id.wave_view);
+        waveView3.setOnWaveAnimationListener(new WaveView.OnWaveAnimationListener() {
+            @Override
+            public void OnWaveAnimation(float y) {
+            }
+        });
         return view;
     }
 
