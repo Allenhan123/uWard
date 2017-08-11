@@ -139,7 +139,7 @@ public class DressHistoryActivity extends BaseActivity {
             }
 
             public void bindData(final DressHistoryNetModel.ResultBean.DataBean model){
-                ImageLoader.getInstance().displayImage(Constant.Base_Image_Url+model.getImgUrl(),ivPhoto);
+                ImageLoader.getInstance().displayImage(model.getImgUrl(),ivPhoto);
                 tvDressHistoryTitle.setText(model.getProdTitle());
                 tvDressHistorySize.setText(model.getSize());
                 tvDressHistoryTime.setText(model.getTransTime().substring(0,10));

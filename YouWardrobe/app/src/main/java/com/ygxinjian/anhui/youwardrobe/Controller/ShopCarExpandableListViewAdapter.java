@@ -147,8 +147,8 @@ public class ShopCarExpandableListViewAdapter extends BaseExpandableListAdapter 
                 cb_check.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        groupModel.setChoosed(((CheckBox) v).isChecked());
-//                        checkInterface.checkGroup(groupPosition, ((CheckBox) v).isChecked());// 暴露组选接口
+                        groupModel.setChoosed(((CheckBox) v).isChecked());
+                        checkInterface.checkGroup(groupPosition, ((CheckBox) v).isChecked());// 暴露组选接口
                         //处理数据
                         handleData(groupModel,((CheckBox) v).isChecked());
                     }
@@ -197,7 +197,7 @@ public class ShopCarExpandableListViewAdapter extends BaseExpandableListAdapter 
         }
 
 
-        public void bindData(final int groupPosition, int childPosition, final WardrobeModel.ResultBean.DataBean.ItemsBean product){
+        public void bindData(final int groupPosition, final int childPosition, final WardrobeModel.ResultBean.DataBean.ItemsBean product){
 
             item.setOnClickListener(new OnClickListener() {
                 @Override
@@ -217,9 +217,9 @@ public class ShopCarExpandableListViewAdapter extends BaseExpandableListAdapter 
                 cb_check.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        product.setChoosed(((CheckBox) v).isChecked());
-//                        cholder.cb_check.setChecked(((CheckBox) v).isChecked());
-//                        checkInterface.checkChild(groupPosition, childPosition, ((CheckBox) v).isChecked());// 暴露子选接口
+                        product.setChoosed(((CheckBox) v).isChecked());
+                        cb_check.setChecked(((CheckBox) v).isChecked());
+                        checkInterface.checkChild(groupPosition, childPosition, ((CheckBox) v).isChecked());// 暴露子选接口
                         handleData(groupPosition,product,((CheckBox) v).isChecked());
                     }
                 });

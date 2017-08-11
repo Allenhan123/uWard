@@ -289,7 +289,7 @@ public class RecommendFragment extends BaseFragmentNormal
             }
             holder.name.setText(data.getProdTitle());
             holder.description.setText(data.getSize());
-            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url + getItem(0).getImgUrl(), holder.iv_recommend);
+            ImageLoader.getInstance().displayImage(getItem(0).getImgUrl(), holder.iv_recommend);
             holder.btn_more_recommend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -368,7 +368,7 @@ public class RecommendFragment extends BaseFragmentNormal
         @Override
         protected void convert(BaseViewHolder helper, RecommendSingleModel.ResultBean.DataBean item) {
             helper.setText(R.id.tv_recommend_item, item.getClassifyTitle());
-            ImageLoader.getInstance().displayImage(Constant.Base_Image_Url + item.getImgUrl(), (ImageView) helper.getView(R.id.iv_recommend_item));
+            ImageLoader.getInstance().displayImage(item.getImgUrl(), (ImageView) helper.getView(R.id.iv_recommend_item));
 
         }
     }

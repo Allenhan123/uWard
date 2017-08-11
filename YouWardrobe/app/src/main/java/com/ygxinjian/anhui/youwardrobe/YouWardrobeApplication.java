@@ -13,7 +13,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import com.squareup.leakcanary.LeakCanary;
 import com.ygxinjian.anhui.youwardrobe.Controller.sharepreference.LocalData;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
@@ -81,12 +80,12 @@ public class YouWardrobeApplication extends Application {
         OkHttpUtils.initClient(okHttpClient);
         Log.d(TAG, "onCreate: " + sHA1(getApplicationContext()));
 
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
+//        LeakCanary.install(this);
     }
 
     public static Context getAppContext() {
